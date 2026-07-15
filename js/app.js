@@ -682,7 +682,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-    let currentFilter = "all";
+    let currentFilter = null; // null = belum memilih kategori
     let activeCatalogIndex = 0;
     
     // List of catalog images mapping to unduh brosur section
@@ -827,6 +827,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!productsGrid) return;
         productsGrid.innerHTML = "";
         const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+
+        // ── Belum ada kategori yang dipilih ──────────────────────────────────
+        if (currentFilter === null) {
+            productsGrid.style.display = "flex";
+            if (noResults) noResults.style.display = "none";
+            if (clearSearch) clearSearch.style.display = "none";
+            productsGrid.innerHTML = `
+                <div class="pick-category-prompt">
+                    <div class="pick-category-icon"><i class="fa-solid fa-hand-pointer"></i></div>
+                    <h3>Pilih Kategori Produk</h3>
+                    <p>Silakan klik salah satu kategori di atas untuk melihat daftar produk yang tersedia.</p>
+                </div>`;
+            return;
+        }
         
         // Filter catalog
         const filtered = PRODUCT_DATA.filter(p => {
@@ -931,18 +945,52 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Attach filter click events
+    // Filter tab logic dengan collapse setelah pilih kategori
+    const categoryLabelsFilter = {
+        "all":                 "Semua Produk",
+        "motor":               "Motor Listrik & Vibrator",
+        "gearbox":             "Helical & Worm Gearbox",
+        "gearmotor":           "Gear Motor & Variator",
+        "pump":                "Pompa Industri & CNP",
+        "lifting":             "Hoist & Alat Angkat",
+        "inverter-compressor": "Inverter & Kompresor"
+    };
+
+    // Buat tombol "Pilih Kategori Lain" yang muncul setelah filter dipilih
+    const changeFilterBtn = document.createElement("button");
+    changeFilterBtn.className = "btn-change-filter";
+    changeFilterBtn.innerHTML = `<i class="fa-solid fa-sliders"></i> <span class="change-filter-label">Pilih Kategori Lain</span>`;
+    changeFilterBtn.style.display = "none";
+    if (filterTabs && filterTabs.parentNode) {
+        filterTabs.parentNode.insertBefore(changeFilterBtn, filterTabs.nextSibling);
+    }
+
+    function collapseFilter() {
+        if (filterTabs) filterTabs.style.display = "none";
+        changeFilterBtn.style.display = "flex";
+    }
+
+    function expandFilter() {
+        if (filterTabs) filterTabs.style.display = "flex";
+        changeFilterBtn.style.display = "none";
+    }
+
     if (filterTabs) {
         filterTabs.querySelectorAll(".filter-btn").forEach(btn => {
-            btn.addEventListener("click", (e) => {
+            btn.addEventListener("click", () => {
                 const activeBtn = filterTabs.querySelector(".filter-btn.active");
                 if (activeBtn) activeBtn.classList.remove("active");
                 btn.classList.add("active");
                 currentFilter = btn.getAttribute("data-filter");
                 renderProducts();
+                collapseFilter();
             });
         });
     }
+
+    changeFilterBtn.addEventListener("click", () => {
+        expandFilter();
+    });
 
     /* ----------------------------------------------------------------------
        PRODUCT DETAIL MODAL CONTROLLER

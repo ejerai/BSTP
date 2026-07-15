@@ -57,7 +57,7 @@
     <!-- Page Header Banner -->
     <section class="page-header">
         <div class="container">
-            <h1 class="page-header-title">Katalog & Etalase Produk</h1>
+            <h1 class="page-header-title">Katalog &amp; Etalase Produk</h1>
             <p class="page-header-subtitle">Temukan spesifikasi teknis lengkap untuk kebutuhan motor penggerak, gearbox, dan pompa industri Anda.</p>
         </div>
     </section>
@@ -65,38 +65,42 @@
     <!-- Etalase Produk Section -->
     <section class="products" id="products">
         <div class="container">
-            <!-- Filter & Search Controls -->
-            <div class="catalog-controls">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="searchInput" placeholder="Cari nama produk, tipe, model, atau brand...">
-                    <button class="clear-search" id="clearSearch" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                
-                <div class="filter-tabs" id="filterTabs">
-                    <button class="filter-btn active" data-filter="all">Semua Produk</button>
-                    <button class="filter-btn" data-filter="motor">Motor Listrik & Vibrator</button>
-                    <button class="filter-btn" data-filter="gearbox">Helical & Worm Gearbox</button>
-                    <button class="filter-btn" data-filter="gearmotor">Gear Motor & Variator</button>
-                    <button class="filter-btn" data-filter="pump">Pompa Industri & CNP</button>
-                    <button class="filter-btn" data-filter="lifting">Hoist & Alat Angkat</button>
-                    <button class="filter-btn" data-filter="inverter-compressor">Inverter & Kompresor</button>
-                </div>
+
+            <!-- Search Bar (full width) -->
+            <div class="search-box catalog-search">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Cari nama produk, tipe, model, atau brand...">
+                <button class="clear-search" id="clearSearch" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            
-            <!-- Products Grid -->
-            <div class="products-grid" id="productsGrid">
-                <div class="loading-catalog">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i> Memuat katalog produk...
+
+            <!-- Sidebar + Grid -->
+            <div class="catalog-layout">
+
+                <!-- Filter Sidebar -->
+                <aside class="filter-sidebar">
+                    <p class="filter-sidebar-label"><i class="fa-solid fa-sliders"></i> Kategori</p>
+                    <div class="filter-tabs" id="filterTabs">
+                        <button class="filter-btn" data-filter="all">Semua Produk</button>
+                        <button class="filter-btn" data-filter="motor">Motor Listrik &amp; Vibrator</button>
+                        <button class="filter-btn" data-filter="gearbox">Helical &amp; Worm Gearbox</button>
+                        <button class="filter-btn" data-filter="gearmotor">Gear Motor &amp; Variator</button>
+                        <button class="filter-btn" data-filter="pump">Pompa Industri &amp; CNP</button>
+                        <button class="filter-btn" data-filter="lifting">Hoist &amp; Alat Angkat</button>
+                        <button class="filter-btn" data-filter="inverter-compressor">Inverter &amp; Kompresor</button>
+                    </div>
+                </aside>
+
+                <!-- Products Grid + States -->
+                <div class="catalog-main">
+                    <div class="products-grid" id="productsGrid"></div>
+                    <div class="no-results" id="noResults">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h3>Produk tidak ditemukan</h3>
+                        <p>Silakan coba kata kunci lain atau hubungi sales kami langsung untuk menanyakan ketersediaan produk.</p>
+                        <a href="contact.html" class="btn btn-primary">Hubungi Sales Kami</a>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- No Results Found -->
-            <div class="no-results" id="noResults">
-                <i class="fa-solid fa-box-open"></i>
-                <h3>Produk tidak ditemukan</h3>
-                <p>Silakan coba kata kunci lain atau hubungi sales kami langsung untuk menanyakan ketersediaan produk.</p>
-                <a href="contact.html" class="btn btn-primary">Hubungi Sales Kami</a>
+
             </div>
         </div>
     </section>
@@ -170,12 +174,12 @@
                 <div class="footer-products">
                     <h3>Kategori Produk</h3>
                     <ul>
-                        <li><a href="products.html">AC & DC Motor Induksi</a></li>
-                        <li><a href="products.html">Worm & Helical Gearbox</a></li>
-                        <li><a href="products.html">Compact & Mini Gear Motor</a></li>
-                        <li><a href="products.html">Pompa Centrifugal & Submersible</a></li>
-                        <li><a href="products.html">Electric Chain Hoist & Block</a></li>
-                        <li><a href="products.html">Inverter & Kompresor</a></li>
+                        <li><a href="products.html">AC &amp; DC Motor Induksi</a></li>
+                        <li><a href="products.html">Worm &amp; Helical Gearbox</a></li>
+                        <li><a href="products.html">Compact &amp; Mini Gear Motor</a></li>
+                        <li><a href="products.html">Pompa Centrifugal &amp; Submersible</a></li>
+                        <li><a href="products.html">Electric Chain Hoist &amp; Block</a></li>
+                        <li><a href="products.html">Inverter &amp; Kompresor</a></li>
                     </ul>
                 </div>
                 
