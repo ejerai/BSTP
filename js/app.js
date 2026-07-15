@@ -708,7 +708,7 @@ document.addEventListener("DOMContentLoaded", () => {
        ---------------------------------------------------------------------- */
     // Scroll event for shrinking & coloring navbar
     if (navbar) {
-        window.addEventListener("scroll", () => {
+        const updateNavbarScrollState = () => {
             if (window.scrollY > 50) {
                 navbar.classList.add("scrolled");
                 if (scrollTopBtn) scrollTopBtn.classList.add("active");
@@ -716,6 +716,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 navbar.classList.remove("scrolled");
                 if (scrollTopBtn) scrollTopBtn.classList.remove("active");
             }
+        };
+
+        // Set the correct state immediately on page load (e.g. if the page
+        // loads already scrolled via an anchor link), instead of waiting
+        // for the first scroll event to fire.
+        updateNavbarScrollState();
+
+        window.addEventListener("scroll", () => {
+            updateNavbarScrollState();
             
             // Only highlight sections on the Homepage
             const homeSection = document.getElementById("home");
@@ -738,6 +747,83 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    /* ----------------------------------------------------------------------
+       SCROLL REVEAL — setiap <section> fade-up muncul saat masuk viewport
+       ---------------------------------------------------------------------- */
+    function initScrollReveal() {
+        // Semua section di halaman ini otomatis dapat animasi (tanpa perlu
+        // menambahkan class manual di tiap file HTML).
+        // Section ".stats" DIKECUALIKAN: kartu statistiknya sengaja dibuat
+        // "kaca" (backdrop-filter blur) yang menumpuk ke atas hero lewat
+        // margin-top negatif, dan efek blur itu gampang rusak kalau parent-nya
+        // diberi "transform" (transform pada leluhur mengubah acuan blur
+        // backdrop-filter). Jadi section ini dibiarkan seperti semula.
+        const revealSections = document.querySelectorAll("section:not(.stats)");
+        if (!revealSections.length) return;
+
+        // Kartu-kartu di dalam section ikut fade-up tapi dengan jeda
+        // (stagger), supaya terasa lebih hidup dan tidak "nempel" bareng.
+        // ".stat-card" sengaja tidak diikutkan karena alasan yang sama
+        // seperti di atas (glassmorphism).
+        const staggerSelector = [
+            ".pillar-item", ".vision-card", ".mission-card",
+            ".method-item", ".catalog-card"
+        ].join(", ");
+
+        revealSections.forEach(section => {
+            section.classList.add("reveal-section");
+
+            const items = section.querySelectorAll(staggerSelector);
+            items.forEach((item, index) => {
+                item.classList.add("reveal-item");
+                // Delay bertahap, dibatasi maksimal 0.5s biar tidak lambat
+                item.style.setProperty("--reveal-delay", `${Math.min(index * 0.08, 0.5)}s`);
+            });
+        });
+
+        // Setelah elemen selesai fade-up, lepas class reveal-nya supaya
+        // "transform" ikut kembali ke "none". Ini penting: transform yang
+        // "menempel" (walau cuma translateY(0)) tetap membuat browser
+        // membentuk containing block baru, yang bisa mengacaukan efek
+        // seperti backdrop-filter/blur pada elemen turunannya. Ini juga
+        // sekalian best-practice: will-change dilepas setelah tidak
+        // dipakai lagi supaya lebih ringan buat browser.
+        const cleanupReveal = (el) => {
+            el.classList.remove("reveal-section", "reveal-item", "is-visible");
+            el.style.removeProperty("--reveal-delay");
+        };
+
+        // Fallback untuk browser sangat lama yang tidak mendukung IntersectionObserver
+        if (!("IntersectionObserver" in window)) {
+            document.querySelectorAll(".reveal-section, .reveal-item").forEach(el => {
+                cleanupReveal(el);
+            });
+            return;
+        }
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    el.classList.add("is-visible");
+                    observer.unobserve(el);
+                    el.addEventListener("transitionend", () => cleanupReveal(el), { once: true });
+                    // Jaring pengaman kalau transitionend tidak sempat terpicu
+                    setTimeout(() => cleanupReveal(el), 1400);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: "0px 0px -80px 0px"
+        });
+
+        document.querySelectorAll(".reveal-section, .reveal-item").forEach(el => {
+            revealObserver.observe(el);
+        });
+    }
+
+    initScrollReveal();
 
     // Scroll to Top click
     if (scrollTopBtn) {
@@ -1084,11 +1170,14 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ----------------------------------------------------------------------
        COMPANY PROFILE PDF MODAL
        ---------------------------------------------------------------------- */
+    let pdfLoaded = false;
+
     function openPdfModal() {
         if (!pdfProfileModal) return;
         // Load PDF into iframe hanya saat dibuka (biar ringan di awal load)
-        if (pdfViewerFrame && !pdfViewerFrame.src) {
+        if (pdfViewerFrame && !pdfLoaded) {
             pdfViewerFrame.src = PDF_PROFILE_PATH;
+            pdfLoaded = true;
         }
         pdfProfileModal.classList.add("active");
         document.body.style.overflow = "hidden";
