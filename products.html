@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etalase Produk | PT. Bintang Surya Teknik Persada</title>
+    <meta name="description" content="Katalog produk lengkap PT. Bintang Surya Teknik Persada - AC/DC Motor Induksi, Gearbox, Gearmotor, Pompa Transfer Industri, Hoist, Inverter, dan Kompresor.">
+    <meta name="keywords" content="katalog produk BSTP, motor induksi, gearbox, gearmotor, pompa industri, cnp, hoist crane, inverter abb">
+    <meta name="author" content="PT. Bintang Surya Teknik Persada">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Floating Navigation Bar -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/brand/logobstp.png" alt="BSTP Logo" class="nav-logo-img">
+                <div class="logo-text">
+                    <span class="logo-main">BSTP</span>
+                    <span class="logo-sub">Bintang Surya Teknik</span>
+                </div>
+            </a>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Beranda</a></li>
+                <li><a href="about.html" class="nav-link">Tentang Kami</a></li>
+                <li><a href="products.html" class="nav-link active">Etalase Produk</a></li>
+                <li><a href="catalogs.html" class="nav-link">Brosur</a></li>
+                <li><a href="contact.html" class="nav-link">Kontak</a></li>
+                <li class="nav-cta-item">
+                    <a href="https://wa.me/628161317107?text=Halo%20PT.%20Bintang%20Surya%20Teknik%20Persada%2C%20saya%20ingin%20berkonsultasi%20mengenai%20produk%20industri." 
+                       target="_blank" class="nav-cta" id="navCtaWA">
+                        <i class="fa-brands fa-whatsapp"></i> Hubungi Kami
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header Banner -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-header-title">Katalog & Etalase Produk</h1>
+            <p class="page-header-subtitle">Temukan spesifikasi teknis lengkap untuk kebutuhan motor penggerak, gearbox, dan pompa industri Anda.</p>
+        </div>
+    </section>
+
+    <!-- Etalase Produk Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <!-- Filter & Search Controls -->
+            <div class="catalog-controls">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Cari nama produk, tipe, model, atau brand...">
+                    <button class="clear-search" id="clearSearch" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div class="filter-tabs" id="filterTabs">
+                    <button class="filter-btn active" data-filter="all">Semua Produk</button>
+                    <button class="filter-btn" data-filter="motor">Motor Listrik & Vibrator</button>
+                    <button class="filter-btn" data-filter="gearbox">Helical & Worm Gearbox</button>
+                    <button class="filter-btn" data-filter="gearmotor">Gear Motor & Variator</button>
+                    <button class="filter-btn" data-filter="pump">Pompa Industri & CNP</button>
+                    <button class="filter-btn" data-filter="lifting">Hoist & Alat Angkat</button>
+                    <button class="filter-btn" data-filter="inverter-compressor">Inverter & Kompresor</button>
+                </div>
+            </div>
+            
+            <!-- Products Grid -->
+            <div class="products-grid" id="productsGrid">
+                <div class="loading-catalog">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Memuat katalog produk...
+                </div>
+            </div>
+            
+            <!-- No Results Found -->
+            <div class="no-results" id="noResults">
+                <i class="fa-solid fa-box-open"></i>
+                <h3>Produk tidak ditemukan</h3>
+                <p>Silakan coba kata kunci lain atau hubungi sales kami langsung untuk menanyakan ketersediaan produk.</p>
+                <a href="contact.html" class="btn btn-primary">Hubungi Sales Kami</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body">
+                <div class="modal-header-info">
+                    <span class="modal-category" id="modalCategory">Kategori</span>
+                    <h2 class="modal-title" id="modalTitle">Nama Produk</h2>
+                    <span class="modal-brand" id="modalBrand">Brand</span>
+                </div>
+                
+                <div class="modal-main">
+                    <div class="modal-img-container">
+                        <div class="modal-icon-placeholder" id="modalIcon">
+                            <!-- Image or SVG will be dynamically generated by JS -->
+                        </div>
+                    </div>
+                    <div class="modal-details">
+                        <h3>Spesifikasi Teknis</h3>
+                        <div class="specs-table-wrapper">
+                            <table class="specs-table" id="modalSpecsTable">
+                                <!-- Specs generated by JS -->
+                            </table>
+                        </div>
+                        
+                        <div class="modal-action-box">
+                            <p>Ingin berdiskusi mengenai kapasitas, ketersediaan stok, atau harga khusus?</p>
+                            <a href="" id="modalWaBtn" target="_blank" class="btn btn-whatsapp-large">
+                                <i class="fa-brands fa-whatsapp"></i> Hubungi WhatsApp Sales Kami
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fa-solid fa-gear"></i>
+                        <span class="logo-text-footer">BSTP</span>
+                    </div>
+                    <p class="brand-desc">PT. Bintang Surya Teknik Persada adalah distributor mechanical-electrical resmi untuk motor listrik, gearbox, kompresor, dan pompa industri di Indonesia.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Navigasi</h3>
+                    <ul>
+                        <li><a href="index.html">Beranda</a></li>
+                        <li><a href="about.html">Tentang Kami</a></li>
+                        <li><a href="products.html">Etalase Produk</a></li>
+                        <li><a href="catalogs.html">Lembar Brosur</a></li>
+                        <li><a href="contact.html">Kontak Kami</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-products">
+                    <h3>Kategori Produk</h3>
+                    <ul>
+                        <li><a href="products.html">AC & DC Motor Induksi</a></li>
+                        <li><a href="products.html">Worm & Helical Gearbox</a></li>
+                        <li><a href="products.html">Compact & Mini Gear Motor</a></li>
+                        <li><a href="products.html">Pompa Centrifugal & Submersible</a></li>
+                        <li><a href="products.html">Electric Chain Hoist & Block</a></li>
+                        <li><a href="products.html">Inverter & Kompresor</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Hubungi Kami</h3>
+                    <p><i class="fa-solid fa-phone"></i> 021 - 745 8861</p>
+                    <p><i class="fa-solid fa-envelope"></i> bintangteknikpersada@gmail.com</p>
+                    <p><i class="fa-solid fa-location-dot"></i> Tangerang Selatan, Banten</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-bottom-container">
+                <p>&copy; 2026 PT. Bintang Surya Teknik Persada. Hak Cipta Dilindungi Undang-Undang.</p>
+                
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollTopBtn" aria-label="Scroll to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
