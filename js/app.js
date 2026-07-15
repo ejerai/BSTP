@@ -682,9 +682,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const lightboxPrev = document.getElementById("lightboxPrev");
     const lightboxNext = document.getElementById("lightboxNext");
     
-    const contactForm = document.getElementById("contactForm");
-    const formSuccessOverlay = document.getElementById("formSuccessOverlay");
-    const successCloseBtn = document.getElementById("successCloseBtn");
     
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
