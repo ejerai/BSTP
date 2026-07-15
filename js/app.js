@@ -676,9 +676,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const lightboxPrev = document.getElementById("lightboxPrev");
     const lightboxNext = document.getElementById("lightboxNext");
     
-    const contactForm = document.getElementById("contactForm");
-    const formSuccessOverlay = document.getElementById("formSuccessOverlay");
-    const successCloseBtn = document.getElementById("successCloseBtn");
     
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
@@ -1150,107 +1147,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /* ----------------------------------------------------------------------
-       CONTACT FORM & WHATSAPP REDIRECT GENERATOR
-       ---------------------------------------------------------------------- */
-    if (contactForm) {
-        contactForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            
-            // Inputs
-            const name = document.getElementById("formName");
-            const company = document.getElementById("formCompany");
-            const email = document.getElementById("formEmail");
-            const phone = document.getElementById("formPhone");
-            const subject = document.getElementById("formSubject").value;
-            const message = document.getElementById("formMessage");
-            const btnSubmit = document.getElementById("btnSubmitForm");
-            
-            let isValid = true;
-
-            // Reset error states
-            document.querySelectorAll(".form-group").forEach(group => group.classList.remove("error"));
-
-            // Validation logic
-            if (!name || !name.value.trim()) {
-                if (name) name.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-            if (!company || !company.value.trim()) {
-                if (company) company.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-            
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || !email.value.trim() || !emailRegex.test(email.value.trim())) {
-                if (email) email.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-            
-            if (!phone || !phone.value.trim()) {
-                if (phone) phone.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-            
-            if (!message || !message.value.trim()) {
-                if (message) message.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-
-            if (!isValid) return;
-
-            // Visual loading state
-            if (btnSubmit) btnSubmit.classList.add("loading");
-
-            // Simulate server submit delay (1.5 seconds)
-            setTimeout(() => {
-                if (btnSubmit) btnSubmit.classList.remove("loading");
-                
-                // Format WhatsApp redirect message
-                const formattedMessage = `Halo PT. Bintang Surya Teknik Persada.\n` +
-                                         `Saya telah mengisi formulir kontak di website Anda dengan detail sebagai berikut:\n\n` +
-                                         `• Nama Lengkap: ${name.value.trim()}\n` +
-                                         `• Perusahaan: ${company.value.trim()}\n` +
-                                         `• Email: ${email.value.trim()}\n` +
-                                         `• WhatsApp: ${phone.value.trim()}\n` +
-                                         `• Topik/Subjek: ${subject}\n` +
-                                         `• Detail Permintaan:\n${message.value.trim()}\n\n` +
-                                         `Mohon dibantu pembuatan surat penawaran harganya. Terima kasih.`;
-                
-                const successWaBtn = document.getElementById("successWaBtn");
-                if (successWaBtn) {
-                    successWaBtn.href = `https://wa.me/628161317107?text=${encodeURIComponent(formattedMessage)}`;
-                }
-                
-                const successSubjectEl = document.getElementById("successSubject");
-                if (successSubjectEl) successSubjectEl.innerText = subject;
-                
-                // Open Success Overlay
-                if (formSuccessOverlay) {
-                    formSuccessOverlay.classList.add("active");
-                    document.body.style.overflow = "hidden";
-                }
-                
-                // Reset form fields
-                contactForm.reset();
-            }, 1500);
-        });
-    }
-
-    // Close success overlay
-    if (successCloseBtn) {
-        successCloseBtn.addEventListener("click", () => {
-            if (formSuccessOverlay) formSuccessOverlay.classList.remove("active");
-            document.body.style.overflow = "";
-        });
-    }
-    
-    if (formSuccessOverlay) {
-        formSuccessOverlay.addEventListener("click", (e) => {
-            if (e.target === formSuccessOverlay) {
-                formSuccessOverlay.classList.remove("active");
-                document.body.style.overflow = "";
-            }
-        });
-    }
 });
