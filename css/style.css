@@ -420,6 +420,182 @@ img {
 }
 
 /* ==========================================================================
+   NAVBAR MEGA DROPDOWN
+   ========================================================================== */
+
+/* Wrapper li */
+.nav-dropdown {
+    position: relative;
+}
+
+/* Trigger link — tambah chevron di kanan */
+.nav-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-chevron {
+    font-size: 11px;
+    transition: transform 0.25s ease;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Dropdown menu — hidden by default */
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+    z-index: 1100;
+
+    background: rgba(15, 23, 42, 0.97);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    min-width: 420px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Arrow pointer */
+.nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    background: rgba(15, 23, 42, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
+    border-right: none;
+    border-radius: 3px 0 0 0;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+/* Invisible bridge — menutup gap antara trigger dan dropdown agar hover
+   tidak terputus saat mouse berpindah dari link ke menu. */
+.nav-dropdown-menu::after {
+    content: '';
+    position: absolute;
+    top: -20px;   /* sedikit lebih besar dari gap (14px) supaya aman */
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+}
+
+/* Show on hover (desktop) */
+.nav-dropdown:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown:hover .nav-chevron {
+    transform: rotate(180deg);
+    color: var(--text-light);
+}
+
+/* Category grid inside dropdown */
+.dropdown-categories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+/* Each category item */
+.dropdown-cat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 9px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.18s ease, color 0.18s ease;
+    text-decoration: none;
+}
+
+.dropdown-cat-item i {
+    font-size: 14px;
+    color: var(--secondary);
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+    transition: color 0.18s ease;
+}
+
+.dropdown-cat-item:hover {
+    background: rgba(37, 99, 235, 0.2);
+    color: var(--text-light);
+}
+
+.dropdown-cat-item:hover i {
+    color: #60a5fa;
+}
+
+/* Divider */
+.dropdown-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0 0 12px 0;
+}
+
+/* View all link */
+.dropdown-view-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 9px;
+    background: rgba(37, 99, 235, 0.15);
+    color: #60a5fa;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.18s ease, color 0.18s ease;
+    text-decoration: none;
+}
+
+.dropdown-view-all:hover {
+    background: var(--secondary);
+    color: var(--text-light);
+}
+
+.dropdown-view-all i {
+    font-size: 12px;
+    transition: transform 0.18s ease;
+}
+
+.dropdown-view-all:hover i {
+    transform: translateX(4px);
+}
+
+/* Mobile: show dropdown on open class (tap) */
+.nav-dropdown.dropdown-open .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown.dropdown-open .nav-chevron {
+    transform: rotate(180deg);
+    color: var(--text-light);
+}
+
+/* ==========================================================================
    HERO SECTION
    ========================================================================== */
 .hero {
@@ -428,7 +604,7 @@ img {
     position: relative;
     background-color: var(--primary-dark);
     /* High tech industrial layout */
-    background-image: radial-gradient(circle at 10% 20%, rgba(30, 41, 59, 0.3) 0%, rgba(15, 23, 42, 0.9) 90%), url('../assets/brand/headerr.webp');
+    background-image: radial-gradient(circle at 10% 20%, rgba(30, 41, 59, 0.3) 0%, rgba(15, 23, 42, 0.9) 90%), url('../assets/brand/header-page.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -826,23 +1002,31 @@ img {
 
 /* Search bar full-width on top */
 .catalog-search {
-    max-width: 600px;
-    margin: 0 auto 20px auto;
+    margin: 0 0 28px 0;
+    max-width: 100%;
 }
 
-/* Stack layout: filters on top, grid below */
+/* Two-column layout: sidebar kiri + grid produk kanan */
 .catalog-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+/* Sidebar kategori — sticky agar tetap kelihatan saat scroll */
+.filter-sidebar {
+    position: sticky;
+    top: 90px; /* offset navbar fixed */
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px 16px;
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 28px;
-}
-
-/* Filter section centered */
-.filter-sidebar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    gap: 0;
 }
 
 .filter-sidebar-label {
@@ -851,14 +1035,17 @@ img {
     text-transform: uppercase;
     letter-spacing: 1.2px;
     color: var(--text-gray);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
-/* Main content area */
+/* Main content area — produk di sebelah kanan */
 .catalog-main {
+    min-width: 0; /* prevent grid blowout */
     width: 100%;
 }
 
@@ -913,70 +1100,39 @@ img {
 .filter-tabs {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    gap: 4px;
     width: 100%;
-    max-width: 280px;
 }
 
 .filter-btn {
     font-family: var(--font-primary);
-    font-weight: 600;
-    font-size: 14px;
-    padding: 10px 24px;
-    background-color: var(--bg-white);
-    border: 1px solid var(--border-color);
-    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 13.5px;
+    padding: 9px 14px;
+    background-color: transparent;
+    border: none;
     border-radius: 8px;
+    color: var(--text-muted);
     cursor: pointer;
-    transition: var(--transition-normal);
+    transition: var(--transition-fast);
     width: 100%;
-    text-align: center;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .filter-btn:hover {
-    border-color: var(--border-hover);
-    color: var(--primary);
     background-color: var(--bg-light);
+    color: var(--primary);
 }
 
 .filter-btn.active {
-    background-color: var(--secondary);
-    border-color: var(--secondary);
-    color: var(--text-light);
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
-}
-
-/* Tombol "Pilih Kategori Lain" — muncul setelah kategori dipilih */
-.btn-change-filter {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-family: var(--font-primary);
-    font-size: 15px;
-    font-weight: 700;
+    background-color: var(--secondary-light);
     color: var(--secondary);
-    background: var(--secondary-light);
-    border: 2px dashed var(--secondary);
-    border-radius: 10px;
-    padding: 14px 28px;
-    cursor: pointer;
-    transition: var(--transition-normal);
-    width: 100%;
-    max-width: 320px;
-}
-
-.btn-change-filter:hover {
-    background: var(--secondary);
-    color: var(--text-light);
-    border-style: solid;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
-}
-
-.btn-change-filter i {
-    font-size: 15px;
+    font-weight: 700;
+    border-left: 3px solid var(--secondary);
+    padding-left: 11px;
 }
 
 
@@ -2373,6 +2529,89 @@ img {
         width: 100%;
         padding: 12px;
     }
+
+    /* Mobile dropdown: disable hover, use tap toggle instead */
+    .nav-dropdown:hover .nav-dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateX(-50%) translateY(-8px);
+    }
+
+    .nav-dropdown {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-dropdown-trigger {
+        position: relative;
+        width: fit-content;
+        justify-content: center;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .nav-dropdown-trigger .nav-chevron {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.25s ease;
+    }
+
+    .nav-dropdown.dropdown-open .nav-chevron {
+        transform: translateY(-50%) rotate(180deg);
+        color: var(--text-light);
+    }
+
+    .nav-dropdown:hover .nav-chevron {
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        transform: none;
+        min-width: 100%;
+        border-radius: 10px;
+        margin-top: 8px;
+        padding: 12px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s;
+    }
+
+    .nav-dropdown-menu::before {
+        display: none;
+    }
+
+    .nav-dropdown.dropdown-open .nav-dropdown-menu {
+        max-height: 600px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+    }
+
+    .nav-dropdown.dropdown-open .nav-chevron {
+        transform: translateY(-50%) rotate(180deg);
+        color: var(--text-light);
+    }
+
+    .dropdown-categories-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+    }
+
+    .dropdown-cat-item {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
     
     /* Stats box grid */
     .stats-container {
@@ -2501,7 +2740,7 @@ img {
 
 .page-header-subtitle {
     font-size: 16px;
-    color: var(--text-gray);
+    color: var(--text-light);
     max-width: 600px;
     margin: 0 auto;
 }
@@ -2558,5 +2797,55 @@ img {
         transition: none;
         opacity: 1;
         transform: none;
+    }
+}
+
+/* ==========================================================================
+   CATALOG LAYOUT RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+    /* Pada tablet/mobile, sidebar pindah ke atas dan scroll horizontal */
+    .catalog-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-sidebar {
+        position: static;
+        padding: 14px 16px;
+    }
+
+    .filter-tabs {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .filter-btn {
+        font-size: 13px;
+        padding: 7px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        background-color: var(--bg-white);
+        width: auto;
+        text-align: center;
+    }
+
+    .filter-btn:hover {
+        border-color: var(--secondary);
+        background-color: var(--secondary-light);
+    }
+
+    .filter-btn.active {
+        background-color: var(--secondary);
+        color: var(--text-light);
+        border-color: var(--secondary);
+        font-weight: 600;
+        border-left: none;
+        padding-left: 14px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
     }
 }

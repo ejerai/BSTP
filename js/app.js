@@ -847,6 +847,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 bars[0].style.transform = "none";
                 bars[1].style.opacity = "1";
                 bars[2].style.transform = "none";
+                // Close any open dropdown when closing menu
+                document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => d.classList.remove("dropdown-open"));
             }
         });
     }
@@ -854,6 +856,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Close menu when clicking nav item
     navLinks.forEach(link => {
         link.addEventListener("click", () => {
+            // Jangan tutup menu utama jika ini adalah trigger dropdown di mobile
+            const isMobile = navToggle && window.getComputedStyle(navToggle).display !== "none";
+            if (link.classList.contains("nav-dropdown-trigger") && isMobile) {
+                return;
+            }
+
             if (navMenu) navMenu.classList.remove("active");
             
             if (navToggle) {
@@ -864,6 +872,70 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    /* ----------------------------------------------------------------------
+       NAVBAR DROPDOWN — Mobile tap toggle
+       ---------------------------------------------------------------------- */
+    const navDropdowns = document.querySelectorAll(".nav-dropdown");
+
+    navDropdowns.forEach(dropdown => {
+        const trigger = dropdown.querySelector(".nav-dropdown-trigger");
+        if (!trigger) return;
+
+        // On mobile (touch devices): tap trigger toggles dropdown open/close
+        trigger.addEventListener("click", (e) => {
+            // Only intercept on mobile (when nav-toggle is visible)
+            const isMobileMenu = window.getComputedStyle(navToggle || document.createElement("div")).display !== "none";
+            if (!navToggle || window.getComputedStyle(navToggle).display === "none") return;
+
+            e.preventDefault(); // prevent navigation on tap
+            const isOpen = dropdown.classList.contains("dropdown-open");
+
+            // Close all other dropdowns first
+            navDropdowns.forEach(d => d.classList.remove("dropdown-open"));
+
+            if (!isOpen) {
+                dropdown.classList.add("dropdown-open");
+            }
+        });
+    });
+
+    // Close dropdown when clicking outside (desktop)
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest(".nav-dropdown")) {
+            navDropdowns.forEach(d => d.classList.remove("dropdown-open"));
+        }
+    });
+
+    /* ----------------------------------------------------------------------
+       URL PARAM → AUTO-FILTER KATEGORI di products.html
+       ---------------------------------------------------------------------- */
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get("category");
+
+    if (categoryParam && filterTabs) {
+        const matchingBtn = filterTabs.querySelector(`.filter-btn[data-filter="${categoryParam}"]`);
+        if (matchingBtn) {
+            // Aktifkan filter sesuai URL param
+            const activeBtn = filterTabs.querySelector(".filter-btn.active");
+            if (activeBtn) activeBtn.classList.remove("active");
+            matchingBtn.classList.add("active");
+            currentFilter = categoryParam;
+
+            // Render produk
+            if (productsGrid) renderProducts();
+
+            // Smooth scroll ke section produk
+            const productsSection = document.getElementById("products");
+            if (productsSection) {
+                setTimeout(() => {
+                    productsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                }, 100);
+            }
+        }
+    }
+
+
 
     /* ----------------------------------------------------------------------
        TRUST STATS COUNTER ANIMATION
@@ -924,9 +996,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (clearSearch) clearSearch.style.display = "none";
             productsGrid.innerHTML = `
                 <div class="pick-category-prompt">
-                    <div class="pick-category-icon"><i class="fa-solid fa-hand-pointer"></i></div>
+                    <div class="pick-category-icon"><i class="fa-solid fa-hand-point-left"></i></div>
                     <h3>Pilih Kategori Produk</h3>
-                    <p>Silakan klik salah satu kategori di atas untuk melihat daftar produk yang tersedia.</p>
+                    <p>Klik salah satu kategori di sebelah kiri untuk melihat daftar produk yang tersedia.</p>
                 </div>`;
             return;
         }
@@ -1034,36 +1106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Filter tab logic dengan collapse setelah pilih kategori
-    const categoryLabelsFilter = {
-        "all":                 "Semua Produk",
-        "motor":               "Motor Listrik & Vibrator",
-        "gearbox":             "Helical & Worm Gearbox",
-        "gearmotor":           "Gear Motor & Variator",
-        "pump":                "Pompa Industri & CNP",
-        "lifting":             "Hoist & Alat Angkat",
-        "inverter-compressor": "Inverter & Kompresor"
-    };
-
-    // Buat tombol "Pilih Kategori Lain" yang muncul setelah filter dipilih
-    const changeFilterBtn = document.createElement("button");
-    changeFilterBtn.className = "btn-change-filter";
-    changeFilterBtn.innerHTML = `<i class="fa-solid fa-sliders"></i> <span class="change-filter-label">Pilih Kategori Lain</span>`;
-    changeFilterBtn.style.display = "none";
-    if (filterTabs && filterTabs.parentNode) {
-        filterTabs.parentNode.insertBefore(changeFilterBtn, filterTabs.nextSibling);
-    }
-
-    function collapseFilter() {
-        if (filterTabs) filterTabs.style.display = "none";
-        changeFilterBtn.style.display = "flex";
-    }
-
-    function expandFilter() {
-        if (filterTabs) filterTabs.style.display = "flex";
-        changeFilterBtn.style.display = "none";
-    }
-
+    // Filter tab logic — sidebar selalu tampil, tidak perlu collapse
     if (filterTabs) {
         filterTabs.querySelectorAll(".filter-btn").forEach(btn => {
             btn.addEventListener("click", () => {
@@ -1072,14 +1115,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.classList.add("active");
                 currentFilter = btn.getAttribute("data-filter");
                 renderProducts();
-                collapseFilter();
             });
         });
     }
-
-    changeFilterBtn.addEventListener("click", () => {
-        expandFilter();
-    });
 
     /* ----------------------------------------------------------------------
        PRODUCT DETAIL MODAL CONTROLLER
