@@ -672,7 +672,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pdfProfileModal = document.getElementById("pdfProfileModal");
     const pdfModalClose = document.getElementById("pdfModalClose");
     const pdfViewerFrame = document.getElementById("pdfViewerFrame");
-    const PDF_PROFILE_PATH = "assets/docs/company-profile-bstp.pdf";
+    const PDF_PROFILE_PATH = "assets/KATALOG.pdf";
     
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightboxImg");
