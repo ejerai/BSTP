@@ -25,7 +25,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <img src="assets/brand/logobstp.png" alt="BSTP Logo" class="nav-logo-img">
+                <img src="assets/brand/bstp.png" alt="BSTP Logo" class="nav-logo-img">
                 <div class="logo-text">
                     <span class="logo-main">BSTP</span>
                     <span class="logo-sub">Bintang Surya Teknik Persada</span>
@@ -106,11 +106,15 @@
             </div>
             
             <div class="about-grid">
-                <div class="about-image-wrapper">
+                <div class="about-image-wrapper" id="aboutImageTrigger">
                     <img src="assets/brand/logo.png" alt="Logo PT. Bintang Surya Teknik Persada" class="about-img">
                     <div class="about-experience-badge">
                         <span class="years">BSTP</span>
                         <span class="text">Authorized Distributor</span>
+                    </div>
+                    <div class="about-image-overlay">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Lihat Company Profile (PDF)</span>
                     </div>
                 </div>
                 
@@ -223,59 +227,6 @@
         </div>
     </section>
 
-    <!-- Brosur (Preview) Section -->
-    <section class="catalogs" id="catalogs">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Spesifikasi</span>
-                <h2 class="section-title">Brosur & Katalog Digital</h2>
-                <div class="section-line"></div>
-                <p class="section-subtitle">Dapatkan file lembar spesifikasi teknis resmi dari produk-produk kami.</p>
-            </div>
-            
-            <div class="catalog-grid" style="margin-bottom: 40px;">
-                <!-- Brosur 1 -->
-                <div class="catalog-card" onclick="window.location.href='catalogs.html'">
-                    <div class="catalog-thumb">
-                        <img src="assets/images/catalog/ac-motor.png" alt="Brosur AC Motor">
-                    </div>
-                    <div class="catalog-info">
-                        <h3>AC Induction Motor & Blower</h3>
-                        <p>AC/DC Motor, Clutch & Brake, Blower.</p>
-                    </div>
-                </div>
-
-                <!-- Brosur 2 -->
-                <div class="catalog-card" onclick="window.location.href='catalogs.html'">
-                    <div class="catalog-thumb">
-                        <img src="assets/images/catalog/industrial-pump.png" alt="Brosur Pompa Industri">
-                    </div>
-                    <div class="catalog-info">
-                        <h3>Industrial Pumps</h3>
-                        <p>Hydrant Pump, Ebara, Yuema, Submersible.</p>
-                    </div>
-                </div>
-
-                <!-- Brosur 3 -->
-                <div class="catalog-card" onclick="window.location.href='catalogs.html'">
-                    <div class="catalog-thumb">
-                        <img src="assets/images/catalog/helical-bevel-gearbox.png" alt="Brosur Gearbox">
-                    </div>
-                    <div class="catalog-info">
-                        <h3>Helical & Bevel Gearbox</h3>
-                        <p>Yuema TR, TRF, TRXF, TKF, TK, TRX.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center;">
-                <a href="catalogs.html" class="btn btn-primary">
-                    <i class="fa-solid fa-file-pdf"></i> Lihat Semua Lembar Brosur
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Hubungi Kami (Preview) Section -->
     <section class="contact" id="contact" style="background-color: var(--bg-light);">
         <div class="container">
@@ -310,13 +261,39 @@
                     <div style="display: flex; flex-direction: column; gap: 16px;">
                         <a href="https://wa.me/628161317107?text=Halo%20PT.%20Bintang%20Surya%20Teknik%20Persada%2C%20saya%20ingin%20meminta%20informasi%20mengenai%20produk%20dan%20ketersediaan." 
                            target="_blank" class="btn btn-whatsapp-large" style="width: 100%;">
-                            <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp: +62 812-745-8861
+                            <i class="fa-brands fa-whatsapp"></i> WhatsApp 1: +62 812-745-8861
+                        </a>
+                        <a href="https://wa.me/628161317107?text=Halo%20PT.%20Bintang%20Surya%20Teknik%20Persada%2C%20saya%20ingin%20meminta%20informasi%20mengenai%20produk%20dan%20ketersediaan." 
+                           target="_blank" class="btn btn-whatsapp-large" style="width: 100%;">
+                            <i class="fa-brands fa-whatsapp"></i> WhatsApp 2: +62 812-745-8861
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Company Profile PDF Modal -->
+    <div class="modal" id="pdfProfileModal">
+        <div class="modal-content pdf-modal-content">
+            <button class="modal-close" id="pdfModalClose" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="pdf-modal-header">
+                <div>
+                    <h3>Company Profile PT. Bintang Surya Teknik Persada</h3>
+                    <p>Lihat langsung atau unduh dokumen profil perusahaan kami.</p>
+                </div>
+                <div class="pdf-modal-actions">
+                    <a href="assets/docs/company-profile-bstp.pdf" target="_blank" class="btn btn-primary">
+                        <i class="fa-solid fa-up-right-from-square"></i> Buka Tab Baru
+                    </a>
+                    <a href="assets/docs/company-profile-bstp.pdf" download class="btn btn-download">
+                        <i class="fa-solid fa-download"></i> Unduh
+                    </a>
+                </div>
+            </div>
+            <iframe class="pdf-viewer-frame" id="pdfViewerFrame" src="" title="Company Profile BSTP"></iframe>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

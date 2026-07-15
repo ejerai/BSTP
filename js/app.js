@@ -668,6 +668,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const productModal = document.getElementById("productModal");
     const modalClose = document.getElementById("modalClose");
     
+    const aboutImageTrigger = document.getElementById("aboutImageTrigger");
+    const pdfProfileModal = document.getElementById("pdfProfileModal");
+    const pdfModalClose = document.getElementById("pdfModalClose");
+    const pdfViewerFrame = document.getElementById("pdfViewerFrame");
+    const PDF_PROFILE_PATH = "assets/docs/company-profile-bstp.pdf";
+    
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightboxImg");
     const lightboxTitle = document.getElementById("lightboxTitle");
@@ -1075,6 +1081,39 @@ document.addEventListener("DOMContentLoaded", () => {
     if (productModal) {
         productModal.addEventListener("click", (e) => {
             if (e.target === productModal) closeModal();
+        });
+    }
+
+    /* ----------------------------------------------------------------------
+       COMPANY PROFILE PDF MODAL
+       ---------------------------------------------------------------------- */
+    function openPdfModal() {
+        if (!pdfProfileModal) return;
+        // Load PDF into iframe hanya saat dibuka (biar ringan di awal load)
+        if (pdfViewerFrame && !pdfViewerFrame.src) {
+            pdfViewerFrame.src = PDF_PROFILE_PATH;
+        }
+        pdfProfileModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closePdfModal() {
+        if (!pdfProfileModal) return;
+        pdfProfileModal.classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    if (aboutImageTrigger) {
+        aboutImageTrigger.addEventListener("click", openPdfModal);
+    }
+
+    if (pdfModalClose) {
+        pdfModalClose.addEventListener("click", closePdfModal);
+    }
+
+    if (pdfProfileModal) {
+        pdfProfileModal.addEventListener("click", (e) => {
+            if (e.target === pdfProfileModal) closePdfModal();
         });
     }
 
