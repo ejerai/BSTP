@@ -406,42 +406,37 @@ document.addEventListener("DOMContentLoaded", () => {
        BODY SCROLL LOCK (dipakai oleh: drawer menu mobile, modal produk,
        modal PDF, lightbox brosur, overlay sukses form)
        ------------------------------------------------------------------------
-       Kenapa tidak cukup "document.body.style.overflow = 'hidden'" saja?
-       Di banyak browser mobile (terutama Safari iOS), overflow:hidden tidak
-       benar-benar mengunci scroll kalau halaman di baliknya panjang/tinggi —
-       body masih bisa "bocor" ke-scroll di belakang drawer/modal, sehingga
-       gesture scroll milik drawer malah rebutan sama scroll body. Ini kenapa
-       masalahnya paling kerasa di index.html (Beranda) yang paling panjang.
-       Solusinya: paksa body diam total dengan position:fixed sambil
-       menyimpan posisi scroll saat ini, lalu kembalikan posisinya saat
-       drawer/modal ditutup. Dihitung pakai counter supaya aman kalau ada
-       lebih dari satu overlay yang kebuka bersamaan. */
+       RIWAYAT BUG (kenapa versi ini beda dari sebelumnya):
+       Versi lama mengunci body dengan position:fixed + top:-savedScrollYpx
+       (trik "body scroll lock" klasik). Di Beranda — halaman terpanjang,
+       jadi savedScrollY-nya paling besar — trik itu justru membuat WebKit
+       salah menghitung area sentuh yang boleh discroll pada elemen
+       position:fixed BERSARANG di dalamnya (drawer .nav-menu ini sendiri).
+       Efeknya persis seperti yang dilaporkan: swipe di dalam drawer tidak
+       dianggap scroll sama sekali oleh browser, dan drawer cuma bisa
+       digeser dengan menarik langsung scrollbar-nya (drag scrollbar tidak
+       lewat jalur gesture yang sama, jadi tidak kena bug ini). Ini murni
+       bug rendering iOS/WebKit terkait kombinasi fixed-di-dalam-fixed
+       dengan offset negatif besar — tidak bisa diperbaiki dari sisi
+       preventDefault/JS gesture handling saja, karena browser sudah salah
+       menentukan area scrollable-nya SEBELUM touch event itu sendiri
+       diproses.
+
+       FIX: tidak lagi memindahkan body sama sekali. Body dikunci cukup
+       dengan overflow:hidden (via class) di <html> & <body> — modern
+       browser (termasuk Safari/iOS versi sekarang) sudah cukup andal soal
+       ini, tanpa perlu trik position:fixed + offset negatif yang jadi
+       sumber bug di atas. Karena body tidak pernah dipindah, posisi
+       scroll otomatis tetap sama saat overlay ditutup (tidak perlu
+       window.scrollTo manual lagi). Dihitung pakai counter supaya aman
+       kalau ada lebih dari satu overlay yang kebuka bersamaan. */
     let scrollLockCount = 0;
-    let savedScrollY = 0;
 
-    /* ------------------------------------------------------------------
-       FIX: drawer/modal ikut "macet" tidak bisa discroll di halaman
-       panjang (Beranda paling kerasa karena savedScrollY-nya besar).
-       ------------------------------------------------------------------
-       position:fixed di atas SUDAH cukup untuk mengunci body (mencegah
-       halaman di belakang ikut ke-scroll), TAPI itu tidak menjamin gesture
-       swipe di dalam drawer/modal sendiri selalu dikenali sebagai scroll
-       oleh browser. Beberapa mesin browser mobile bisa salah menghitung
-       area sentuh yang scrollable ketika ada elemen position:fixed
-       bersarang di dalam body yang JUGA position:fixed dengan offset
-       "top" negatif yang besar (persis kasus Beranda: halaman panjang →
-       savedScrollY besar). Efeknya: swipe di dalam drawer dianggap "di
-       luar area yang boleh discroll" dan browser diam saja.
-
-       Solusinya: kontrol gesture sentuh secara eksplisit lewat JS. Semua
-       elemen yang MEMANG harus tetap bisa discroll saat overlay terbuka
-       (drawer menu, isi modal produk, modal PDF, lightbox) ditandai
-       dengan attribute data-scroll-lock-allow. Saat lock aktif:
-         - swipe di DALAM elemen yang ditandai -> dibiarkan jalan normal
-           (browser yang urus, termasuk containment di batas atas/bawahnya
-           lewat CSS overscroll-behavior yang sudah ada).
-         - swipe di LUAR elemen itu (background halaman) -> preventDefault,
-           supaya tidak ada kemungkinan sama sekali gesture "bocor" ke body. */
+    /* Lapisan pengaman tambahan: cegah "scroll chaining" (swipe di
+       background yang bocor scroll ke body) memakai touchmove listener,
+       dibatasi hanya untuk elemen yang TIDAK ditandai data-scroll-lock-allow
+       (drawer menu, isi modal produk, modal PDF, lightbox tetap bebas
+       discroll normal lewat CSS overscroll-behavior yang sudah ada). */
     function findScrollLockAllowedAncestor(el) {
         while (el && el !== document.body && el.nodeType === 1) {
             if (el.hasAttribute && el.hasAttribute("data-scroll-lock-allow")) {
@@ -461,12 +456,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function lockBodyScroll() {
         if (scrollLockCount === 0) {
-            savedScrollY = window.scrollY;
-            document.body.style.position = "fixed";
-            document.body.style.top = `-${savedScrollY}px`;
-            document.body.style.left = "0";
-            document.body.style.right = "0";
-            document.body.style.width = "100%";
+            document.documentElement.classList.add("scroll-locked");
+            document.body.classList.add("scroll-locked");
             document.addEventListener("touchmove", handleLockTouchMove, { passive: false });
         }
         scrollLockCount++;
@@ -476,12 +467,8 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollLockCount = Math.max(0, scrollLockCount - 1);
         if (scrollLockCount === 0) {
             document.removeEventListener("touchmove", handleLockTouchMove, { passive: false });
-            document.body.style.position = "";
-            document.body.style.top = "";
-            document.body.style.left = "";
-            document.body.style.right = "";
-            document.body.style.width = "";
-            window.scrollTo(0, savedScrollY);
+            document.documentElement.classList.remove("scroll-locked");
+            document.body.classList.remove("scroll-locked");
         }
     }
 
@@ -555,13 +542,21 @@ document.addEventListener("DOMContentLoaded", () => {
        ---------------------------------------------------------------------- */
     // Scroll event for shrinking & coloring navbar
     if (navbar) {
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
         const updateNavbarScrollState = () => {
             if (window.scrollY > 50) {
                 navbar.classList.add("scrolled");
                 if (scrollTopBtn) scrollTopBtn.classList.add("active");
+                // Navbar tint saat scrolled kira-kira #142051 (lihat rgb(9 33 90 / 55%)
+                // ::before di atas warna --primary-dark). Chrome Android membaca
+                // perubahan meta theme-color ini secara live, jadi address bar-nya
+                // ikut berubah warna saat user scroll (beda dari iOS Safari 26+).
+                if (themeColorMeta) themeColorMeta.setAttribute("content", "#142051");
             } else {
                 navbar.classList.remove("scrolled");
                 if (scrollTopBtn) scrollTopBtn.classList.remove("active");
+                if (themeColorMeta) themeColorMeta.setAttribute("content", "#020617");
             }
         };
 

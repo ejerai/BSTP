@@ -74,6 +74,17 @@ html {
     background-color: var(--primary-dark);
 }
 
+/* Dipakai app.js (lockBodyScroll/unlockBodyScroll) saat drawer menu mobile,
+   modal produk, modal PDF, lightbox, atau overlay sukses form terbuka.
+   Sengaja TIDAK pakai position:fixed + top negatif (lihat komentar panjang
+   di app.js) karena itu penyebab bug drawer nav tidak bisa discroll swipe
+   khusus di Beranda. */
+html.scroll-locked,
+body.scroll-locked {
+    overflow: hidden;
+    height: 100%;
+}
+
 body {
     font-family: var(--font-primary);
     font-size: 16px;
@@ -274,16 +285,13 @@ img {
     z-index: 1000;
     padding: 20px 0;
     transition: var(--transition-normal);
-    /* PENTING untuk warna address bar (lihat komentar meta theme-color di head):
-       Safari versi baru (26+) sudah tidak membaca meta theme-color sama sekali.
-       Sebagai gantinya Safari mengambil warna address bar/status bar langsung
-       dari background-color elemen position:fixed yang menempel di tepi atas
-       viewport — dan itu persis elemen .navbar ini, dibaca sekali saat render
-       pertama halaman. Karena itu warnanya HARUS solid/opaque (bukan transparan)
-       sejak kondisi awal (belum di-scroll), bukan hanya saat .navbar.scrolled.
-       Nilainya sengaja disamakan dengan --primary-dark, warna hero/page-header
-       di baliknya, jadi tidak ada perubahan tampilan sama sekali secara visual. */
-    background-color: var(--primary-dark);
+    /* Header transparan (lihat komentar meta theme-color di head untuk detail
+       address bar). Safari 26+ mengambil warna address bar dari elemen
+       position:fixed di tepi viewport — kalau elemen itu transparan, Safari
+       otomatis fallback ke background-color <body>. Karena background-color
+       body sudah --primary-dark (sama dengan hero/page-header di baliknya),
+       address bar tetap gelap walau .navbar sendiri transparan. */
+    background-color: transparent;
 }
 
 .navbar.scrolled {
