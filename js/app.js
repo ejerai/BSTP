@@ -4,548 +4,296 @@
 const PRODUCT_DATA = [
     // --- CATEGORY: MOTOR ---
     {
-        id: "ac-motor-3w",
-        name: "AC Induction Motor 3W",
+        id: "elektromotor-1",
+        name: "Elektromotor",
         category: "motor",
-        brand: "Gear Motor",
-        image: "assets/images/catalog/ac-motor.png",
-        models: ["0IK3GN-B", "0IK3GN-D"],
+        brand: "Gear Motor / DC Motor Series",
+        image: "assets/images/catalog/elektromotor1.webp",
+        models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
         specs: {
-            "Daya": "3 Watt",
-            "Model Gearhead": "0IK3GN-B / 0IK3GN-D",
-            "Tipe": "AC Induction",
-            "Aplikasi": "Mesin Conveyor Kecil, Laboratorium, Otomasi Ringan"
+            "Daya": "3W – 250W",
+            "Tipe": "AC Induction / DC Gearmotor",
+            "Tegangan": "220V AC / 12V – 90V DC",
+            "Aplikasi": "Conveyor, Otomasi, Industri Umum"
         }
     },
     {
-        id: "ac-motor-6w",
-        name: "AC Induction Motor 6W",
+        id: "elektromotor-2",
+        name: "Elektromotor",
         category: "motor",
-        brand: "Gear Motor",
-        image: "assets/images/catalog/ac-motor.png",
-        models: ["2IK6GN-A", "2IK6GN-E", "2IK6GN-C", "2IK6GN-H", "2IK6GN-S"],
+        brand: "Gear Motor / DC Motor Series",
+        image: "assets/images/catalog/elektromotor2.webp",
+        models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
         specs: {
-            "Daya": "6 Watt",
-            "Model Gearhead": "2IK6GN Series",
-            "Tipe": "AC Induction",
-            "Fase": "1-Phase / 3-Phase"
+            "Daya": "3W – 250W",
+            "Tipe": "AC Induction / DC Gearmotor",
+            "Tegangan": "220V AC / 12V – 90V DC",
+            "Aplikasi": "Conveyor, Otomasi, Industri Umum"
         }
     },
     {
-        id: "dc-motor-z2d6",
-        name: "DC Motor Z2D6 - 6W",
+        id: "elektromotor-3",
+        name: "Elektromotor",
         category: "motor",
-        brand: "DC Motor Series",
-        image: "assets/images/catalog/ac-motor.png",
-        models: ["Z2D6", "Z2D10", "Z2D15", "Z3D25", "Z4D25", "Z4D40", "Z5D40", "Z5D60", "Z5D90", "Z5D120", "Z6D250", "Z55D250"],
+        brand: "Gear Motor / DC Motor Series",
+        image: "assets/images/catalog/elektromotor3.webp",
+        models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
         specs: {
-            "Daya": "6W hingga 250W",
-            "Tipe Motor": "DC Gearmotor",
-            "Tegangan": "12V / 24V / 90V DC",
-            "Rentang Kecepatan": "Pilihan gearhead bervariasi"
+            "Daya": "3W – 250W",
+            "Tipe": "AC Induction / DC Gearmotor",
+            "Tegangan": "220V AC / 12V – 90V DC",
+            "Aplikasi": "Conveyor, Otomasi, Industri Umum"
+        }
+    },
+
+    // --- CATEGORY: VIBRATOR ---
+    {
+        id: "vibrator-1",
+        name: "Vibrator Motor",
+        category: "vibrator",
+        brand: "ITAL VIBRAS / ADK / BONZER",
+        image: "assets/images/catalog/vibrator1.webp",
+        models: ["VAM Series (1-Phase)", "VA Series (3-Phase)", "AF/T Series"],
+        specs: {
+            "Tipe": "Industrial Vibrator Motor",
+            "Tegangan": "220V (1-Phase) / 220V–360V (3-Phase)",
+            "Aplikasi": "Screening, Silo, Vibrating Feeder, Konstruksi Beton",
+            "Kualitas": "Standard Internasional"
         }
     },
     {
-        id: "vibrator-vam",
-        name: "Ital Vibras VAM & VA Series",
-        category: "motor",
-        brand: "ITAL VIBRAS",
-        image: "assets/images/catalog/vibrator-inverter-compressor.png",
-        models: ["VAM Series (1-Phase)", "VA Series (3-Phase)"],
-        specs: {
-            "Tegangan": "220V (1-Phase) / 220V/360V (3-Phase)",
-            "Aplikasi": "Screening, Silo, Vibrating Feeder",
-            "Kualitas": "Standard Internasional (Made in Italy)"
-        }
-    },
-    {
-        id: "concrete-vibrator-af",
-        name: "Concrete Vibrator Motor AF/T Series",
-        category: "motor",
-        brand: "ADK / BONZER",
-        image: "assets/images/catalog/vibrator-inverter-compressor.png",
-        models: ["AF/T Series"],
-        specs: {
-            "Tipe": "Concrete Vibrator Motor",
-            "Aplikasi": "Konstruksi Beton / Pengecoran Sipil",
-            "Ketahanan": "Heavy-duty dust & water splash protection"
-        }
-    },
-    {
-        id: "vibrator-avi",
-        name: "Heavy Duty Vibrator Motor AVI Series",
-        category: "motor",
+        id: "vibrator-2",
+        name: "Vibrator Motor",
+        category: "vibrator",
         brand: "ALLIANCE",
-        image: "assets/images/catalog/vibrator-inverter-compressor.png",
+        image: "assets/images/catalog/vibrator2.webp",
         models: ["AVI Series"],
         specs: {
             "Kelas": "Heavy Duty",
             "Tipe": "Vibrator Motor",
-            "Proteksi": "IP66 / Kelas Isolasi F"
+            "Proteksi": "IP66 / Kelas Isolasi F",
+            "Aplikasi": "Industri Berat, Konstruksi"
         }
     },
 
-    // --- CATEGORY: GEARBOX ---
+    // --- CATEGORY: GEARBOX (Worm Gear Reducer) ---
     {
-        id: "zdy-parallel-gearbox",
-        name: "ZDY Series Parallel Gearbox",
+        id: "worm-gear-reducer-1",
+        name: "Worm Gear Reducer",
         category: "gearbox",
-        brand: "Industrial Gearbox",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["ZDY Series"],
-        specs: {
-            "Daya (Power Range)": "1.1 - 6000 kW",
-            "Rasio Transmisi (Ratio)": "1.25 - 500",
-            "Torsi Output (Kn.m)": "Hingga 520 kNm",
-            "Desain": "Parallel Shaft Gearbox"
-        }
-    },
-    {
-        id: "zly-parallel-gearbox",
-        name: "ZLY Series Parallel Gearbox",
-        category: "gearbox",
-        brand: "Industrial Gearbox",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["ZLY Series"],
-        specs: {
-            "Daya (Power Range)": "1.1 - 6000 kW",
-            "Rasio Transmisi (Ratio)": "1.25 - 500",
-            "Torsi Output (Kn.m)": "Hingga 520 kNm",
-            "Desain": "Parallel Shaft Gearbox"
-        }
-    },
-    {
-        id: "zsy-zfy-parallel-gearbox",
-        name: "ZSY / ZFY Series Parallel Gearbox",
-        category: "gearbox",
-        brand: "Industrial Gearbox",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["ZSY Series", "ZFY Series"],
-        specs: {
-            "Daya (Power Range)": "1.1 - 6000 kW",
-            "Rasio Transmisi (Ratio)": "1.25 - 500",
-            "Torsi Output (Kn.m)": "Hingga 520 kNm",
-            "Desain": "Parallel Shaft Gearbox"
-        }
-    },
-    {
-        id: "v-series-right-angle-gearbox",
-        name: "V Series Right Angle Gearbox",
-        category: "gearbox",
-        brand: "Industrial Gearbox",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["V Series"],
-        specs: {
-            "Daya (Power Range)": "4 - 6000 kW",
-            "Rasio Transmisi (Ratio)": "1.25 - 450",
-            "Torsi Output (Kn.m)": "Hingga 950 kNm",
-            "Tipe": "Right Angle Shaft Gearbox"
-        }
-    },
-    {
-        id: "p-series-parallel-gearbox",
-        name: "P Series Parallel Gearbox",
-        category: "gearbox",
-        brand: "Industrial Gearbox",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["P Series"],
-        specs: {
-            "Daya (Power Range)": "4 - 6000 kW",
-            "Rasio Transmisi (Ratio)": "1.25 - 450",
-            "Torsi Output (Kn.m)": "Hingga 950 kNm",
-            "Tipe": "Parallel Shaft Gearbox"
-        }
-    },
-    {
-        id: "zlyj-extruder-gearbox",
-        name: "ZLYJ Extruder Gearbox",
-        category: "gearbox",
-        brand: "Extruder Series",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["ZLYJ Series"],
-        specs: {
-            "Daya (Power Range)": "5.5 - 200 kW",
-            "Rasio Transmisi (Ratio)": "8 - 35",
-            "Torsi Output (Kn.m)": "Hingga 42 kNm",
-            "Aplikasi": "Mesin Ekstruder Plastik / Karet"
-        }
-    },
-    {
-        id: "bwd-xwd-cycloidal-reducer",
-        name: "BWD / XWD Cycloidal Speed Reducer",
-        category: "gearbox",
-        brand: "Transcyko / Guomau / Sumitomo",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["BWD Series", "XWD Series"],
-        specs: {
-            "Daya (Power Range)": "0.12 - 90 kW",
-            "Rasio Transmisi (Ratio)": "7 - 650000",
-            "Torsi Output (Kn.m)": "Hingga 30 kNm",
-            "Desain": "Cycloidal Reducer Horizontal"
-        }
-    },
-    {
-        id: "bld-xld-cycloidal-reducer",
-        name: "BLD / XLD Cycloidal Speed Reducer",
-        category: "gearbox",
-        brand: "Transcyko / Guomau / Sumitomo",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["BLD Series", "XLD Series"],
-        specs: {
-            "Daya (Power Range)": "0.12 - 90 kW",
-            "Rasio Transmisi (Ratio)": "7 - 650000",
-            "Torsi Output (Kn.m)": "Hingga 30 kNm",
-            "Desain": "Cycloidal Reducer Vertical"
-        }
-    },
-    {
-        id: "helical-gearbox-tr",
-        name: "Helical Gearbox TR & TRF Series",
-        category: "gearbox",
-        brand: "YUEMA / TRANSMAX",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["TR 27-167", "TRF 27-167"],
-        specs: {
-            "Ukuran (Sizes)": "27 - 37 - 47 - 57 - 67 - 77 - 87 - 97 - 107 - 137 - 147 - 167",
-            "Torsi Maksimal (M₂max)": "18,000 Nm",
-            "Rasio Putaran (Ratio)": "1.3 ~ 27,001",
-            "Daya Motor (Power)": "0.12 ~ 160 kW"
-        }
-    },
-    {
-        id: "bevel-gearbox-tkf",
-        name: "Helical Bevel Gearbox TK & TKF Series",
-        category: "gearbox",
-        brand: "YUEMA / TRANSMAX",
-        image: "assets/images/catalog/helical-bevel-gearbox.png",
-        models: ["TK 37-187", "TKF 37-187"],
-        specs: {
-            "Ukuran (Sizes)": "37 - 47 - 57 - 67 - 77 - 87 - 97 - 107 - 127 - 157 - 167 - 187",
-            "Torsi Maksimal (M₂max)": "50,000 Nm (TKF) / 5,000 Nm (TK)",
-            "Rasio Putaran (Ratio)": "3.98 ~ 32,625",
-            "Daya Motor (Power)": "0.12 ~ 200 kW"
-        }
-    },
-    {
-        id: "worm-gear-wpa",
-        name: "Worm Gearbox WPA & WPS Series",
-        category: "gearbox",
-        brand: "CHENTA / REVCO",
-        image: "assets/images/catalog/worm-gearbox.png",
+        brand: "CHENTA / REVCO / YUEMA",
+        image: "assets/images/catalog/wormgearreducer1.webp",
         models: ["WPA 40-250", "WPS 40-250"],
         specs: {
             "Ukuran (Sizes)": "40, 50, 60, 70, 80, 100, 120, 135, 155, 175, 200, 250",
             "Rasio Putaran (Ratio)": "1/10 ~ 1/60",
-            "Tipe Koneksi": "Solid Shaft Input (WPA / WPS)"
+            "Tipe": "Worm Gear Reducer",
+            "Koneksi Input": "Solid Shaft (WPA / WPS)"
         }
     },
     {
-        id: "worm-gear-wpda",
-        name: "Double Stage Worm Gearbox WPDA & WPDS",
+        id: "worm-gear-reducer-2",
+        name: "Worm Gear Reducer",
         category: "gearbox",
         brand: "CHENTA / REVCO",
-        image: "assets/images/catalog/worm-gearbox.png",
+        image: "assets/images/catalog/wormgearreducer2.webp",
         models: ["WPDA 50-155", "WPDS 50-250"],
         specs: {
             "Ukuran (Sizes)": "50, 60, 70, 80, 100, 120, 135, 147, 155, 175, 200, 250",
             "Rasio Putaran (Ratio)": "1/10 ~ 1/60 (per stage)",
+            "Tipe": "Double Stage Worm Gearbox",
             "Koneksi Input": "Flange Motor IEC (WPDA) / Shaft (WPDS)"
         }
     },
     {
-        id: "worm-gearbox-nmrv",
-        name: "NMRV Worm Gearbox Series",
+        id: "worm-gear-reducer-3",
+        name: "Worm Gear Reducer",
         category: "gearbox",
         brand: "MOTOVARIO / YUEMA",
-        image: "assets/images/catalog/worm-gearbox.png",
+        image: "assets/images/catalog/wormgearreducer3.webp",
         models: ["NMRV 30-150", "RV 30-150"],
         specs: {
             "Ukuran (Sizes)": "30 - 40 - 50 - 63 - 75 - 90 - 110 - 130 - 150",
             "Rasio Putaran (Ratio)": "1.3 ~ 27,001 (Kombinasi)",
             "Daya Motor (Power)": "0.12 ~ 160 kW",
-            "Bahan Bodi": "Aluminium (hingga 090), Cast Iron (110-150)"
+            "Bahan Bodi": "Aluminium / Cast Iron"
+        }
+    },
+    {
+        id: "worm-gear-reducer-4",
+        name: "Worm Gear Reducer",
+        category: "gearbox",
+        brand: "YUEMA / TRANSMAX",
+        image: "assets/images/catalog/wormgearreducer4.webp",
+        models: ["TR Series", "TRF Series", "TK Series", "TKF Series"],
+        specs: {
+            "Tipe": "Helical / Helical Bevel Gearbox",
+            "Torsi Maksimal": "50,000 Nm",
+            "Rasio Putaran (Ratio)": "1.3 ~ 32,625",
+            "Daya Motor (Power)": "0.12 ~ 200 kW"
+        }
+    },
+
+    // --- CATEGORY: WORM-GEAR ---
+    {
+        id: "worm-gear-1",
+        name: "Worm Gear",
+        category: "worm-gear",
+        brand: "CHENTA / REVCO / YUEMA",
+        image: "assets/images/catalog/wormgear1.webp",
+        models: ["WPA Series", "WPS Series"],
+        specs: {
+            "Tipe": "Worm Gear Set",
+            "Rasio Putaran (Ratio)": "1/10 ~ 1/60",
+            "Aplikasi": "Transmisi Daya Sudut Siku",
+            "Material": "Cast Iron / Bronze Worm Wheel"
+        }
+    },
+    {
+        id: "worm-gear-2",
+        name: "Worm Gear",
+        category: "worm-gear",
+        brand: "CHENTA / REVCO",
+        image: "assets/images/catalog/wormgear2.webp",
+        models: ["WPDA Series", "WPDS Series"],
+        specs: {
+            "Tipe": "Double Stage Worm Gear",
+            "Rasio Putaran (Ratio)": "1/10 ~ 1/60 (per stage)",
+            "Aplikasi": "Rasio Reduksi Tinggi",
+            "Koneksi": "IEC Flange / Shaft Input"
+        }
+    },
+    {
+        id: "worm-gear-3",
+        name: "Worm Gear",
+        category: "worm-gear",
+        brand: "MOTOVARIO / YUEMA",
+        image: "assets/images/catalog/wormgear3.webp",
+        models: ["NMRV 30-150", "RV 30-150"],
+        specs: {
+            "Ukuran (Sizes)": "30 - 40 - 50 - 63 - 75 - 90 - 110 - 130 - 150",
+            "Tipe": "NMRV Worm Gear",
+            "Daya Motor (Power)": "0.12 ~ 160 kW",
+            "Bahan Bodi": "Aluminium / Cast Iron"
+        }
+    },
+    {
+        id: "worm-gear-4",
+        name: "Worm Gear",
+        category: "worm-gear",
+        brand: "Industrial Gearbox Series",
+        image: "assets/images/catalog/wormgear4.webp",
+        models: ["ZDY Series", "ZLY Series", "BWD Series", "XWD Series"],
+        specs: {
+            "Tipe": "Cycloidal / Parallel Shaft Reducer",
+            "Daya (Power Range)": "0.12 - 6000 kW",
+            "Rasio Transmisi (Ratio)": "1.25 - 650000",
+            "Torsi Output": "Hingga 950 kNm"
         }
     },
 
     // --- CATEGORY: GEARMOTOR ---
     {
-        id: "g3lm-g3fm-compact-gearmotor",
-        name: "G3LM / G3FM Series Compact Gear Motor",
+        id: "helical-gearmotor-1",
+        name: "Helical Gear Motor",
         category: "gearmotor",
         brand: "Compact Gearmotor Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["G3LM Series", "G3FM Series"],
+        image: "assets/images/catalog/helicalgearmotor1.webp",
+        models: ["G3LM Series", "G3FM Series", "G3LS Series", "G3L Series"],
         specs: {
             "Ukuran (Sizes)": "18 - 22 - 28 - 32 mm",
-            "Torsi Maksimal (M₂max)": "120 Nm",
+            "Torsi Maksimal": "120 Nm",
             "Rasio Putaran (Ratio)": "5 ~ 200",
             "Daya Motor (Power)": "0.1 ~ 1.5 kW"
         }
     },
     {
-        id: "g3ls-compact-gearmotor",
-        name: "G3LS Series Compact Gear Motor",
+        id: "helical-gearmotor-2",
+        name: "Helical Gear Motor",
         category: "gearmotor",
-        brand: "Compact Gearmotor Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["G3LS Series"],
-        specs: {
-            "Ukuran (Sizes)": "18 - 22 - 28 - 32 mm",
-            "Torsi Maksimal (M₂max)": "120 Nm",
-            "Rasio Putaran (Ratio)": "5 ~ 200",
-            "Daya Motor (Power)": "0.1 ~ 1.5 kW"
-        }
-    },
-    {
-        id: "g3l-compact-gearmotor",
-        name: "G3L Series Compact Gear Motor",
-        category: "gearmotor",
-        brand: "Compact Gearmotor Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["G3L Series"],
-        specs: {
-            "Ukuran (Sizes)": "18 - 22 - 28 - 32 mm",
-            "Torsi Maksimal (M₂max)": "120 Nm",
-            "Rasio Putaran (Ratio)": "5 ~ 200",
-            "Daya Motor (Power)": "0.1 ~ 1.5 kW"
-        }
-    },
-    {
-        id: "chcz-p-mini-gearmotor",
-        name: "CHCZ ... P (IEC) Mini Gear Motor",
-        category: "gearmotor",
-        brand: "Mini Gear Motor Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["CHCZ ... P"],
+        brand: "Mini Gear Motor / IEC Series",
+        image: "assets/images/catalog/helicalgearmotor2.webp",
+        models: ["CHCZ ... P", "CHCF ... P", "CHCZ ... HS"],
         specs: {
             "Ukuran Frame (Sizes)": "01 - 02 - 03 - 04",
-            "Torsi Maksimal (M₂max)": "500 Nm",
+            "Torsi Maksimal": "500 Nm",
             "Rasio Putaran (Ratio)": "3.66 ~ 54",
             "Daya Motor (Power)": "0.12 ~ 4 kW"
         }
     },
     {
-        id: "chcf-p-mini-gearmotor",
-        name: "CHCF ... P (IEC) Mini Gear Motor",
+        id: "helical-gearmotor-3",
+        name: "Helical Gear Motor",
         category: "gearmotor",
-        brand: "Mini Gear Motor Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["CHCF ... P"],
+        brand: "Variator / Gearhead Series",
+        image: "assets/images/catalog/helicalgearmotor3.webp",
+        models: ["Variable Helical", "Variator Foot Mounting", "Variator Flange Mounting", "Spiral Bevel 25W–200W"],
         specs: {
-            "Ukuran Frame (Sizes)": "01 - 02 - 03 - 04",
-            "Torsi Maksimal (M₂max)": "500 Nm",
-            "Rasio Putaran (Ratio)": "3.66 ~ 54",
-            "Daya Motor (Power)": "0.12 ~ 4 kW"
-        }
-    },
-    {
-        id: "chcz-hs-mini-gearmotor",
-        name: "CHCZ ... HS Mini Gear Motor",
-        category: "gearmotor",
-        brand: "Mini Gear Motor Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["CHCZ ... HS"],
-        specs: {
-            "Ukuran Frame (Sizes)": "01 - 02 - 03 - 04",
-            "Torsi Maksimal (M₂max)": "500 Nm",
-            "Rasio Putaran (Ratio)": "3.66 ~ 54",
-            "Daya Motor (Power)": "0.12 ~ 4 kW"
-        }
-    },
-    {
-        id: "variable-helical-gearmotor",
-        name: "Variable Helical Gearmotor",
-        category: "gearmotor",
-        brand: "Variator Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["Variable Helical"],
-        specs: {
-            "Kapasitas Daya (Sizes)": "0.37-0.75-1.5 kW / 2.2-4-7.5 kW",
-            "Torsi Maksimal (M₂max)": "1,000 Nm",
+            "Kapasitas Daya": "0.18 ~ 7.5 kW",
+            "Torsi Maksimal": "1,000 Nm",
             "Rasio Putaran (Ratio)": "5 (Variasi Manual)",
-            "Daya Motor (Power)": "0.18 ~ 4 kW"
-        }
-    },
-    {
-        id: "variator-foot-mounting",
-        name: "Variator Foot Mounting",
-        category: "gearmotor",
-        brand: "Variator Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["Variator Foot Mounting"],
-        specs: {
-            "Kapasitas Daya (Sizes)": "0.37-0.75-1.5 kW / 2.2-4-7.5 kW",
-            "Torsi Maksimal (M₂max)": "1,000 Nm",
-            "Rasio Putaran (Ratio)": "5 (Variasi Manual)",
-            "Daya Motor (Power)": "0.18 ~ 4 kW"
-        }
-    },
-    {
-        id: "variator-flange-mounting",
-        name: "Variator Flange Mounting",
-        category: "gearmotor",
-        brand: "Variator Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["Variator Flange Mounting"],
-        specs: {
-            "Kapasitas Daya (Sizes)": "0.37-0.75-1.5 kW / 2.2-4-7.5 kW",
-            "Torsi Maksimal (M₂max)": "1,000 Nm",
-            "Rasio Putaran (Ratio)": "5 (Variasi Manual)",
-            "Daya Motor (Power)": "0.18 ~ 4 kW"
-        }
-    },
-    {
-        id: "right-angle-bevel-25w",
-        name: "Spiral Bevel Right Angle 25W - 200W",
-        category: "gearmotor",
-        brand: "Gearhead Series",
-        image: "assets/images/catalog/compact-mini-gear-motor.png",
-        models: ["Spiral Bevel 25W", "40W", "60W", "90W", "120W (90mm/100mm)", "140W", "200W"],
-        specs: {
-            "Kapasitas Daya": "25W ~ 200W",
-            "Tipe Gearhead": "Right Angle Shaft",
-            "Model Kecocokan": "Z4D25, Z4D40, Z5D40, Z5D60, Z5D90, Z5D120, Z6D250, Z55D250"
+            "Tipe": "Helical / Spiral Bevel Gearmotor"
         }
     },
 
 
-    // --- CATEGORY: PUMP ---
+    // --- CATEGORY: PUMP (Centrifugal Pump) ---
     {
-        id: "fire-hydrant-pump",
-        name: "Fire Hydrant Pump & Electric Hydrant Pump",
+        id: "centrifugal-pump-1",
+        name: "Centrifugal Pump",
         category: "pump",
-        brand: "Hydrant Pump Series",
-        image: "assets/images/catalog/industrial-pump.png",
-        models: ["Diesel Engine Hydrant", "Electric Hydrant Pump"],
+        brand: "EBARA / CNP / Fire Hydrant Series",
+        image: "assets/images/catalog/centrifugalpump1.webp",
+        models: ["Ebara End Suction", "Fire Hydrant Pump", "Electric Hydrant Pump"],
         specs: {
-            "Aplikasi": "Sistem Proteksi Kebakaran Gedung, Damkar",
-            "Tipe Penggerak": "Mesin Diesel & Motor Listrik Heavy Duty",
-            "Warna Standar": "Merah Industri (Fire Safety standard)"
+            "Tipe": "End Suction / Fire Hydrant Centrifugal Pump",
+            "Aplikasi": "Transfer Air, Proteksi Kebakaran Gedung",
+            "Material Impeller": "Bronze / Cast Iron",
+            "Penggerak": "Motor Listrik / Mesin Diesel"
         }
     },
     {
-        id: "ebara-centrifugal",
-        name: "Ebara Centrifugal Pump c/w Motor",
-        category: "pump",
-        brand: "EBARA",
-        image: "assets/images/catalog/industrial-pump.png",
-        models: ["Ebara End Suction Centrifugal"],
-        specs: {
-            "Desain": "Coupling joint dengan Motor Penggerak (c/w Motor)",
-            "Aplikasi": "Transfer Air Gedung, Industri, Pengairan, Chiller",
-            "Material Impeller": "Bronze / Cast Iron"
-        }
-    },
-    {
-        id: "yuema-centrifugal",
-        name: "Yuema Centrifugal Pump c/w Motor",
-        category: "pump",
-        brand: "YUEMA",
-        image: "assets/images/catalog/industrial-pump.png",
-        models: ["Yuema End Suction Pump"],
-        specs: {
-            "Desain": "Mono-block coupling dengan Besi Baseplate",
-            "Aplikasi": "Pompa Transfer Industri Umum",
-            "Performa": "Ekonomis, tangguh untuk durasi operasional panjang"
-        }
-    },
-    {
-        id: "koshin-gear-pump-gl",
-        name: "Koshin Gear Pump GL Series",
-        category: "pump",
-        brand: "KOSHIN (Made in Japan)",
-        image: "assets/images/catalog/gear-pump.png",
-        models: ["GL-13-5", "GL-13-10", "GL-20-5", "GL-20-10", "GL-25-5", "GL-25-10", "GL-32-5", "GL-32-10", "GL-40-5", "GL-40-10", "GL-50-5", "GL-50-10"],
-        specs: {
-            "Koneksi Diameter": "13 mm (1/2\") hingga 50 mm (2\")",
-            "Daya Motor": "0.4 kW hingga 7.5 kW (4P/6P)",
-            "Tekanan Maks (Pressure)": "0.5 MPa ~ 1 MPa",
-            "Kapasitas Alir (Delivery)": "20 L/min hingga 200 L/min (pada 50Hz/60Hz)"
-        }
-    },
-    {
-        id: "koshin-gear-pump-gc",
-        name: "Koshin Gear Pump GC & GB Series",
-        category: "pump",
-        brand: "KOSHIN",
-        image: "assets/images/catalog/gear-pump.png",
-        models: ["GC-13", "GB-13", "GC-20", "GB-20", "GC-25", "GB-25"],
-        specs: {
-            "Bahan Gear (Material)": "GC: Cast Iron (Besi Cor) / GB: Brass (Kuningan)",
-            "Koneksi Diameter": "13 mm (1/2\") hingga 25 mm (1\")",
-            "Daya Pulley": "200 W (GC-13) hingga 750 W (GC-25)",
-            "Kapasitas Alir": "Kapasitas bervariasi bergantung pada RPM Pulley"
-        }
-    },
-    {
-        id: "yuema-asphalt-pump",
-        name: "Yuema Asphalt Pump & 2CY Series",
-        category: "pump",
-        brand: "YUEMA",
-        image: "assets/images/catalog/gear-pump.png",
-        models: ["Asphalt Gear Pump", "2CY Series"],
-        specs: {
-            "Aplikasi Khusus": "Transfer Cairan Kental, Asphalt Cair, Minyak Berat, Oli",
-            "Material Bodi": "Besi Cor Khusus Tahan Panas",
-            "Kapasitas Suhu": "Hingga suhu aspal cair tinggi"
-        }
-    },
-    {
-        id: "cnp-pump-chl",
-        name: "CNP CHL & CHLF Multistage Centrifugal Pump",
+        id: "centrifugal-pump-2",
+        name: "Centrifugal Pump",
         category: "pump",
         brand: "CNP (Nanfang)",
-        image: "assets/images/catalog/centrifugal-pump.png",
-        models: ["CHL Series", "CHLF Series"],
+        image: "assets/images/catalog/centrifugalpump2.webp",
+        models: ["CHL Series", "CHLF Series", "CDL Series", "CDLF Series"],
         specs: {
+            "Tipe": "Multistage Centrifugal Pump",
             "Kapasitas Alir (Q)": "Hingga 240 m³/h",
             "Head Dorong (H)": "Hingga 305 m",
-            "Kecepatan Putaran": "2900 rpm",
-            "Daya Motor (Power)": "Hingga 110 kW",
-            "Material": "Stainless Steel (Sus 304 / 316)"
+            "Material": "Stainless Steel (SUS 304 / 316)"
         }
     },
     {
-        id: "cnp-pump-cdl",
-        name: "CNP CDL & CDLF Vertical Multistage Pump",
+        id: "centrifugal-pump-3",
+        name: "Centrifugal Pump",
         category: "pump",
-        brand: "CNP",
-        image: "assets/images/catalog/centrifugal-pump.png",
-        models: ["CDL / CDLF 1", "CDL 2", "CDL 4", "CDL 8", "CDL 12", "CDL 16", "CDL 20"],
+        brand: "CNP / SPECK PUMPEN",
+        image: "assets/images/catalog/centrifugalpump3.webp",
+        models: ["SJ Series Deepwell", "ASK Series", "SK Series", "VH Series"],
         specs: {
-            "Tipe": "Vertical Inline Multistage Pump",
-            "Kapasitas Alir (Q)": "Hingga 240 m³/h",
-            "Head Dorong (H)": "Hingga 305 m",
-            "Daya Motor": "Hingga 110 kW"
-        }
-    },
-    {
-        id: "cnp-pump-sj",
-        name: "CNP SJ Stainless Steel Submersible Borehole Pump",
-        category: "pump",
-        brand: "CNP",
-        image: "assets/images/catalog/centrifugal-pump.png",
-        models: ["SJ Series Deepwell"],
-        specs: {
-            "Kapasitas Alir (Q)": "Hingga 260 m³/h",
+            "Tipe": "Submersible / Side Channel Pump",
+            "Kapasitas Alir": "Hingga 260 m³/h",
             "Head Dorong (H)": "Hingga 381 m",
-            "Aplikasi": "Sumur Bor Dalam (Deepwell), Irigasi, Pengisian Tandon Gedung",
-            "Material": "Full Stainless Steel anti karat"
+            "Aplikasi": "Sumur Bor, Minyak Panas, Cairan Kimia"
         }
     },
+
+    // --- CATEGORY: GEAR PUMP ---
     {
-        id: "speck-pump-ask",
-        name: "Speck Side Channel Pump ASK & SK Series",
-        category: "pump",
-        brand: "SPECK PUMPEN (Made in Germany)",
-        image: "assets/images/catalog/centrifugal-pump.png",
-        models: ["ASK Series", "SK Series", "VH Series", "VHC Series", "VG Series", "VU Series", "ES Series", "TOE-GN Series"],
+        id: "gear-pump-1",
+        name: "Gear Pump",
+        category: "gear-pump",
+        brand: "KOSHIN (Made in Japan) / YUEMA",
+        image: "assets/images/catalog/gearpump.webp",
+        models: ["GL Series", "GC Series", "GB Series", "2CY Series", "Asphalt Gear Pump"],
         specs: {
-            "Kapasitas Alir (ASK)": "Max. 180 U.S. GPM",
-            "Total Head (ASK)": "Max. 1150 feet (350 meter)",
-            "Putaran": "1450 rpm / 1750 rpm",
-            "Suhu Operasional": "Max. 180°C (Minyak Panas / Cairan Kimia Suhu Tinggi)",
-            "Mechanical Seal": "Standard Speck High-spec Seal"
+            "Koneksi Diameter": "13 mm (1/2\") hingga 50 mm (2\")",
+            "Daya Motor": "0.4 kW hingga 7.5 kW",
+            "Tekanan Maks": "0.5 MPa ~ 1 MPa",
+            "Aplikasi Khusus": "Oli, Asphalt Cair, Cairan Kental"
         }
     },
 
@@ -619,32 +367,35 @@ const PRODUCT_DATA = [
         }
     },
 
-    // --- CATEGORY: INVERTER-COMPRESSOR ---
+    // --- CATEGORY: INVERTER ---
     {
-        id: "inverter-abb",
-        name: "Variable Frequency Inverter Drives",
-        category: "inverter-compressor",
+        id: "inverter-1",
+        name: "Inverter (VFD)",
+        category: "inverter",
         brand: "ABB / SCHNEIDER / INVT / HITACHI / CUTES",
-        image: "assets/images/catalog/vibrator-inverter-compressor.png",
+        image: "assets/images/catalog/inverter1.webp",
         models: ["ABB VFD Drives", "Schneider Altivar VFD", "INVT Goodrive", "Hitachi VFD Series", "Cutes Inverter"],
         specs: {
-            "Fungsi": "Pengatur Kecepatan Putaran Motor Induksi AC (Speed Controller)",
-            "Fitur": "Soft Start/Stop, Proteksi Overload Motor, Hemat Energi listrik",
-            "Rentang Daya": "0.37 kW hingga 500 kW"
+            "Fungsi": "Pengatur Kecepatan Putaran Motor Induksi AC",
+            "Fitur": "Soft Start/Stop, Proteksi Overload, Hemat Energi",
+            "Rentang Daya": "0.37 kW hingga 500 kW",
+            "Merk": "ABB / Schneider / INVT / Hitachi / Cutes"
         }
     },
+
+    // --- CATEGORY: PULLEY ---
     {
-        id: "compressor-puma",
-        name: "Puma & United Air Compressor Series",
-        category: "inverter-compressor",
-        brand: "PUMA / UNITED / BISON",
-        image: "assets/images/catalog/vibrator-inverter-compressor.png",
-        models: ["Puma Air Center", "United Air Compressor", "Bison Heavy Compressor"],
+        id: "pulley-1",
+        name: "Pulley",
+        category: "pulley",
+        brand: "Industrial Pulley Series",
+        image: "assets/images/catalog/pulley.webp",
+        models: ["V-Belt Pulley", "Timing Pulley", "Flat Belt Pulley"],
         specs: {
-            "Tipe": "Piston / Reciprocating Air Compressor c/w Motor",
-            "Kapasitas Tangki": "100 Liter hingga 500 Liter",
-            "Tekanan Udara": "7 Bar hingga 12 Bar",
-            "Penggerak": "Pilihan Motor Listrik / Mesin Bensin"
+            "Tipe": "V-Belt / Timing / Flat Belt Pulley",
+            "Material": "Cast Iron / Aluminium / Baja",
+            "Aplikasi": "Transmisi Daya, Conveyor, Pompa, Kompresor",
+            "Standar": "SPZ, SPA, SPB, SPC Series"
         }
     }
 ];
@@ -1056,20 +807,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const categoryLabels = {
                 "motor": "Electric Motor",
-                "gearbox": "Gearbox",
-                "gearmotor": "Gear Motor",
-                "pump": "Industrial Pump",
+                "vibrator": "Vibrator Motor",
+                "gearbox": "Worm Gear Reducer",
+                "worm-gear": "Worm Gear",
+                "gearmotor": "Helical Gear Motor",
+                "pump": "Centrifugal Pump",
+                "gear-pump": "Gear Pump",
                 "lifting": "Hoist & Crane",
+                "inverter": "Inverter (VFD)",
+                "pulley": "Pulley",
                 "inverter-compressor": "Inverter/Compressor"
             };
 
             const cleanCategory = categoryLabels[p.category] || "Industrial Component";
 
-            card.innerHTML = `
+            // Build image section — slideshow if product has multiple images
+            let imgBoxHTML;
+            if (p.images && p.images.length > 1) {
+                const slides = p.images.map((src, i) => `
+                    <img src="${src}" alt="${p.name} ${i + 1}" 
+                         class="product-card-img card-slide ${i === 0 ? 'active' : ''}" 
+                         onerror="this.onerror=null; this.src='assets/brand/logo.png';">`
+                ).join("");
+                const dots = p.images.map((_, i) => `
+                    <button class="slide-dot ${i === 0 ? 'active' : ''}" data-index="${i}" aria-label="Slide ${i + 1}"></button>`
+                ).join("");
+                imgBoxHTML = `
+                <div class="product-img-box has-slider" data-slide-index="0">
+                    <span class="product-tag">${cleanCategory}</span>
+                    <button class="slide-arrow slide-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+                    ${slides}
+                    <button class="slide-arrow slide-next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+                    <div class="slide-dots">${dots}</div>
+                </div>`;
+            } else {
+                imgBoxHTML = `
                 <div class="product-img-box">
                     <span class="product-tag">${cleanCategory}</span>
                     <img src="${p.image}" alt="${p.name}" class="product-card-img" onerror="this.onerror=null; this.src='assets/brand/logo.png';">
-                </div>
+                </div>`;
+            }
+
+            card.innerHTML = `
+                ${imgBoxHTML}
                 <div class="product-details-box">
                     <span class="product-brand">${p.brand}</span>
                     <h3 class="product-name">${p.name}</h3>
@@ -1089,9 +869,55 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
             productsGrid.appendChild(card);
+
+            // Init slider for cards with multiple images
+            if (p.images && p.images.length > 1) {
+                initCardSlider(card);
+            }
         });
 
         revealProductCards();
+    }
+
+    /* ----------------------------------------------------------------------
+       CARD IMAGE SLIDER — untuk produk dengan array images
+       ---------------------------------------------------------------------- */
+    function initCardSlider(card) {
+        const imgBox = card.querySelector(".product-img-box.has-slider");
+        if (!imgBox) return;
+
+        const slides = imgBox.querySelectorAll(".card-slide");
+        const dots   = imgBox.querySelectorAll(".slide-dot");
+        const prev   = imgBox.querySelector(".slide-prev");
+        const next   = imgBox.querySelector(".slide-next");
+        let current  = 0;
+        let autoTimer;
+
+        function goTo(idx) {
+            slides[current].classList.remove("active");
+            dots[current].classList.remove("active");
+            current = (idx + slides.length) % slides.length;
+            slides[current].classList.add("active");
+            dots[current].classList.add("active");
+        }
+
+        function startAuto() {
+            autoTimer = setInterval(() => goTo(current + 1), 3000);
+        }
+        function stopAuto() { clearInterval(autoTimer); }
+
+        prev.addEventListener("click", (e) => { e.stopPropagation(); stopAuto(); goTo(current - 1); startAuto(); });
+        next.addEventListener("click", (e) => { e.stopPropagation(); stopAuto(); goTo(current + 1); startAuto(); });
+        dots.forEach(dot => {
+            dot.addEventListener("click", (e) => {
+                e.stopPropagation();
+                stopAuto();
+                goTo(parseInt(dot.dataset.index));
+                startAuto();
+            });
+        });
+
+        startAuto();
     }
 
     /* ----------------------------------------------------------------------
@@ -1177,12 +1003,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const modalWaBtn = document.getElementById("modalWaBtn");
         
         const categoryLabels = {
-            "motor": "Motor Induksi & Vibrator",
-            "gearbox": "Helical & Worm Gearbox",
-            "gearmotor": "Gearmotor & Variator Speed",
-            "pump": "Pompa Industri & Centrifugal",
-            "lifting": "Electric Hoist & Lifting Crane",
-            "inverter-compressor": "Inverter Controller & Compressor"
+            "motor": "Elektromotor",
+            "vibrator": "Vibrator Motor",
+            "gearbox": "Worm Gear Reducer",
+            "worm-gear": "Worm Gear",
+            "gearmotor": "Helical Gear Motor",
+            "pump": "Centrifugal Pump",
+            "gear-pump": "Gear Pump",
+            "lifting": "Electric Hoist & Crane",
+            "inverter": "Inverter (VFD)",
+            "pulley": "Pulley",
+            "inverter-compressor": "Inverter/Compressor"
         };
         
         if (modalCategory) modalCategory.innerText = categoryLabels[product.category] || "Kategori Produk";
