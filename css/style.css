@@ -2898,6 +2898,14 @@ img {
         border-top: none;
         border-radius: 0;
         box-shadow: var(--shadow-xl);
+        /* Cegah "scroll chaining": tanpa ini, begitu drawer mencapai batas
+           scroll-nya sendiri, browser mobile bisa melanjutkan gesture itu
+           ke halaman di baliknya. Di halaman panjang (seperti Beranda),
+           efeknya kerasa banget: scroll drawer jadi "rebutan" sama scroll
+           halaman asli dan terasa berat/macet. */
+        touch-action: pan-y;
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
         overflow-y: auto;
     }
 
