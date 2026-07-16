@@ -667,6 +667,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const productModal = document.getElementById("productModal");
     const modalClose = document.getElementById("modalClose");
+    const modalImgTrigger = document.getElementById("modalImgTrigger");
+    const productImgLightbox = document.getElementById("productImgLightbox");
+    const productImgLightboxImg = document.getElementById("productImgLightboxImg");
+    const productImgLightboxClose = document.getElementById("productImgLightboxClose");
     
     const aboutImageTrigger = document.getElementById("aboutImageTrigger");
     const pdfProfileModal = document.getElementById("pdfProfileModal");
@@ -1086,6 +1090,45 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             productsGrid.appendChild(card);
         });
+
+        revealProductCards();
+    }
+
+    /* ----------------------------------------------------------------------
+       PRODUCT CARD REVEAL — animasi masuk untuk kartu produk.
+       Dipicu oleh scroll (IntersectionObserver): begitu grid produk masuk
+       viewport (pertama kali di-scroll, atau langsung terlihat saat user
+       klik kategori sementara grid sudah berada di layar), kartu-kartu
+       muncul bertahap (stagger). Arah transisi diatur lewat CSS:
+       desktop dari atas ke bawah, mobile dari bawah ke atas.
+       ---------------------------------------------------------------------- */
+    function revealProductCards() {
+        const cards = productsGrid.querySelectorAll(".product-card");
+        if (!cards.length) return;
+
+        // Fallback untuk browser lama tanpa IntersectionObserver
+        if (!("IntersectionObserver" in window)) {
+            cards.forEach(c => c.classList.add("card-reveal", "is-visible"));
+            return;
+        }
+
+        const cardObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -60px 0px"
+        });
+
+        cards.forEach((card, index) => {
+            card.classList.add("card-reveal");
+            card.style.setProperty("--card-reveal-delay", `${Math.min(index * 0.07, 0.5)}s`);
+            cardObserver.observe(card);
+        });
     }
 
     // Trigger initial render
@@ -1148,7 +1191,13 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Show actual image instead of vector icons in modal body
         if (modalIcon) {
-            modalIcon.innerHTML = `<img src="${product.image}" alt="${product.name}" class="product-card-img" style="max-height: 100%; object-fit: contain;" onerror="this.onerror=null; this.src='assets/brand/logo.png';">`;
+            modalIcon.innerHTML = `<img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='assets/brand/logo.png';">`;
+        }
+
+        // Keep image + name on the trigger so the lightbox knows what to open
+        if (modalImgTrigger) {
+            modalImgTrigger.dataset.fullImg = product.image;
+            modalImgTrigger.dataset.fullAlt = product.name;
         }
         
         // Generate full technical table
@@ -1193,6 +1242,9 @@ document.addEventListener("DOMContentLoaded", () => {
             productModal.classList.remove("active");
             document.body.style.overflow = ""; // unlock page scrolling
         }
+        if (productImgLightbox) {
+            productImgLightbox.classList.remove("active");
+        }
     }
 
     if (modalClose) {
@@ -1202,6 +1254,44 @@ document.addEventListener("DOMContentLoaded", () => {
     if (productModal) {
         productModal.addEventListener("click", (e) => {
             if (e.target === productModal) closeModal();
+        });
+    }
+
+    /* ----------------------------------------------------------------------
+       PRODUCT IMAGE LIGHTBOX (opened from the square glass image inside modal)
+       ---------------------------------------------------------------------- */
+    function openProductImgLightbox() {
+        if (!modalImgTrigger || !productImgLightbox || !productImgLightboxImg) return;
+        const fullSrc = modalImgTrigger.dataset.fullImg;
+        if (!fullSrc) return;
+        productImgLightboxImg.src = fullSrc;
+        productImgLightboxImg.alt = modalImgTrigger.dataset.fullAlt || "";
+        productImgLightbox.classList.add("active");
+    }
+
+    function closeProductImgLightbox() {
+        if (productImgLightbox) productImgLightbox.classList.remove("active");
+    }
+
+    if (modalImgTrigger) {
+        modalImgTrigger.addEventListener("click", openProductImgLightbox);
+        modalImgTrigger.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openProductImgLightbox();
+            }
+        });
+    }
+
+    if (productImgLightboxClose) {
+        productImgLightboxClose.addEventListener("click", closeProductImgLightbox);
+    }
+
+    if (productImgLightbox) {
+        productImgLightbox.addEventListener("click", (e) => {
+            if (e.target === productImgLightbox || e.target.classList.contains("image-lightbox-stage")) {
+                closeProductImgLightbox();
+            }
         });
     }
 
@@ -1307,6 +1397,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (e.key === "Escape") closeLightbox();
             if (e.key === "ArrowLeft") navigateLightbox(-1);
             if (e.key === "ArrowRight") navigateLightbox(1);
+        }
+        if (productImgLightbox && productImgLightbox.classList.contains("active")) {
+            if (e.key === "Escape") closeProductImgLightbox();
+            return;
         }
         if (productModal && productModal.classList.contains("active")) {
             if (e.key === "Escape") closeModal();
