@@ -2645,7 +2645,7 @@ img {
    ========================================================================== */
 .footer {
     background-color: var(--bg-dark-section);
-    color: var(--text-gray);
+    color: var(--text-light);
 }
 
 .footer-top {
@@ -2745,12 +2745,14 @@ img {
 .footer-links a,
 .footer-products a {
     font-size: 14px;
-    color: var(--text-gray);
+    color: var(--text-light);
+    opacity: 0.85;
 }
 
 .footer-links a:hover,
 .footer-products a:hover {
     color: var(--text-light);
+    opacity: 1;
     padding-left: 6px;
 }
 
