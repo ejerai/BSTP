@@ -587,25 +587,40 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Mobile Navbar Toggle
+    // Mobile Navbar Toggle (drawer + backdrop overlay)
+    const navOverlay = document.getElementById("navOverlay");
+
+    function openMobileMenu() {
+        navMenu.classList.add("active");
+        navToggle.classList.add("active");
+        navToggle.setAttribute("aria-expanded", "true");
+        if (navOverlay) navOverlay.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeMobileMenu() {
+        navMenu.classList.remove("active");
+        navToggle.classList.remove("active");
+        navToggle.setAttribute("aria-expanded", "false");
+        if (navOverlay) navOverlay.classList.remove("active");
+        document.body.style.overflow = "";
+        // Close any open dropdown when closing menu
+        document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => d.classList.remove("dropdown-open"));
+    }
+
     if (navToggle && navMenu) {
         navToggle.addEventListener("click", () => {
-            navMenu.classList.toggle("active");
-            navToggle.classList.toggle("active");
-            
-            const bars = navToggle.querySelectorAll(".bar");
             if (navMenu.classList.contains("active")) {
-                bars[0].style.transform = "rotate(45deg) translate(6px, 6px)";
-                bars[1].style.opacity = "0";
-                bars[2].style.transform = "rotate(-45deg) translate(5px, -5px)";
+                closeMobileMenu();
             } else {
-                bars[0].style.transform = "none";
-                bars[1].style.opacity = "1";
-                bars[2].style.transform = "none";
-                // Close any open dropdown when closing menu
-                document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => d.classList.remove("dropdown-open"));
+                openMobileMenu();
             }
         });
+    }
+
+    // Tap outside (on the dimmed backdrop) closes the drawer
+    if (navOverlay) {
+        navOverlay.addEventListener("click", closeMobileMenu);
     }
 
     // Close menu when clicking nav item
@@ -617,14 +632,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            if (navMenu) navMenu.classList.remove("active");
-            
-            if (navToggle) {
-                const bars = navToggle.querySelectorAll(".bar");
-                bars[0].style.transform = "none";
-                bars[1].style.opacity = "1";
-                bars[2].style.transform = "none";
-            }
+            closeMobileMenu();
         });
     });
 
@@ -1235,6 +1243,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         if (productModal && productModal.classList.contains("active")) {
             if (e.key === "Escape") closeModal();
+        }
+        if (navMenu && navMenu.classList.contains("active")) {
+            if (e.key === "Escape") closeMobileMenu();
         }
     });
 
