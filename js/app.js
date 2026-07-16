@@ -402,6 +402,47 @@ const PRODUCT_DATA = [
    APP INITIALIZATION & CONTROLLERS
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
+    /* ----------------------------------------------------------------------
+       BODY SCROLL LOCK (dipakai oleh: drawer menu mobile, modal produk,
+       modal PDF, lightbox brosur, overlay sukses form)
+       ------------------------------------------------------------------------
+       Kenapa tidak cukup "document.body.style.overflow = 'hidden'" saja?
+       Di banyak browser mobile (terutama Safari iOS), overflow:hidden tidak
+       benar-benar mengunci scroll kalau halaman di baliknya panjang/tinggi —
+       body masih bisa "bocor" ke-scroll di belakang drawer/modal, sehingga
+       gesture scroll milik drawer malah rebutan sama scroll body. Ini kenapa
+       masalahnya paling kerasa di index.html (Beranda) yang paling panjang.
+       Solusinya: paksa body diam total dengan position:fixed sambil
+       menyimpan posisi scroll saat ini, lalu kembalikan posisinya saat
+       drawer/modal ditutup. Dihitung pakai counter supaya aman kalau ada
+       lebih dari satu overlay yang kebuka bersamaan. */
+    let scrollLockCount = 0;
+    let savedScrollY = 0;
+
+    function lockBodyScroll() {
+        if (scrollLockCount === 0) {
+            savedScrollY = window.scrollY;
+            document.body.style.position = "fixed";
+            document.body.style.top = `-${savedScrollY}px`;
+            document.body.style.left = "0";
+            document.body.style.right = "0";
+            document.body.style.width = "100%";
+        }
+        scrollLockCount++;
+    }
+
+    function unlockBodyScroll() {
+        scrollLockCount = Math.max(0, scrollLockCount - 1);
+        if (scrollLockCount === 0) {
+            document.body.style.position = "";
+            document.body.style.top = "";
+            document.body.style.left = "";
+            document.body.style.right = "";
+            document.body.style.width = "";
+            window.scrollTo(0, savedScrollY);
+        }
+    }
+
     // UI Elements
     const navbar = document.getElementById("navbar");
     const navToggle = document.getElementById("navToggle");
@@ -593,7 +634,7 @@ document.addEventListener("DOMContentLoaded", () => {
         navToggle.classList.add("active");
         navToggle.setAttribute("aria-expanded", "true");
         if (navOverlay) navOverlay.classList.add("active");
-        document.body.style.overflow = "hidden";
+        lockBodyScroll();
     }
 
     function closeMobileMenu() {
@@ -601,7 +642,7 @@ document.addEventListener("DOMContentLoaded", () => {
         navToggle.classList.remove("active");
         navToggle.setAttribute("aria-expanded", "false");
         if (navOverlay) navOverlay.classList.remove("active");
-        document.body.style.overflow = "";
+        unlockBodyScroll();
         // Close any open dropdown when closing menu
         document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => d.classList.remove("dropdown-open"));
     }
@@ -1070,14 +1111,14 @@ document.addEventListener("DOMContentLoaded", () => {
         // Open modal
         if (productModal) {
             productModal.classList.add("active");
-            document.body.style.overflow = "hidden"; // lock page scrolling
+            lockBodyScroll(); // lock page scrolling
         }
     };
 
     function closeModal() {
         if (productModal) {
             productModal.classList.remove("active");
-            document.body.style.overflow = ""; // unlock page scrolling
+            unlockBodyScroll(); // unlock page scrolling
         }
         if (productImgLightbox) {
             productImgLightbox.classList.remove("active");
@@ -1145,13 +1186,13 @@ document.addEventListener("DOMContentLoaded", () => {
             pdfLoaded = true;
         }
         pdfProfileModal.classList.add("active");
-        document.body.style.overflow = "hidden";
+        lockBodyScroll();
     }
 
     function closePdfModal() {
         if (!pdfProfileModal) return;
         pdfProfileModal.classList.remove("active");
-        document.body.style.overflow = "";
+        unlockBodyScroll();
     }
 
     if (aboutImageTrigger) {
@@ -1184,14 +1225,14 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (lightbox) {
             lightbox.classList.add("active");
-            document.body.style.overflow = "hidden";
+            lockBodyScroll();
         }
     }
 
     function closeLightbox() {
         if (lightbox) {
             lightbox.classList.remove("active");
-            document.body.style.overflow = "";
+            unlockBodyScroll();
         }
     }
 
@@ -1325,7 +1366,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Open Success Overlay
                 if (formSuccessOverlay) {
                     formSuccessOverlay.classList.add("active");
-                    document.body.style.overflow = "hidden";
+                    lockBodyScroll();
                 }
                 
                 // Reset form fields
@@ -1338,7 +1379,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (successCloseBtn) {
         successCloseBtn.addEventListener("click", () => {
             if (formSuccessOverlay) formSuccessOverlay.classList.remove("active");
-            document.body.style.overflow = "";
+            unlockBodyScroll();
         });
     }
     
@@ -1346,7 +1387,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formSuccessOverlay.addEventListener("click", (e) => {
             if (e.target === formSuccessOverlay) {
                 formSuccessOverlay.classList.remove("active");
-                document.body.style.overflow = "";
+                unlockBodyScroll();
             }
         });
     }
