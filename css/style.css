@@ -78,11 +78,19 @@ html {
    modal produk, modal PDF, lightbox, atau overlay sukses form terbuka.
    Sengaja TIDAK pakai position:fixed + top negatif (lihat komentar panjang
    di app.js) karena itu penyebab bug drawer nav tidak bisa discroll swipe
-   khusus di Beranda. */
+   khusus di Beranda.
+   touch-action & overscroll-behavior ditambahkan di sini karena keduanya
+   diselesaikan browser di compositor thread SEBELUM JS (preventDefault)
+   sempat jalan — ini yang benar-benar menentukan "gesture ini milik siapa"
+   di Chrome maupun Safari mobile, overflow:hidden saja tidak cukup kuat
+   untuk itu. .nav-menu tetap declare touch-action: pan-y supaya swipe
+   vertikal di dalam drawer tetap diizinkan walau html/body di-lock. */
 html.scroll-locked,
 body.scroll-locked {
     overflow: hidden;
     height: 100%;
+    touch-action: none;
+    overscroll-behavior: none;
 }
 
 body {

@@ -548,11 +548,20 @@ document.addEventListener("DOMContentLoaded", () => {
             if (window.scrollY > 50) {
                 navbar.classList.add("scrolled");
                 if (scrollTopBtn) scrollTopBtn.classList.add("active");
-                // Navbar tint saat scrolled kira-kira #142051 (lihat rgb(9 33 90 / 55%)
-                // ::before di atas warna --primary-dark). Chrome Android membaca
-                // perubahan meta theme-color ini secara live, jadi address bar-nya
-                // ikut berubah warna saat user scroll (beda dari iOS Safari 26+).
-                if (themeColorMeta) themeColorMeta.setAttribute("content", "#142051");
+                // #0e1934 = hasil "flatten" dua layer transparan navbar saat
+                // scrolled (::before rgb(9 33 90/55%) blur, ditambah navbar
+                // sendiri rgba(15,23,42,0.6)) di atas latar --primary-dark.
+                // Ini pendekatan paling mendekati, bukan 100% identik terus-
+                // menerus, karena navbar.scrolled itu KACA/BLUR sungguhan —
+                // warna aslinya ikut berubah tergantung section apa yang lagi
+                // discroll di baliknya. Chrome Android membaca perubahan meta
+                // theme-color ini secara live jadi address bar ikut berubah
+                // warna saat discroll. iOS Safari 26+ TIDAK bisa disamakan
+                // secara live dengan cara apapun dari kode — warnanya diambil
+                // sekali di render pertama dari elemen fixed/<body>, dan tidak
+                // update lagi walau CSS/JS berubah setelahnya (batasan OS,
+                // bukan bug di kode ini).
+                if (themeColorMeta) themeColorMeta.setAttribute("content", "#0e1934");
             } else {
                 navbar.classList.remove("scrolled");
                 if (scrollTopBtn) scrollTopBtn.classList.remove("active");
@@ -751,12 +760,38 @@ document.addEventListener("DOMContentLoaded", () => {
             // Paksa browser menghitung ulang tinggi area scroll drawer
             // setelah dropdown melebar/menyusut, supaya swipe langsung
             // dikenali sebagai scroll (bukan nunggu sampai animasi selesai).
+            // PENTING: dropdown butuh reflow DUA KALI —
+            //   1) langsung (rAF) untuk kasus umum,
+            //   2) SEKALI LAGI setelah transisi max-height-nya (.nav-dropdown-menu,
+            //      350ms) benar-benar selesai. Reflow yang cuma dipanggil di
+            //      langkah 1 terjadi SAAT dropdown baru mulai melebar dari 0px,
+            //      jadi browser sempat menghitung ulang scrollHeight drawer
+            //      pakai tinggi dropdown yang MASIH KECIL (belum expand penuh).
+            //      Ini yang bikin swipe di dalam drawer kadang tetap dianggap
+            //      "di luar area scroll" walau dropdown sudah kebuka penuh.
+            const forceNavMenuReflow = () => {
+                if (!navMenu) return;
+                navMenu.style.overflow = "hidden";
+                void navMenu.offsetHeight; // force reflow
+                navMenu.style.overflow = "";
+            };
+
             if (navMenu) {
-                requestAnimationFrame(() => {
-                    navMenu.style.overflow = "hidden";
-                    void navMenu.offsetHeight; // force reflow
-                    navMenu.style.overflow = "";
-                });
+                requestAnimationFrame(forceNavMenuReflow);
+
+                const dropdownMenuEl = dropdown.querySelector(".nav-dropdown-menu");
+                if (dropdownMenuEl) {
+                    const onExpandEnd = (ev) => {
+                        if (ev.target === dropdownMenuEl && ev.propertyName === "max-height") {
+                            forceNavMenuReflow();
+                            dropdownMenuEl.removeEventListener("transitionend", onExpandEnd);
+                        }
+                    };
+                    dropdownMenuEl.addEventListener("transitionend", onExpandEnd);
+                    // Jaring pengaman kalau transitionend tidak sempat terpicu
+                    // (mis. tab di-background-kan saat animasi jalan)
+                    setTimeout(forceNavMenuReflow, 400);
+                }
             }
         });
     });
