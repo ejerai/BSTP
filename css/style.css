@@ -67,6 +67,11 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px; /* offset for fixed navbar */
+    /* Fallback warna untuk area "karet" (overscroll bounce) di iOS/Android
+       saat halaman ditarik melewati batas atas/bawah. Setiap halaman selalu
+       diawali section gelap (.hero / .page-header) dan diakhiri .footer yang
+       juga gelap, jadi warna gelap ini konsisten di kedua ujung halaman. */
+    background-color: var(--primary-dark);
 }
 
 body {
@@ -74,7 +79,11 @@ body {
     font-size: 16px;
     line-height: 1.6;
     color: var(--text-dark);
-    background-color: var(--bg-white);
+    /* Sama seperti html di atas: dipakai browser (terutama Safari versi baru,
+       lihat komentar .navbar) sebagai warna acuan untuk address bar/status bar,
+       dan sebagai fallback warna overscroll. Section-section di dalam body
+       (putih/terang) tetap menutupi ini sepenuhnya secara visual. */
+    background-color: var(--primary-dark);
     overflow-x: hidden;
 }
 
@@ -265,6 +274,16 @@ img {
     z-index: 1000;
     padding: 20px 0;
     transition: var(--transition-normal);
+    /* PENTING untuk warna address bar (lihat komentar meta theme-color di head):
+       Safari versi baru (26+) sudah tidak membaca meta theme-color sama sekali.
+       Sebagai gantinya Safari mengambil warna address bar/status bar langsung
+       dari background-color elemen position:fixed yang menempel di tepi atas
+       viewport — dan itu persis elemen .navbar ini, dibaca sekali saat render
+       pertama halaman. Karena itu warnanya HARUS solid/opaque (bukan transparan)
+       sejak kondisi awal (belum di-scroll), bukan hanya saat .navbar.scrolled.
+       Nilainya sengaja disamakan dengan --primary-dark, warna hero/page-header
+       di baliknya, jadi tidak ada perubahan tampilan sama sekali secara visual. */
+    background-color: var(--primary-dark);
 }
 
 .navbar.scrolled {
@@ -1776,6 +1795,7 @@ img {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
     position: relative;
     box-shadow: var(--shadow-xl);
     transform: scale(0.94) translateY(10px);

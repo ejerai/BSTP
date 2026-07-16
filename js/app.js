@@ -419,6 +419,46 @@ document.addEventListener("DOMContentLoaded", () => {
     let scrollLockCount = 0;
     let savedScrollY = 0;
 
+    /* ------------------------------------------------------------------
+       FIX: drawer/modal ikut "macet" tidak bisa discroll di halaman
+       panjang (Beranda paling kerasa karena savedScrollY-nya besar).
+       ------------------------------------------------------------------
+       position:fixed di atas SUDAH cukup untuk mengunci body (mencegah
+       halaman di belakang ikut ke-scroll), TAPI itu tidak menjamin gesture
+       swipe di dalam drawer/modal sendiri selalu dikenali sebagai scroll
+       oleh browser. Beberapa mesin browser mobile bisa salah menghitung
+       area sentuh yang scrollable ketika ada elemen position:fixed
+       bersarang di dalam body yang JUGA position:fixed dengan offset
+       "top" negatif yang besar (persis kasus Beranda: halaman panjang →
+       savedScrollY besar). Efeknya: swipe di dalam drawer dianggap "di
+       luar area yang boleh discroll" dan browser diam saja.
+
+       Solusinya: kontrol gesture sentuh secara eksplisit lewat JS. Semua
+       elemen yang MEMANG harus tetap bisa discroll saat overlay terbuka
+       (drawer menu, isi modal produk, modal PDF, lightbox) ditandai
+       dengan attribute data-scroll-lock-allow. Saat lock aktif:
+         - swipe di DALAM elemen yang ditandai -> dibiarkan jalan normal
+           (browser yang urus, termasuk containment di batas atas/bawahnya
+           lewat CSS overscroll-behavior yang sudah ada).
+         - swipe di LUAR elemen itu (background halaman) -> preventDefault,
+           supaya tidak ada kemungkinan sama sekali gesture "bocor" ke body. */
+    function findScrollLockAllowedAncestor(el) {
+        while (el && el !== document.body && el.nodeType === 1) {
+            if (el.hasAttribute && el.hasAttribute("data-scroll-lock-allow")) {
+                return el;
+            }
+            el = el.parentElement;
+        }
+        return null;
+    }
+
+    function handleLockTouchMove(e) {
+        const scrollable = findScrollLockAllowedAncestor(e.target);
+        if (!scrollable) {
+            e.preventDefault();
+        }
+    }
+
     function lockBodyScroll() {
         if (scrollLockCount === 0) {
             savedScrollY = window.scrollY;
@@ -427,6 +467,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.style.left = "0";
             document.body.style.right = "0";
             document.body.style.width = "100%";
+            document.addEventListener("touchmove", handleLockTouchMove, { passive: false });
         }
         scrollLockCount++;
     }
@@ -434,6 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function unlockBodyScroll() {
         scrollLockCount = Math.max(0, scrollLockCount - 1);
         if (scrollLockCount === 0) {
+            document.removeEventListener("touchmove", handleLockTouchMove, { passive: false });
             document.body.style.position = "";
             document.body.style.top = "";
             document.body.style.left = "";
@@ -448,6 +490,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const navToggle = document.getElementById("navToggle");
     const navMenu = document.getElementById("navMenu");
     const navLinks = document.querySelectorAll(".nav-link");
+    // Drawer menu mobile harus tetap bisa discroll walau body sedang dikunci
+    // (lihat handleLockTouchMove di atas)
+    if (navMenu) navMenu.setAttribute("data-scroll-lock-allow", "");
     
     const searchInput = document.getElementById("searchInput");
     const clearSearch = document.getElementById("clearSearch");
@@ -456,6 +501,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const noResults = document.getElementById("noResults");
     
     const productModal = document.getElementById("productModal");
+    if (productModal) {
+        const productModalContent = productModal.querySelector(".modal-content");
+        if (productModalContent) productModalContent.setAttribute("data-scroll-lock-allow", "");
+    }
     const modalClose = document.getElementById("modalClose");
     const modalImgTrigger = document.getElementById("modalImgTrigger");
     const productImgLightbox = document.getElementById("productImgLightbox");
@@ -464,6 +513,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const aboutImageTrigger = document.getElementById("aboutImageTrigger");
     const pdfProfileModal = document.getElementById("pdfProfileModal");
+    if (pdfProfileModal) {
+        const pdfModalContent = pdfProfileModal.querySelector(".modal-content");
+        if (pdfModalContent) pdfModalContent.setAttribute("data-scroll-lock-allow", "");
+    }
     const pdfModalClose = document.getElementById("pdfModalClose");
     const pdfViewerFrame = document.getElementById("pdfViewerFrame");
     const PDF_PROFILE_PATH = "assets/KATALOG.pdf";
@@ -698,6 +751,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!isOpen) {
                 dropdown.classList.add("dropdown-open");
+            }
+
+            // Paksa browser menghitung ulang tinggi area scroll drawer
+            // setelah dropdown melebar/menyusut, supaya swipe langsung
+            // dikenali sebagai scroll (bukan nunggu sampai animasi selesai).
+            if (navMenu) {
+                requestAnimationFrame(() => {
+                    navMenu.style.overflow = "hidden";
+                    void navMenu.offsetHeight; // force reflow
+                    navMenu.style.overflow = "";
+                });
             }
         });
     });

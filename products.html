@@ -2,9 +2,13 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <!-- Browser UI color (address bar Android, status bar iOS PWA) -->
+    <!-- Safari 26+ (Liquid Glass) sudah tidak lagi membaca meta theme-color ini;
+         Safari sekarang mengambil warna langsung dari background-color elemen
+         position:fixed di tepi viewport (lihat .navbar & body di style.css).
+         Meta tag ini tetap dipertahankan untuk Chrome Android & Safari versi lama. -->
     <meta name="theme-color" content="#020617">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Etalase Produk | PT. Bintang Surya Teknik Persada</title>
