@@ -664,7 +664,7 @@ img {
 
 .hero-subtitle {
     font-size: 18px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-light);
     margin-bottom: 36px;
     font-weight: 300;
 }
@@ -2575,7 +2575,7 @@ img {
     margin: 0 auto;
     padding: 0 24px;
     display: grid;
-    grid-template-columns: 1.5fr 0.8fr 1fr 1fr;
+    grid-template-columns: 1.4fr 0.8fr 1.3fr 1fr;
     gap: 40px;
 }
 
@@ -2648,9 +2648,15 @@ img {
     background-color: var(--accent);
 }
 
+.footer-products ul {
+    column-count: 2;
+    column-gap: 16px;
+}
+
 .footer-links li,
 .footer-products li {
     margin-bottom: 12px;
+    break-inside: avoid;
 }
 
 .footer-links a,
