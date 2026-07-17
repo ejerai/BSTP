@@ -557,30 +557,21 @@ document.addEventListener("DOMContentLoaded", () => {
        ---------------------------------------------------------------------- */
     // Scroll event for shrinking & coloring navbar
     if (navbar) {
-        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        // #0e1934 = hasil "flatten" dua layer transparan navbar saat scrolled
+        // (::before rgb(9 33 90/55%) blur, ditambah navbar sendiri
+        // rgba(15,23,42,0.6)) di atas latar --primary-dark. Address bar
+        // sengaja DIKUNCI ke warna ini terus-menerus (tidak ikut berubah
+        // balik ke --primary-dark saat di posisi paling atas), supaya
+        // warnanya konsisten di semua browser termasuk iOS Safari 26+ yang
+        // cuma membaca meta theme-color sekali di render pertama.
 
         const updateNavbarScrollState = () => {
             if (window.scrollY > 50) {
                 navbar.classList.add("scrolled");
                 if (scrollTopBtn) scrollTopBtn.classList.add("active");
-                // #0e1934 = hasil "flatten" dua layer transparan navbar saat
-                // scrolled (::before rgb(9 33 90/55%) blur, ditambah navbar
-                // sendiri rgba(15,23,42,0.6)) di atas latar --primary-dark.
-                // Ini pendekatan paling mendekati, bukan 100% identik terus-
-                // menerus, karena navbar.scrolled itu KACA/BLUR sungguhan —
-                // warna aslinya ikut berubah tergantung section apa yang lagi
-                // discroll di baliknya. Chrome Android membaca perubahan meta
-                // theme-color ini secara live jadi address bar ikut berubah
-                // warna saat discroll. iOS Safari 26+ TIDAK bisa disamakan
-                // secara live dengan cara apapun dari kode — warnanya diambil
-                // sekali di render pertama dari elemen fixed/<body>, dan tidak
-                // update lagi walau CSS/JS berubah setelahnya (batasan OS,
-                // bukan bug di kode ini).
-                if (themeColorMeta) themeColorMeta.setAttribute("content", "#0e1934");
             } else {
                 navbar.classList.remove("scrolled");
                 if (scrollTopBtn) scrollTopBtn.classList.remove("active");
-                if (themeColorMeta) themeColorMeta.setAttribute("content", "#020617");
             }
         };
 
@@ -637,25 +628,41 @@ document.addEventListener("DOMContentLoaded", () => {
             ".method-item", ".catalog-card"
         ].join(", ");
 
+        // Elemen yang SUDAH kelihatan di layar sejak halaman baru dibuka
+        // (belum sempat discroll) TIDAK usah dikasih animasi reveal ini.
+        // Kalau tetap dikasih, dia bakal langsung dianggap "masuk viewport"
+        // begitu IntersectionObserver jalan, terus mainin animasi fade+slide-
+        // nya sendiri — bertumpuk sama animasi cross-fade dari native
+        // View Transition (lihat @view-transition di style.css) yang sudah
+        // jalan duluan waktu halaman ini baru muncul. Efeknya jadi keliatan
+        // "transisi dobel" di judul halaman. Reveal ini cukup dipakai buat
+        // elemen yang baru muncul pas user beneran scroll ke bawah.
+        const isInInitialViewport = (el) => {
+            const rect = el.getBoundingClientRect();
+            return rect.top < window.innerHeight && rect.bottom > 0;
+        };
+
         revealSections.forEach(section => {
-            // Class "reveal-section" (opacity+translateY) SENGAJA ditempel
-            // ke wrapper ".container" di dalam section, BUKAN ke <section>
+            // Class "reveal-section" (opacity+translateY) ditempel ke
+            // wrapper ".container" di dalam section, BUKAN ke <section>
             // itu sendiri. <section> menyimpan background-color solid
             // (bg-white/bg-light) yang menutupi warna body (--primary-dark)
             // di baliknya — kalau <section>-nya sendiri yang di-transform/
             // opacity, kotak itu ikut tergeser/transparan sesaat dan celah
-            // di posisi aslinya menampakkan warna gelap body (bug "patah-
-            // patah gelap" waktu scroll). Dengan menganimasikan ".container"
-            // saja, <section> tetap diam & background solidnya tetap 100%
-            // menutupi area itu sepanjang waktu; yang slide+fade cuma
-            // konten di dalamnya. Section tanpa ".container" langsung
-            // (mis. .hero/.page-header) fallback ke section itu sendiri —
-            // aman karena keduanya sama-sama gelap seperti body.
+            // di posisi aslinya menampakkan warna gelap body. Dengan
+            // menganimasikan ".container" saja, <section> tetap diam &
+            // background solidnya tetap 100% menutupi area itu sepanjang
+            // waktu. Section tanpa ".container" langsung (mis. .hero/
+            // .page-header) fallback ke section itu sendiri — aman karena
+            // keduanya sama-sama gelap seperti body.
             const revealTarget = section.querySelector(":scope > .container") || section;
-            revealTarget.classList.add("reveal-section");
+            if (!isInInitialViewport(revealTarget)) {
+                revealTarget.classList.add("reveal-section");
+            }
 
             const items = section.querySelectorAll(staggerSelector);
             items.forEach((item, index) => {
+                if (isInInitialViewport(item)) return;
                 item.classList.add("reveal-item");
                 // Delay bertahap, dibatasi maksimal 0.5s biar tidak lambat
                 item.style.setProperty("--reveal-delay", `${Math.min(index * 0.08, 0.5)}s`);
