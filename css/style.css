@@ -1,5 +1,5 @@
 /* bstp css */
-:root { 
+:root {
     /* Color Palette */
     --primary: #0f172a;       /* Deep Slate */
     --primary-light: #1e293b; /* Medium Slate */
@@ -102,7 +102,7 @@ body {
        lihat komentar .navbar) sebagai warna acuan untuk address bar/status bar,
        dan sebagai fallback warna overscroll. Section-section di dalam body
        (putih/terang) tetap menutupi ini sepenuhnya secara visual. */
-    background-color: #ffffff;
+    background-color: var(--primary-dark);
     overflow-x: hidden;
 }
 
@@ -2906,11 +2906,28 @@ img {
         visibility: visible;
     }
 
-    /* Full-screen dark drawer, slides in from the right */
+    /* ======================================================================
+       MOBILE DRAWER — redesign
+       ----------------------------------------------------------------------
+       Desain baru sengaja tidak lagi memakai transisi "max-height" untuk
+       expand/collapse dropdown Etalase Produk (lihat versi lama di git
+       history). max-height yang dianimasikan mengubah tinggi konten SAAT
+       animasi berjalan, dan itu akar masalah drawer tidak bisa discroll
+       swipe khusus di halaman panjang seperti Beranda — browser sempat
+       "salah hitung" area scroll drawer di tengah animasi.
+
+       Sekarang: drawer utama & panel Etalase Produk masing-masing adalah
+       layer FULL-SCREEN terpisah (bukan konten yang melebar di tempat),
+       keduanya sudah overflow-y:auto dengan tinggi 100dvh SEJAK AWAL
+       (tidak pernah berubah tinggi), dan transisi berpindah cuma pakai
+       transform (translateX) yang murni urusan compositor — tidak pernah
+       memicu layout reflow ataupun mengubah scrollHeight, sehingga swipe
+       konsisten dikenali sebagai scroll baik di halaman panjang maupun
+       pendek, dan di Chrome maupun Safari mobile. ====================== */
     .nav-menu {
         position: fixed;
         top: 0;
-        right: 0;
+        right: -100%;
         left: auto;
         width: 100%;
         max-width: 100%;
@@ -2918,27 +2935,31 @@ img {
         height: 100dvh;
         background-color: var(--primary-dark);
         background-image:
-            radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.18), transparent 55%),
-            radial-gradient(circle at 0% 100%, rgba(217, 6, 6, 0.14), transparent 55%);
+            radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.14), transparent 55%),
+            radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.08), transparent 55%);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
         flex-direction: column;
         align-items: stretch;
         gap: 0;
         padding: 0;
-        padding-bottom: env(safe-area-inset-bottom, 0);
-        transform: translateX(100%);
-        transition: transform 0.55s var(--ease);
-        will-change: transform;
+        /* PENTING: sengaja animasi lewat `right`, BUKAN transform.
+           .nav-dropdown-menu (panel Etalase Produk) posisinya fixed dan
+           bersarang di DALAM .nav-menu ini. Kalau .nav-menu punya transform
+           apapun (termasuk translateX(0) yang "netral"), itu otomatis
+           membuat containing block baru untuk descendant position:fixed —
+           akibatnya .nav-dropdown-menu jadi menempel ke kotak .nav-menu,
+           BUKAN ke viewport sungguhan, dan tampilannya jadi salah posisi/
+           salah ukuran. Pakai `right` menghindari masalah itu sepenuhnya. */
+        transition: right 0.5s var(--ease);
+        will-change: right;
         z-index: 1001;
         border-top: none;
         border-radius: 0;
         box-shadow: var(--shadow-xl);
         /* Cegah "scroll chaining": tanpa ini, begitu drawer mencapai batas
            scroll-nya sendiri, browser mobile bisa melanjutkan gesture itu
-           ke halaman di baliknya. Di halaman panjang (seperti Beranda),
-           efeknya kerasa banget: scroll drawer jadi "rebutan" sama scroll
-           halaman asli dan terasa berat/macet. */
+           ke halaman di baliknya. */
         touch-action: pan-y;
         overscroll-behavior-y: contain;
         -webkit-overflow-scrolling: touch;
@@ -2946,7 +2967,7 @@ img {
     }
 
     .nav-menu.active {
-        transform: translateX(0);
+        right: 0;
     }
 
     .navbar.scrolled .nav-menu {
@@ -2959,25 +2980,23 @@ img {
     /* Staggered entrance for each row once the drawer is open */
     .nav-menu > li {
         opacity: 0;
-        transform: translateX(28px);
     }
 
     .nav-menu.active > li {
-        animation: navItemIn 0.5s var(--ease) forwards;
+        animation: navItemIn 0.45s var(--ease) forwards;
     }
 
-    .nav-menu.active > li:nth-child(1) { animation-delay: 0.06s; }
-    .nav-menu.active > li:nth-child(2) { animation-delay: 0.12s; }
-    .nav-menu.active > li:nth-child(3) { animation-delay: 0.17s; }
-    .nav-menu.active > li:nth-child(4) { animation-delay: 0.22s; }
-    .nav-menu.active > li:nth-child(5) { animation-delay: 0.27s; }
-    .nav-menu.active > li:nth-child(6) { animation-delay: 0.32s; }
-    .nav-menu.active > li:nth-child(7) { animation-delay: 0.37s; }
+    .nav-menu.active > li:nth-child(1) { animation-delay: 0.05s; }
+    .nav-menu.active > li:nth-child(2) { animation-delay: 0.1s; }
+    .nav-menu.active > li:nth-child(3) { animation-delay: 0.15s; }
+    .nav-menu.active > li:nth-child(4) { animation-delay: 0.2s; }
+    .nav-menu.active > li:nth-child(5) { animation-delay: 0.25s; }
+    .nav-menu.active > li:nth-child(6) { animation-delay: 0.3s; }
+    .nav-menu.active > li:nth-child(7) { animation-delay: 0.35s; }
 
     @keyframes navItemIn {
         to {
             opacity: 1;
-            transform: translateX(0);
         }
     }
 
@@ -2988,7 +3007,8 @@ img {
             opacity: 1;
             transform: none;
         }
-        .nav-menu {
+        .nav-menu,
+        .nav-dropdown-menu {
             transition: none;
         }
     }
@@ -2998,7 +3018,7 @@ img {
         display: flex !important;
         align-items: center;
         gap: 12px;
-        padding: 24px 20px;
+        padding: 22px 20px;
         background-color: var(--primary-dark);
         background-image: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
         flex-shrink: 0;
@@ -3013,7 +3033,7 @@ img {
     }
 
     .nav-menu-header-logo {
-        height: 34px;
+        height: 32px;
         width: auto;
         object-fit: contain;
         border-radius: 8px;
@@ -3028,48 +3048,62 @@ img {
     .nav-menu-header-main {
         font-family: var(--font-primary);
         font-weight: 800;
-        font-size: 15px;
+        font-size: 14px;
         color: var(--text-light);
-        letter-spacing: 1px;
+        letter-spacing: 0.8px;
     }
 
     .nav-menu-header-sub {
-        font-size: 9px;
-        color: #bbbec1;
+        font-size: 8.5px;
+        color: #9aa0a6;
         letter-spacing: 0.4px;
         text-transform: uppercase;
         font-weight: 600;
         margin-top: 3px;
     }
 
-    .nav-menu-links {
-        display: flex;
-        flex-direction: column;
-        padding: 6px 0;
-        flex: 1;
-    }
-
     .nav-menu > li {
         width: 100%;
     }
 
-    /* SVG icon badge shown before the link label (mobile only) */
+    /* Modern rounded "card row" style, softer & less saturated than the
+       previous full-bleed bordered rows. */
+    .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        width: calc(100% - 24px);
+        margin: 3px 12px;
+        padding: 13px 14px;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 14px;
+        border: 1px solid transparent;
+        background-color: transparent;
+        transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
+    }
+
+    .nav-menu-header + li .nav-link {
+        margin-top: 12px;
+    }
+
     .nav-link-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
         flex-shrink: 0;
         border-radius: 10px;
-        background: rgba(255, 255, 255, 0.06);
-        color: rgba(255, 255, 255, 0.65);
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.55);
         transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     .nav-link-icon svg {
-        width: 18px;
-        height: 18px;
+        width: 17px;
+        height: 17px;
     }
 
     .nav-link-text {
@@ -3077,49 +3111,40 @@ img {
     }
 
     .nav-link-arrow {
-        width: 15px;
-        height: 15px;
+        width: 14px;
+        height: 14px;
         flex-shrink: 0;
-        color: rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.25);
         transition: transform 0.25s ease, color 0.25s ease;
     }
 
-    /* Row-style links, like a list menu */
-    .nav-link {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        width: 100%;
-        padding: 15px 20px;
-        color: rgba(255, 255, 255, 0.85);
-        font-size: 14.5px;
-        font-weight: 600;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        transition: border-color 0.3s ease, color 0.25s ease, background-color 0.25s ease;
+    .nav-link::after {
+        display: none;
     }
 
     .nav-link:hover,
     .nav-link.active {
         color: var(--text-light);
-        background-color: rgba(255, 255, 255, 0.04);
+        background-color: rgba(37, 99, 235, 0.1);
+        border-color: rgba(37, 99, 235, 0.22);
     }
 
     .nav-link:hover .nav-link-icon,
     .nav-link.active .nav-link-icon {
-        background: var(--accent);
+        background: rgba(37, 99, 235, 0.85);
         color: var(--text-light);
     }
 
     .nav-link:hover .nav-link-arrow,
     .nav-link.active .nav-link-arrow {
-        color: var(--accent);
+        color: var(--secondary);
         transform: translateX(3px);
     }
 
     .nav-cta-item {
         width: 100%;
-        margin-top: 0;
-        padding: 18px 20px;
+        margin-top: 8px;
+        padding: 12px 12px calc(20px + env(safe-area-inset-bottom, 0px));
     }
 
     .nav-cta {
@@ -3128,24 +3153,22 @@ img {
         padding: 13px;
     }
 
-    /* Mobile dropdown: disable hover, use tap toggle instead */
+    /* Dropdown trigger row shares the same card look as a regular link */
     .nav-dropdown:hover .nav-dropdown-menu {
-        opacity: 0;
+        opacity: 1;
         visibility: hidden;
         pointer-events: none;
-        transform: translateX(-50%) translateY(-8px);
+        transform: translateX(100%);
     }
 
     .nav-dropdown {
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
+        z-index: 5;
+        isolation: isolate;
     }
 
     .nav-dropdown-trigger {
         position: relative;
-        width: 100%;
         justify-content: space-between;
     }
 
@@ -3160,46 +3183,66 @@ img {
         position: static;
         transform: none;
         transition: transform 0.3s ease, color 0.25s ease;
-        color: rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 0.3);
         flex-shrink: 0;
     }
 
     .nav-dropdown-trigger .nav-chevron svg {
-        width: 16px;
-        height: 16px;
+        width: 15px;
+        height: 15px;
     }
 
     .nav-dropdown.dropdown-open .nav-dropdown-trigger .nav-chevron {
-        transform: rotate(180deg);
-        color: var(--accent);
+        transform: rotate(-90deg);
+        color: var(--secondary);
     }
 
     .nav-dropdown:hover .nav-chevron {
         transform: none;
-        color: rgba(255, 255, 255, 0.4);
+        color: rgba(255, 255, 255, 0.3);
     }
 
-    .nav-dropdown.dropdown-open .nav-dropdown-trigger {
-        border-bottom-color: transparent;
-    }
-
+    /* ----------------------------------------------------------------------
+       ETALASE PRODUK — full-screen slide-over panel (bukan accordion lagi)
+       ---------------------------------------------------------------------- */
     .nav-dropdown-menu {
-        position: static;
-        transform: none;
-        width: auto;
+        position: fixed;
+        inset: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
         min-width: 0;
-        border-radius: 14px;
-        margin-top: 0;
-        padding: 0 14px;
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
+        height: 100vh;
+        height: 100dvh;
+        max-height: none;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        border: none;
+        background-color: var(--primary-dark);
+        background-image:
+            radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.14), transparent 55%),
+            radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.08), transparent 55%);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+        opacity: 1;
         visibility: hidden;
         pointer-events: none;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: none;
-        transition: max-height 0.35s ease, opacity 0.3s ease, visibility 0.3s, margin 0.3s ease, padding 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform 0.45s var(--ease), visibility 0.45s var(--ease);
+        will-change: transform;
+        z-index: 1002;
+        /* Sama seperti .nav-menu: sudah overflow-y:auto & tinggi tetap
+           sejak awal, transisi cuma transform — jadi swipe langsung
+           dikenali sebagai scroll tanpa perlu nunggu animasi selesai. */
+        touch-action: pan-y;
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
     }
 
     .nav-dropdown-menu::before {
@@ -3207,15 +3250,48 @@ img {
     }
 
     .nav-dropdown.dropdown-open .nav-dropdown-menu {
-        max-height: 900px;
-        opacity: 1;
+        transform: translateX(0);
         visibility: visible;
         pointer-events: auto;
-        transform: none;
-        margin: 0 14px 12px;
-        padding: 14px;
-        border: solid 1px rgb(0 0 0 / 0%);
-        background: transparent;
+    }
+
+    /* Back button + title header of the sub-panel, mirrors .nav-menu-header
+       so switching panels feels like one continuous drawer, not a popup */
+    .nav-subpanel-back {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 22px 20px;
+        background-color: var(--primary-dark);
+        background-image: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--text-light);
+        font-family: var(--font-primary);
+        font-weight: 700;
+        font-size: 14.5px;
+        letter-spacing: 0.2px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .nav-subpanel-back svg {
+        width: 19px;
+        height: 19px;
+        flex-shrink: 0;
+        color: rgba(255, 255, 255, 0.6);
+        transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    .nav-subpanel-back:hover svg {
+        transform: translateX(-3px);
+        color: var(--text-light);
+    }
+
+    .nav-subpanel-body {
+        padding: 16px 14px 24px;
+        flex: 1;
     }
 
     .dropdown-categories-grid {
@@ -3231,8 +3307,8 @@ img {
         font-size: 12px;
         font-weight: 600;
         padding: 11px 10px;
-        color: rgba(255, 255, 255, 0.85);
-        background: rgba(255, 255, 255, 0.045);
+        color: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.07);
         border-radius: 12px;
         transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -3246,8 +3322,8 @@ img {
         height: 28px;
         flex-shrink: 0;
         border-radius: 8px;
-        background: rgba(37, 99, 235, 0.16);
-        color: #60a5fa;
+        background: rgba(37, 99, 235, 0.14);
+        color: #7fa8f5;
         font-size: 12px;
         transition: background-color 0.2s ease, color 0.2s ease;
     }
@@ -3261,8 +3337,8 @@ img {
 
     .dropdown-cat-item:hover,
     .dropdown-cat-item:focus-visible {
-        background: rgba(37, 99, 235, 0.16);
-        border-color: rgba(37, 99, 235, 0.4);
+        background: rgba(37, 99, 235, 0.14);
+        border-color: rgba(37, 99, 235, 0.35);
         color: var(--text-light);
     }
 
@@ -3274,12 +3350,14 @@ img {
 
     .dropdown-divider {
         border-top-color: rgba(255, 255, 255, 0.08);
+        margin: 14px 0;
     }
 
     .dropdown-view-all {
-        background: rgba(217, 6, 6, 0.14);
-        color: #ff8a8a;
+        background: rgba(37, 99, 235, 0.12);
+        color: #8fb4f7;
     }
+    
     
     /* Stats box grid */
     .stats-container {
@@ -3498,6 +3576,14 @@ img {
    SCROLL REVEAL — section muncul dari bawah ke atas saat discroll
    ========================================================================== */
 .reveal-section {
+    /* PENTING: class ini SEKARANG ditempel oleh app.js ke wrapper
+       ".container" DI DALAM <section>, bukan ke <section> itu sendiri.
+       <section> menyimpan background-color solid (bg-white/bg-light) dan
+       harus selalu diam & 100% ter-render penuh di posisi aslinya —
+       supaya tidak ada celah yang menampakkan warna body (--primary-dark)
+       di baliknya saat elemen ini digeser translateY. Yang slide+fade
+       cukup kontennya (.container), section pembungkusnya tetap statis
+       jadi baground-nya selalu menutupi area itu secara utuh. */
     opacity: 0;
     transform: translateY(48px);
     transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),

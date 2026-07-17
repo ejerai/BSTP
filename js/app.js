@@ -422,15 +422,24 @@ document.addEventListener("DOMContentLoaded", () => {
        menentukan area scrollable-nya SEBELUM touch event itu sendiri
        diproses.
 
-       FIX: tidak lagi memindahkan body sama sekali. Body dikunci cukup
-       dengan overflow:hidden (via class) di <html> & <body> — modern
-       browser (termasuk Safari/iOS versi sekarang) sudah cukup andal soal
-       ini, tanpa perlu trik position:fixed + offset negatif yang jadi
-       sumber bug di atas. Karena body tidak pernah dipindah, posisi
-       scroll otomatis tetap sama saat overlay ditutup (tidak perlu
-       window.scrollTo manual lagi). Dihitung pakai counter supaya aman
-       kalau ada lebih dari satu overlay yang kebuka bersamaan. */
+       FIX: tidak lagi memindahkan body sama sekali (posisi TETAP position:
+       static, tidak ada position:fixed + top:-scrollYpx). Body dikunci
+       cukup dengan overflow:hidden (via class) di <html> & <body> — ini
+       yang menghindari bug touch-scroll bersarang di atas.
+
+       TAPI: overflow:hidden pada <html> (root scroller dokumen) TERNYATA
+       tidak selalu mempertahankan scrollTop dengan andal saat di-toggle —
+       beberapa browser "lupa" posisi scroll-nya begitu overflow dikunci,
+       jadi saat dibuka lagi halaman kembali ke posisi paling atas (bug
+       "balik ke atas sendiri" yang dilaporkan). Makanya posisi scroll
+       tetap perlu disimpan & dikembalikan manual lewat JS — bedanya
+       dengan trik lama, di sini body TIDAK PERNAH dipindah posisinya
+       (tidak position:fixed), cuma window.scrollY-nya saja yang dicatat
+       lalu dikembalikan instan (bukan animasi 'smooth') pas overlay
+       ditutup. Dihitung pakai counter supaya aman kalau ada lebih dari
+       satu overlay yang kebuka bersamaan. */
     let scrollLockCount = 0;
+    let savedScrollY = 0;
 
     /* Lapisan pengaman tambahan: cegah "scroll chaining" (swipe di
        background yang bocor scroll ke body) memakai touchmove listener,
@@ -456,6 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function lockBodyScroll() {
         if (scrollLockCount === 0) {
+            savedScrollY = window.scrollY;
             document.documentElement.classList.add("scroll-locked");
             document.body.classList.add("scroll-locked");
             document.addEventListener("touchmove", handleLockTouchMove, { passive: false });
@@ -469,6 +479,11 @@ document.addEventListener("DOMContentLoaded", () => {
             document.removeEventListener("touchmove", handleLockTouchMove, { passive: false });
             document.documentElement.classList.remove("scroll-locked");
             document.body.classList.remove("scroll-locked");
+            // "instant" supaya bukan animasi smooth-scroll kelihatan (html
+            // punya scroll-behavior:smooth secara global) — ini cuma
+            // mengembalikan posisi yang sempat "dilupakan" browser, bukan
+            // scroll baru yang perlu dianimasikan.
+            window.scrollTo({ top: savedScrollY, left: 0, behavior: "instant" });
         }
     }
 
@@ -623,7 +638,21 @@ document.addEventListener("DOMContentLoaded", () => {
         ].join(", ");
 
         revealSections.forEach(section => {
-            section.classList.add("reveal-section");
+            // Class "reveal-section" (opacity+translateY) SENGAJA ditempel
+            // ke wrapper ".container" di dalam section, BUKAN ke <section>
+            // itu sendiri. <section> menyimpan background-color solid
+            // (bg-white/bg-light) yang menutupi warna body (--primary-dark)
+            // di baliknya — kalau <section>-nya sendiri yang di-transform/
+            // opacity, kotak itu ikut tergeser/transparan sesaat dan celah
+            // di posisi aslinya menampakkan warna gelap body (bug "patah-
+            // patah gelap" waktu scroll). Dengan menganimasikan ".container"
+            // saja, <section> tetap diam & background solidnya tetap 100%
+            // menutupi area itu sepanjang waktu; yang slide+fade cuma
+            // konten di dalamnya. Section tanpa ".container" langsung
+            // (mis. .hero/.page-header) fallback ke section itu sendiri —
+            // aman karena keduanya sama-sama gelap seperti body.
+            const revealTarget = section.querySelector(":scope > .container") || section;
+            revealTarget.classList.add("reveal-section");
 
             const items = section.querySelectorAll(staggerSelector);
             items.forEach((item, index) => {
@@ -734,7 +763,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ----------------------------------------------------------------------
        NAVBAR DROPDOWN — Mobile tap toggle
-       ---------------------------------------------------------------------- */
+       ----------------------------------------------------------------------
+       Etalase Produk sekarang tampil sebagai panel full-screen terpisah
+       yang cuma dianimasikan pakai transform (slide dari kanan), bukan
+       accordion max-height lagi — jadi tidak perlu lagi trik "force reflow"
+       yang dulu dipakai buat mengakali timing animasi tinggi konten. */
     const navDropdowns = document.querySelectorAll(".nav-dropdown");
 
     navDropdowns.forEach(dropdown => {
@@ -744,7 +777,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // On mobile (touch devices): tap trigger toggles dropdown open/close
         trigger.addEventListener("click", (e) => {
             // Only intercept on mobile (when nav-toggle is visible)
-            const isMobileMenu = window.getComputedStyle(navToggle || document.createElement("div")).display !== "none";
             if (!navToggle || window.getComputedStyle(navToggle).display === "none") return;
 
             e.preventDefault(); // prevent navigation on tap
@@ -756,44 +788,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!isOpen) {
                 dropdown.classList.add("dropdown-open");
             }
-
-            // Paksa browser menghitung ulang tinggi area scroll drawer
-            // setelah dropdown melebar/menyusut, supaya swipe langsung
-            // dikenali sebagai scroll (bukan nunggu sampai animasi selesai).
-            // PENTING: dropdown butuh reflow DUA KALI —
-            //   1) langsung (rAF) untuk kasus umum,
-            //   2) SEKALI LAGI setelah transisi max-height-nya (.nav-dropdown-menu,
-            //      350ms) benar-benar selesai. Reflow yang cuma dipanggil di
-            //      langkah 1 terjadi SAAT dropdown baru mulai melebar dari 0px,
-            //      jadi browser sempat menghitung ulang scrollHeight drawer
-            //      pakai tinggi dropdown yang MASIH KECIL (belum expand penuh).
-            //      Ini yang bikin swipe di dalam drawer kadang tetap dianggap
-            //      "di luar area scroll" walau dropdown sudah kebuka penuh.
-            const forceNavMenuReflow = () => {
-                if (!navMenu) return;
-                navMenu.style.overflow = "hidden";
-                void navMenu.offsetHeight; // force reflow
-                navMenu.style.overflow = "";
-            };
-
-            if (navMenu) {
-                requestAnimationFrame(forceNavMenuReflow);
-
-                const dropdownMenuEl = dropdown.querySelector(".nav-dropdown-menu");
-                if (dropdownMenuEl) {
-                    const onExpandEnd = (ev) => {
-                        if (ev.target === dropdownMenuEl && ev.propertyName === "max-height") {
-                            forceNavMenuReflow();
-                            dropdownMenuEl.removeEventListener("transitionend", onExpandEnd);
-                        }
-                    };
-                    dropdownMenuEl.addEventListener("transitionend", onExpandEnd);
-                    // Jaring pengaman kalau transitionend tidak sempat terpicu
-                    // (mis. tab di-background-kan saat animasi jalan)
-                    setTimeout(forceNavMenuReflow, 400);
-                }
-            }
         });
+
+        // Tombol "back" di header panel Etalase Produk -> kembali ke list utama
+        const backBtn = dropdown.querySelector("[data-dropdown-back]");
+        if (backBtn) {
+            backBtn.addEventListener("click", () => {
+                dropdown.classList.remove("dropdown-open");
+            });
+        }
     });
 
     // Close dropdown when clicking outside (desktop)
