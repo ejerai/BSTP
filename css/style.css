@@ -102,7 +102,7 @@ body {
        lihat komentar .navbar) sebagai warna acuan untuk address bar/status bar,
        dan sebagai fallback warna overscroll. Section-section di dalam body
        (putih/terang) tetap menutupi ini sepenuhnya secara visual. */
-    background-color: var(--primary-dark);
+    background-color: #ffffff;
     overflow-x: hidden;
 }
 
