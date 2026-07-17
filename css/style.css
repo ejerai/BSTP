@@ -1,4 +1,21 @@
 /* bstp css */
+
+/* ==========================================================================
+   CROSS-DOCUMENT VIEW TRANSITIONS
+   Situs ini multi-halaman (tiap link = reload dokumen baru, bukan SPA).
+   Tanpa ini, browser membuang tampilan halaman lama lalu blank putih
+   sampai halaman baru selesai di-parse & dicat — itu penyebab bug
+   "stak/blank sebentar" waktu pindah halaman.
+   Dengan @view-transition, Chrome (127+) & Edge akan MEMBEKUKAN screenshot
+   halaman lama di layar, menunggu halaman baru siap di belakang layar,
+   baru cross-fade ke halaman baru — jadi tidak ada lagi jeda blank.
+   Aman ditambahkan untuk semua browser: browser yang belum support
+   (Safari, Firefox) otomatis abaikan rule ini dan kembali ke perilaku
+   reload biasa (progressive enhancement, tidak butuh JS/polyfill). */
+@view-transition {
+    navigation: auto;
+}
+
 :root {
     /* Color Palette */
     --primary: #0f172a;       /* Deep Slate */
