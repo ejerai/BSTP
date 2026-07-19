@@ -320,9 +320,9 @@ img {
 }
 
 .navbar.scrolled {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 100%, rgba(15, 23, 42, 0.6) 100%);
+    background: #ffffff;
     padding: 12px 0;
-    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    box-shadow: var(--glass-shadow), 0 1px 0 rgba(15, 23, 42, 0.06);
 }
 
 /* Blur/tint moved to a pseudo-element instead of directly on .navbar.
@@ -334,10 +334,33 @@ img {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-color: rgb(9 33 90 / 55%);
+    background-color: rgba(255, 255, 255, 0.92);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
-    border-bottom: 1px solid var(--glass-dark-border);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+/* Navbar putih saat scrolled -> semua teks & ikon jadi gelap supaya tetap
+   kebaca di atas background putih */
+.navbar.scrolled .logo-main {
+    color: var(--primary-dark);
+}
+
+.navbar.scrolled .nav-link {
+    color: rgba(15, 23, 42, 0.75);
+}
+
+.navbar.scrolled .nav-link:hover,
+.navbar.scrolled .nav-link.active {
+    color: var(--primary-dark);
+}
+
+.navbar.scrolled .nav-chevron {
+    color: rgba(15, 23, 42, 0.55);
+}
+
+.navbar.scrolled .nav-toggle {
+    color: var(--primary-dark);
 }
 
 .nav-container {
@@ -380,15 +403,20 @@ img {
 .logo-text {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .logo-main {
     font-family: var(--font-primary);
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 800;
     color: var(--text-light);
-    letter-spacing: 1px;
-    line-height: 1;
+    letter-spacing: 0.2px;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
 }
 
 .logo-sub {
@@ -407,6 +435,11 @@ img {
 
 /* Brand header shown only inside the mobile drawer */
 .nav-menu-header {
+    display: none;
+}
+
+/* Preview lokasi cuma relevan di drawer mobile, bukan navbar desktop */
+.nav-menu-map-item {
     display: none;
 }
 
@@ -479,6 +512,17 @@ img {
     transition: transform 0.6s var(--ease);
 }
 
+.nav-toggle.active {
+    color: var(--primary-dark);
+}
+
+/* Sembunyikan tombol X saat sub-panel Etalase Produk terbuka — sudah ada
+   tombol back sendiri di sub-panel, jadi X di pojok jadi mubazir/ganggu */
+.navbar:has(.nav-dropdown.dropdown-open) .nav-toggle {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .nav-toggle.active .nav-toggle-icon {
     transform: rotate(-45deg);
 }
@@ -533,7 +577,7 @@ img {
 /* Dropdown menu — hidden by default */
 .nav-dropdown-menu {
     position: absolute;
-    top: calc(100% + 14px);
+    top: calc(100% + 16px);
     left: 50%;
     transform: translateX(-50%) translateY(-8px);
     opacity: 0;
@@ -542,14 +586,14 @@ img {
     transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
     z-index: 1100;
 
-    background: rgba(15, 23, 42, 0.97);
+    background: #ffffff;
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(15, 23, 42, 0.08);
     border-radius: 16px;
     padding: 20px;
     min-width: 420px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16), 0 4px 12px rgba(15, 23, 42, 0.06);
 }
 
 /* Arrow pointer */
@@ -561,8 +605,8 @@ img {
     transform: translateX(-50%);
     width: 14px;
     height: 14px;
-    background: rgba(15, 23, 42, 0.97);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
     border-bottom: none;
     border-right: none;
     border-radius: 3px 0 0 0;
@@ -590,8 +634,16 @@ img {
 }
 
 .nav-dropdown:hover .nav-chevron {
-    transform: rotate(180deg);
-    color: var(--text-light);
+    transform: rotate(90deg);
+    color:#3061d4;
+}
+
+/* Back button ("‹ Etalase Produk") cuma bagian dari panel full-screen
+   mobile — di desktop dropdown-nya berbentuk popover kecil, jadi tombol
+   back ini tidak relevan dan harus disembunyikan. Styling flex/icon-size
+   miliknya baru didefinisikan nanti di dalam @media (mobile). */
+.nav-subpanel-back {
+    display: none;
 }
 
 /* Category grid inside dropdown */
@@ -609,7 +661,7 @@ img {
     gap: 10px;
     padding: 9px 12px;
     border-radius: 9px;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--primary-dark);
     font-size: 13px;
     font-weight: 500;
     transition: background 0.18s ease, color 0.18s ease;
@@ -626,18 +678,18 @@ img {
 }
 
 .dropdown-cat-item:hover {
-    background: rgba(37, 99, 235, 0.2);
-    color: var(--text-light);
+    background: var(--secondary-light);
+    color: var(--primary-dark);
 }
 
 .dropdown-cat-item:hover i {
-    color: #60a5fa;
+    color: var(--secondary-hover);
 }
 
 /* Divider */
 .dropdown-divider {
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
     margin: 0 0 12px 0;
 }
 
@@ -649,8 +701,8 @@ img {
     gap: 8px;
     padding: 10px;
     border-radius: 9px;
-    background: rgba(37, 99, 235, 0.15);
-    color: #60a5fa;
+    background: var(--secondary-light);
+    color: var(--secondary);
     font-size: 13px;
     font-weight: 600;
     transition: background 0.18s ease, color 0.18s ease;
@@ -1132,6 +1184,11 @@ img {
     gap: 6px;
 }
 
+/* Trigger dropdown kategori — default disembunyikan, hanya dimunculkan di mobile (lihat media query) */
+.filter-dropdown-trigger {
+    display: none;
+}
+
 /* Main content area — produk di sebelah kanan */
 .catalog-main {
     min-width: 0; /* prevent grid blowout */
@@ -1580,6 +1637,13 @@ img {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 24px;
+}
+
+/* Preview grid di homepage (section .products) cuma berisi sedikit item,
+   jadi dibatasi lebar & di-center, bukan auto-fill selebar container */
+.products .catalog-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 300px));
+    justify-content: center;
 }
 
 .catalog-card {
@@ -2897,12 +2961,23 @@ img {
     .katalog-preview .about-img {
         height: 300px;
     }
+    .logo-main {
+        font-size: 11px;
+        max-width: 220px;
+    }
 }
 
 @media (max-width: 768px) {
     /* Navbar menu toggle */
     .nav-toggle {
         display: flex;
+    }
+
+    /* Nama perusahaan penuh butuh ukuran lebih kecil biar muat satu baris
+       di navbar mobile */
+    .logo-main {
+        font-size: 12.5px;
+        max-width: 260px;
     }
 
     /* Dim backdrop behind the drawer */
@@ -2950,10 +3025,12 @@ img {
         max-width: 100%;
         height: 100vh;
         height: 100dvh;
-        background-color: var(--primary-dark);
+        background-color: #ffffff;
         background-image:
-            radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.14), transparent 55%),
-            radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.08), transparent 55%);
+            radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.08), transparent 55%),
+            radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.05), transparent 55%),
+            radial-gradient(circle at 85% 100%, rgba(217, 6, 6, 0.05), transparent 40%),
+            radial-gradient(circle at 8% 92%, rgba(37, 99, 235, 0.08), transparent 35%);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
         flex-direction: column;
@@ -2981,6 +3058,9 @@ img {
         overscroll-behavior-y: contain;
         -webkit-overflow-scrolling: touch;
         overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 
     .nav-menu.active {
@@ -2991,7 +3071,7 @@ img {
         top: 0;
         height: 100vh;
         height: 100dvh;
-        background-color: var(--primary-dark);
+        background-color: #ffffff;
     }
 
     /* Staggered entrance for each row once the drawer is open */
@@ -3010,6 +3090,7 @@ img {
     .nav-menu.active > li:nth-child(5) { animation-delay: 0.25s; }
     .nav-menu.active > li:nth-child(6) { animation-delay: 0.3s; }
     .nav-menu.active > li:nth-child(7) { animation-delay: 0.35s; }
+    .nav-menu.active > li:nth-child(8) { animation-delay: 0.4s; }
 
     @keyframes navItemIn {
         to {
@@ -3036,10 +3117,9 @@ img {
         align-items: center;
         gap: 12px;
         padding: 22px 20px;
-        background-color: var(--primary-dark);
-        background-image: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        background-color: #ffffff;
         flex-shrink: 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
     }
 
     .nav-menu-header-brand {
@@ -3065,74 +3145,101 @@ img {
     .nav-menu-header-main {
         font-family: var(--font-primary);
         font-weight: 800;
-        font-size: 14px;
-        color: var(--text-light);
-        letter-spacing: 0.8px;
+        font-size: 13px;
+        line-height: 1.35;
+        color: var(--primary-dark);
+        letter-spacing: 0.3px;
     }
 
     .nav-menu-header-sub {
-        font-size: 8.5px;
-        color: #9aa0a6;
+        font-size: 9.5px;
+        color: #64748b;
         letter-spacing: 0.4px;
         text-transform: uppercase;
         font-weight: 600;
         margin-top: 3px;
     }
 
-    .nav-menu > li {
+    .nav-menu > li:not(.nav-menu-header) {
         width: 100%;
     }
 
-    /* Modern rounded "card row" style, softer & less saturated than the
-       previous full-bleed bordered rows. */
-    .nav-link {
-        display: flex;
-        align-items: center;
-        gap: 13px;
-        width: calc(100% - 24px);
-        margin: 3px 12px;
-        padding: 13px 14px;
-        color: rgba(255, 255, 255, 0.78);
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 14px;
-        border: 1px solid transparent;
-        background-color: transparent;
-        transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
+    /* Bento grid: item biasa (Beranda, Tentang Kami, Brosur, Kontak) jadi
+       kotak ikon 2 kolom; header, CTA, dan trigger Etalase Produk tetap
+       full-width. Baris ke-5 sengaja dikosongkan (1fr) sebagai spacer
+       supaya tombol WhatsApp selalu nempel di paling bawah drawer,
+       bukan ikut naik menempel di bawah grid ikon. */
+    .nav-menu {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto auto 1fr auto;
+        gap: 10px;
+        padding: 0 12px calc(14px + env(safe-area-inset-bottom, 0px));
     }
 
-    .nav-menu-header + li .nav-link {
-        margin-top: 12px;
+    .nav-menu > li:nth-child(1) { grid-row: 1; }
+    .nav-menu > li:nth-child(2) { grid-row: 2; }
+    .nav-menu > li:nth-child(3) { grid-row: 2; }
+    .nav-menu > li:nth-child(4) { grid-row: 3; }
+    .nav-menu > li:nth-child(5) { grid-row: 4; }
+    .nav-menu > li:nth-child(6) { grid-row: 4; }
+    .nav-menu > li:nth-child(7) { grid-row: 5; }
+    .nav-menu > li:nth-child(8) { grid-row: 7; }
+
+    .nav-menu-header,
+    .nav-cta-item,
+    .nav-dropdown,
+    .nav-menu-map-item {
+        grid-column: 1 / -1;
+    }
+
+    .nav-menu-map-item {
+        display: block;
+    }
+
+    /* Header dibuat full-bleed (keluar dari padding grid) supaya jadi
+       bar utuh nempel di tepi atas/kiri/kanan, bukan kelihatan kayak
+       kartu yang mengambang karena ke-inset padding grid */
+    .nav-menu-header {
+        margin: 0 -12px;
+        width: calc(100% + 24px);
+    }
+
+    .nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        height: 92px;
+        padding: 14px 8px;
+        color: var(--secondary);
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 1.25;
+        border-radius: 16px;
+        border: 1px solid transparent;
+        background-color: var(--secondary-light);
+        transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
     }
 
     .nav-link-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 34px;
-        height: 34px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.05);
-        color: rgba(255, 255, 255, 0.55);
-        transition: background-color 0.25s ease, color 0.25s ease;
+        font-size: 22px;
+        color: var(--secondary);
+        transition: color 0.25s ease;
     }
 
     .nav-link-icon svg {
-        width: 17px;
-        height: 17px;
-    }
-
-    .nav-link-text {
-        flex: 1;
+        width: 22px;
+        height: 22px;
     }
 
     .nav-link-arrow {
-        width: 14px;
-        height: 14px;
-        flex-shrink: 0;
-        color: rgba(255, 255, 255, 0.25);
-        transition: transform 0.25s ease, color 0.25s ease;
+        display: none;
     }
 
     .nav-link::after {
@@ -3141,27 +3248,20 @@ img {
 
     .nav-link:hover,
     .nav-link.active {
-        color: var(--text-light);
-        background-color: rgba(37, 99, 235, 0.1);
-        border-color: rgba(37, 99, 235, 0.22);
+        color: #ffffff;
+        background-color: var(--secondary);
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28);
     }
 
     .nav-link:hover .nav-link-icon,
     .nav-link.active .nav-link-icon {
-        background: rgba(37, 99, 235, 0.85);
-        color: var(--text-light);
-    }
-
-    .nav-link:hover .nav-link-arrow,
-    .nav-link.active .nav-link-arrow {
-        color: var(--secondary);
-        transform: translateX(3px);
+        color: #ffffff;
     }
 
     .nav-cta-item {
         width: 100%;
-        margin-top: 8px;
-        padding: 12px 12px calc(20px + env(safe-area-inset-bottom, 0px));
+        margin-top: 2px;
+        padding: 0;
     }
 
     .nav-cta {
@@ -3170,7 +3270,75 @@ img {
         padding: 13px;
     }
 
-    /* Dropdown trigger row shares the same card look as a regular link */
+    /* Kartu preview lokasi — visual "peta" full CSS/SVG (BUKAN iframe Google
+       Maps beneran) supaya animasi buka/tutup drawer dijamin tetap ringan,
+       nol request eksternal, nol risiko lag. Klik = buka Google Maps asli. */
+    .nav-menu-map {
+        position: relative;
+        display: block;
+        height: 150px;
+        border-radius: 14px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #e8f0fc 0%, #dbe7f8 100%);
+        text-decoration: none;
+    }
+
+    .nav-menu-map-pattern {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        stroke: rgba(37, 99, 235, 0.22);
+        stroke-width: 5;
+        stroke-linecap: round;
+    }
+
+    .nav-menu-map-pin {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+        font-size: 30px;
+        color: var(--accent);
+        filter: drop-shadow(0 3px 5px rgba(15, 23, 42, 0.3));
+    }
+
+    .nav-menu-map-overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.94);
+    }
+
+    .nav-menu-map-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--primary-dark);
+    }
+
+    .nav-menu-map-address {
+        font-size: 10px;
+        color: #64748b;
+        line-height: 1.35;
+    }
+
+    .nav-menu-map-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--secondary);
+    }
+
+    /* Trigger Etalase Produk tetap row (icon kiri + label + chevron kanan)
+       supaya jelas ini yang buka sub-panel, bukan tile biasa */
     .nav-dropdown:hover .nav-dropdown-menu {
         opacity: 1;
         visibility: hidden;
@@ -3179,44 +3347,81 @@ img {
     }
 
     .nav-dropdown {
+
         width: 100%;
         z-index: 5;
         isolation: isolate;
     }
 
     .nav-dropdown-trigger {
+        flex-direction: row;
+        height: auto;
+        justify-content: flex-start;
+        padding: 13px 14px;
+        gap: 12px;
+        text-align: left;
         position: relative;
-        justify-content: space-between;
     }
 
     .nav-dropdown-trigger::after {
         display: none;
     }
 
+    .nav-dropdown-trigger .nav-link-icon {
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: rgba(37, 99, 235, 0.14);
+        font-size: 16px;
+    }
+
+    .nav-dropdown-trigger .nav-link-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .nav-dropdown-trigger:hover .nav-link-icon,
+    .nav-dropdown-trigger.active .nav-link-icon {
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    .nav-dropdown-trigger .nav-link-text {
+        flex: 1;
+        text-align: left;
+        font-size: 13.5px;
+    }
+
     .nav-dropdown-trigger .nav-chevron {
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 13px;
         position: static;
         transform: none;
         transition: transform 0.3s ease, color 0.25s ease;
-        color: rgba(255, 255, 255, 0.3);
+        color: rgba(37, 99, 235, 0.6);
         flex-shrink: 0;
     }
 
     .nav-dropdown-trigger .nav-chevron svg {
-        width: 15px;
-        height: 15px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .nav-dropdown-trigger:hover .nav-chevron,
+    .nav-dropdown-trigger.active .nav-chevron {
+        color: #ffffff;
     }
 
     .nav-dropdown.dropdown-open .nav-dropdown-trigger .nav-chevron {
-        transform: rotate(-90deg);
-        color: var(--secondary);
+        transform: translateX(2px);
+        color: #ffffff;
     }
 
     .nav-dropdown:hover .nav-chevron {
         transform: none;
-        color: rgba(255, 255, 255, 0.3);
+        color: rgba(37, 99, 235, 0.6);
     }
 
     /* ----------------------------------------------------------------------
@@ -3237,10 +3442,10 @@ img {
         padding: 0;
         border-radius: 0;
         border: none;
-        background-color: var(--primary-dark);
+        background-color: #ffffff;
         background-image:
-            radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.14), transparent 55%),
-            radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.08), transparent 55%);
+            radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.06), transparent 55%),
+            radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.04), transparent 55%);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
         box-shadow: none;
@@ -3260,10 +3465,19 @@ img {
         overscroll-behavior-y: contain;
         -webkit-overflow-scrolling: touch;
         overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 
     .nav-dropdown-menu::before {
         display: none;
+    }
+
+    .nav-menu::-webkit-scrollbar,
+    .nav-dropdown-menu::-webkit-scrollbar {
+        display: none;
+        width: 0;
     }
 
     .nav-dropdown.dropdown-open .nav-dropdown-menu {
@@ -3280,11 +3494,10 @@ img {
         gap: 10px;
         width: 100%;
         padding: 22px 20px;
-        background-color: var(--primary-dark);
-        background-image: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        background-color: #ffffff;
         border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        color: var(--text-light);
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        color: var(--primary-dark);
         font-family: var(--font-primary);
         font-weight: 700;
         font-size: 14.5px;
@@ -3293,17 +3506,16 @@ img {
         flex-shrink: 0;
     }
 
-    .nav-subpanel-back svg {
-        width: 19px;
-        height: 19px;
+    .nav-subpanel-back i {
+        font-size: 16px;
         flex-shrink: 0;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(15, 23, 42, 0.55);
         transition: transform 0.25s ease, color 0.25s ease;
     }
 
-    .nav-subpanel-back:hover svg {
+    .nav-subpanel-back:hover i {
         transform: translateX(-3px);
-        color: var(--text-light);
+        color: var(--primary-dark);
     }
 
     .nav-subpanel-body {
@@ -3324,9 +3536,9 @@ img {
         font-size: 12px;
         font-weight: 600;
         padding: 11px 10px;
-        color: rgba(255, 255, 255, 0.8);
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.07);
+        color: var(--primary-dark);
+        background: var(--secondary-light);
+        border: 1px solid transparent;
         border-radius: 12px;
         transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
@@ -3339,8 +3551,8 @@ img {
         height: 28px;
         flex-shrink: 0;
         border-radius: 8px;
-        background: rgba(37, 99, 235, 0.14);
-        color: #7fa8f5;
+        background: #ffffff;
+        color: var(--secondary);
         font-size: 12px;
         transition: background-color 0.2s ease, color 0.2s ease;
     }
@@ -3355,24 +3567,24 @@ img {
     .dropdown-cat-item:hover,
     .dropdown-cat-item:focus-visible {
         background: rgba(37, 99, 235, 0.14);
-        border-color: rgba(37, 99, 235, 0.35);
-        color: var(--text-light);
+        border-color: rgba(37, 99, 235, 0.3);
+        color: var(--primary-dark);
     }
 
     .dropdown-cat-item:hover i,
     .dropdown-cat-item:focus-visible i {
         background: var(--secondary);
-        color: var(--text-light);
+        color: #ffffff;
     }
 
     .dropdown-divider {
-        border-top-color: rgba(255, 255, 255, 0.08);
+        border-top-color: rgba(15, 23, 42, 0.1);
         margin: 14px 0;
     }
 
     .dropdown-view-all {
-        background: rgba(37, 99, 235, 0.12);
-        color: #8fb4f7;
+        background: var(--secondary-light);
+        color: var(--secondary);
     }
     
     
@@ -3676,48 +3888,165 @@ img {
    CATALOG LAYOUT RESPONSIVE
    ========================================================================== */
 @media (max-width: 900px) {
-    /* Pada tablet/mobile, sidebar pindah ke atas dan scroll horizontal */
+    /* Pada tablet/mobile, sidebar pindah ke atas dan filter kategori jadi dropdown */
     .catalog-layout {
         grid-template-columns: 1fr;
     }
 
-    .filter-sidebar {
-        position: static;
-        padding: 14px 16px;
+    /* Section produk dibuat lebih ringkas di mobile, biar dropdown kategori
+       nempel di atas dan gak ada jarak kosong yang kejauhan */
+    .products {
+        padding: 32px 0 60px;
     }
 
+    .filter-sidebar {
+        position: relative;
+        top: 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .filter-sidebar-label {
+        display: none; /* label diganti oleh teks di dalam tombol dropdown */
+    }
+
+    /* Tombol pemicu dropdown kategori */
+    .filter-dropdown-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 14px 16px;
+        background-color: var(--bg-white);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        cursor: pointer;
+        font-family: var(--font-primary);
+        transition: var(--transition-fast);
+    }
+
+    .filter-dropdown-trigger:active {
+        transform: scale(0.98);
+    }
+
+    .filter-dropdown-trigger.open {
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+    }
+
+    .filter-dropdown-trigger-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
+
+    .filter-dropdown-trigger-left i {
+        color: var(--secondary);
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    .filter-dropdown-trigger-left span {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .filter-dropdown-chevron {
+        font-size: 12px;
+        color: var(--text-gray);
+        transition: transform 0.25s var(--ease);
+        flex-shrink: 0;
+        margin-left: 10px;
+    }
+
+    .filter-dropdown-trigger.open .filter-dropdown-chevron {
+        transform: rotate(180deg);
+        color: var(--secondary);
+    }
+
+    /* Panel dropdown — daftar kategori dalam bentuk list vertikal (overlay, tidak mendorong konten) */
     .filter-tabs {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 6px;
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        right: 0;
+        z-index: 60;
+        flex-direction: column;
+        gap: 2px;
+        max-height: min(60vh, 420px);
+        overflow-y: auto;
+        padding: 8px;
+        background-color: var(--bg-white);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-6px);
+        transition: opacity 0.2s var(--ease), transform 0.2s var(--ease),
+                    visibility 0.2s var(--ease);
+    }
+
+    .filter-tabs.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
     }
 
     .filter-btn {
-        font-size: 13px;
-        padding: 7px 14px;
-        border: 1px solid var(--border-color);
-        border-radius: 20px;
-        background-color: var(--bg-white);
-        width: auto;
+        font-size: 14px;
+        padding: 11px 12px;
+        border: none;
+        border-radius: 10px;
+        background-color: transparent;
+        width: 100%;
+        text-align: left;
+        justify-content: flex-start;
+        gap: 12px;
+        color: var(--text-muted);
+    }
+
+    .filter-btn i {
+        width: 18px;
         text-align: center;
+        font-size: 14px;
+        color: var(--text-gray);
+        flex-shrink: 0;
     }
 
     .filter-btn:hover {
-        border-color: var(--secondary);
-        background-color: var(--secondary-light);
+        background-color: var(--bg-light);
     }
 
     .filter-btn.active {
-        background-color: var(--secondary);
-        color: var(--text-light);
-        border-color: var(--secondary);
+        background-color: var(--secondary-light);
+        color: var(--secondary);
         font-weight: 600;
-        border-left: none;
-        padding-left: 14px;
+        border: none;
+        padding-left: 12px;
+    }
+
+    .filter-btn.active i {
+        color: var(--secondary);
     }
 
     .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 20px;
+    }
+
+    /* Search box dihapus khusus tampilan mobile, cukup tersedia di desktop */
+    .catalog-search {
+        display: none;
     }
 }

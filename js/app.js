@@ -499,6 +499,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
     const clearSearch = document.getElementById("clearSearch");
     const filterTabs = document.getElementById("filterTabs");
+    const filterDropdownTrigger = document.getElementById("filterDropdownTrigger");
+    const filterDropdownLabel = document.getElementById("filterDropdownLabel");
     const productsGrid = document.getElementById("productsGrid");
     const noResults = document.getElementById("noResults");
     
@@ -738,6 +740,7 @@ document.addEventListener("DOMContentLoaded", () => {
         unlockBodyScroll();
         // Close any open dropdown when closing menu
         document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => d.classList.remove("dropdown-open"));
+        navToggle.classList.remove("nav-toggle-subpanel-open");
     }
 
     if (navToggle && navMenu) {
@@ -794,6 +797,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!isOpen) {
                 dropdown.classList.add("dropdown-open");
+                if (navToggle) navToggle.classList.add("nav-toggle-subpanel-open");
+            } else if (navToggle) {
+                navToggle.classList.remove("nav-toggle-subpanel-open");
             }
         });
 
@@ -802,6 +808,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (backBtn) {
             backBtn.addEventListener("click", () => {
                 dropdown.classList.remove("dropdown-open");
+                if (navToggle) navToggle.classList.remove("nav-toggle-subpanel-open");
             });
         }
     });
@@ -810,6 +817,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", (e) => {
         if (!e.target.closest(".nav-dropdown")) {
             navDropdowns.forEach(d => d.classList.remove("dropdown-open"));
+            if (navToggle) navToggle.classList.remove("nav-toggle-subpanel-open");
         }
     });
 
@@ -827,6 +835,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (activeBtn) activeBtn.classList.remove("active");
             matchingBtn.classList.add("active");
             currentFilter = categoryParam;
+            if (filterDropdownLabel) filterDropdownLabel.textContent = matchingBtn.textContent;
 
             // Render produk
             if (productsGrid) renderProducts();
@@ -1126,6 +1135,32 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Tutup dropdown kategori (khusus tampilan mobile)
+    function closeFilterDropdown() {
+        if (filterTabs) filterTabs.classList.remove("open");
+        if (filterDropdownTrigger) {
+            filterDropdownTrigger.classList.remove("open");
+            filterDropdownTrigger.setAttribute("aria-expanded", "false");
+        }
+    }
+
+    // Tombol pemicu dropdown kategori — hanya aktif secara visual di mobile (via CSS)
+    if (filterDropdownTrigger && filterTabs) {
+        filterDropdownTrigger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = filterTabs.classList.toggle("open");
+            filterDropdownTrigger.classList.toggle("open", isOpen);
+            filterDropdownTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+
+        // Klik di luar dropdown akan menutupnya
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".filter-sidebar")) {
+                closeFilterDropdown();
+            }
+        });
+    }
+
     // Filter tab logic — sidebar selalu tampil, tidak perlu collapse
     if (filterTabs) {
         filterTabs.querySelectorAll(".filter-btn").forEach(btn => {
@@ -1134,7 +1169,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (activeBtn) activeBtn.classList.remove("active");
                 btn.classList.add("active");
                 currentFilter = btn.getAttribute("data-filter");
+                if (filterDropdownLabel) filterDropdownLabel.textContent = btn.textContent;
                 renderProducts();
+                closeFilterDropdown();
             });
         });
     }
