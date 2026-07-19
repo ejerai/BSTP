@@ -1,6 +1,6 @@
-/* BSTP JAVASCRIPT */
+
 const PRODUCT_DATA = [
-    // --- CATEGORY: MOTOR ---
+    
     {
         id: "elektromotor-1",
         name: "Elektromotor",
@@ -44,7 +44,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    // --- CATEGORY: VIBRATOR ---
+    
     {
         id: "vibrator-1",
         name: "Vibrator Motor",
@@ -74,7 +74,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    // --- CATEGORY: GEARBOX (Worm Gear Reducer) ---
+    
     {
         id: "worm-gear-reducer-1",
         name: "Worm Gear Reducer",
@@ -132,7 +132,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    // --- CATEGORY: WORM-GEAR ---
+    
     {
         id: "worm-gear-1",
         name: "Worm Gear",
@@ -190,7 +190,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    // --- CATEGORY: GEARMOTOR ---
+    
     {
         id: "helical-gearmotor-1",
         name: "Helical Gear Motor",
@@ -234,8 +234,7 @@ const PRODUCT_DATA = [
         }
     },
 
-
-    // --- CATEGORY: PUMP (Centrifugal Pump) ---
+    
     {
         id: "centrifugal-pump-1",
         name: "Centrifugal Pump",
@@ -279,7 +278,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    // --- CATEGORY: GEAR PUMP ---
+    
     {
         id: "gear-pump-1",
         name: "Gear Pump",
@@ -295,7 +294,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    // --- CATEGORY: LIFTING ---
+    
     {
         id: "hoist-hhxg-a",
         name: "Electric Chain Hoist Type HHXG-A",
@@ -365,7 +364,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    // --- CATEGORY: INVERTER ---
+    
     {
         id: "inverter-1",
         name: "Inverter (VFD)",
@@ -381,7 +380,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    // --- CATEGORY: PULLEY ---
+    
     {
         id: "pulley-1",
         name: "Pulley",
@@ -398,54 +397,12 @@ const PRODUCT_DATA = [
     }
 ];
 
-/* ==========================================================================
-   APP INITIALIZATION & CONTROLLERS
-   ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
-    /* ----------------------------------------------------------------------
-       BODY SCROLL LOCK (dipakai oleh: drawer menu mobile, modal produk,
-       modal PDF, lightbox brosur, overlay sukses form)
-       ------------------------------------------------------------------------
-       RIWAYAT BUG (kenapa versi ini beda dari sebelumnya):
-       Versi lama mengunci body dengan position:fixed + top:-savedScrollYpx
-       (trik "body scroll lock" klasik). Di Beranda — halaman terpanjang,
-       jadi savedScrollY-nya paling besar — trik itu justru membuat WebKit
-       salah menghitung area sentuh yang boleh discroll pada elemen
-       position:fixed BERSARANG di dalamnya (drawer .nav-menu ini sendiri).
-       Efeknya persis seperti yang dilaporkan: swipe di dalam drawer tidak
-       dianggap scroll sama sekali oleh browser, dan drawer cuma bisa
-       digeser dengan menarik langsung scrollbar-nya (drag scrollbar tidak
-       lewat jalur gesture yang sama, jadi tidak kena bug ini). Ini murni
-       bug rendering iOS/WebKit terkait kombinasi fixed-di-dalam-fixed
-       dengan offset negatif besar — tidak bisa diperbaiki dari sisi
-       preventDefault/JS gesture handling saja, karena browser sudah salah
-       menentukan area scrollable-nya SEBELUM touch event itu sendiri
-       diproses.
-
-       FIX: tidak lagi memindahkan body sama sekali (posisi TETAP position:
-       static, tidak ada position:fixed + top:-scrollYpx). Body dikunci
-       cukup dengan overflow:hidden (via class) di <html> & <body> — ini
-       yang menghindari bug touch-scroll bersarang di atas.
-
-       TAPI: overflow:hidden pada <html> (root scroller dokumen) TERNYATA
-       tidak selalu mempertahankan scrollTop dengan andal saat di-toggle —
-       beberapa browser "lupa" posisi scroll-nya begitu overflow dikunci,
-       jadi saat dibuka lagi halaman kembali ke posisi paling atas (bug
-       "balik ke atas sendiri" yang dilaporkan). Makanya posisi scroll
-       tetap perlu disimpan & dikembalikan manual lewat JS — bedanya
-       dengan trik lama, di sini body TIDAK PERNAH dipindah posisinya
-       (tidak position:fixed), cuma window.scrollY-nya saja yang dicatat
-       lalu dikembalikan instan (bukan animasi 'smooth') pas overlay
-       ditutup. Dihitung pakai counter supaya aman kalau ada lebih dari
-       satu overlay yang kebuka bersamaan. */
+    
     let scrollLockCount = 0;
     let savedScrollY = 0;
 
-    /* Lapisan pengaman tambahan: cegah "scroll chaining" (swipe di
-       background yang bocor scroll ke body) memakai touchmove listener,
-       dibatasi hanya untuk elemen yang TIDAK ditandai data-scroll-lock-allow
-       (drawer menu, isi modal produk, modal PDF, lightbox tetap bebas
-       discroll normal lewat CSS overscroll-behavior yang sudah ada). */
+    
     function findScrollLockAllowedAncestor(el) {
         while (el && el !== document.body && el.nodeType === 1) {
             if (el.hasAttribute && el.hasAttribute("data-scroll-lock-allow")) {
@@ -479,21 +436,21 @@ document.addEventListener("DOMContentLoaded", () => {
             document.removeEventListener("touchmove", handleLockTouchMove, { passive: false });
             document.documentElement.classList.remove("scroll-locked");
             document.body.classList.remove("scroll-locked");
-            // "instant" supaya bukan animasi smooth-scroll kelihatan (html
-            // punya scroll-behavior:smooth secara global) — ini cuma
-            // mengembalikan posisi yang sempat "dilupakan" browser, bukan
-            // scroll baru yang perlu dianimasikan.
+            
+            
+            
+            
             window.scrollTo({ top: savedScrollY, left: 0, behavior: "instant" });
         }
     }
 
-    // UI Elements
+    
     const navbar = document.getElementById("navbar");
     const navToggle = document.getElementById("navToggle");
     const navMenu = document.getElementById("navMenu");
     const navLinks = document.querySelectorAll(".nav-link");
-    // Drawer menu mobile harus tetap bisa discroll walau body sedang dikunci
-    // (lihat handleLockTouchMove di atas)
+    
+    
     if (navMenu) navMenu.setAttribute("data-scroll-lock-allow", "");
     
     const searchInput = document.getElementById("searchInput");
@@ -536,10 +493,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-    let currentFilter = null; // null = belum memilih kategori
+    let currentFilter = null; 
     let activeCatalogIndex = 0;
     
-    // List of catalog images mapping to unduh brosur section
+    
     const catalogImages = [
         { title: "Cover Brosur PT. BSTP", src: "assets/brand/logo.png" },
         { title: "AC Induktion Motor & Blower", src: "assets/images/catalog/ac-motor.png" },
@@ -554,18 +511,16 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "Vibrator, Inverter & Air Compressor", src: "assets/images/catalog/vibrator-inverter-compressor.png" }
     ];
 
-    /* ----------------------------------------------------------------------
-       NAVBAR & INTERACTIVITY
-       ---------------------------------------------------------------------- */
-    // Scroll event for shrinking & coloring navbar
+    
+    
     if (navbar) {
-        // #0e1934 = hasil "flatten" dua layer transparan navbar saat scrolled
-        // (::before rgb(9 33 90/55%) blur, ditambah navbar sendiri
-        // rgba(15,23,42,0.6)) di atas latar --primary-dark. Address bar
-        // sengaja DIKUNCI ke warna ini terus-menerus (tidak ikut berubah
-        // balik ke --primary-dark saat di posisi paling atas), supaya
-        // warnanya konsisten di semua browser termasuk iOS Safari 26+ yang
-        // cuma membaca meta theme-color sekali di render pertama.
+        
+        
+        
+        
+        
+        
+        
 
         const updateNavbarScrollState = () => {
             if (window.scrollY > 50) {
@@ -577,15 +532,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
-        // Set the correct state immediately on page load (e.g. if the page
-        // loads already scrolled via an anchor link), instead of waiting
-        // for the first scroll event to fire.
+        
+        
+        
         updateNavbarScrollState();
 
         window.addEventListener("scroll", () => {
             updateNavbarScrollState();
             
-            // Only highlight sections on the Homepage
+            
             const homeSection = document.getElementById("home");
             if (homeSection) {
                 const scrollPosition = window.scrollY + 120;
@@ -607,56 +562,54 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ----------------------------------------------------------------------
-       SCROLL REVEAL — setiap <section> fade-up muncul saat masuk viewport
-       ---------------------------------------------------------------------- */
+    
     function initScrollReveal() {
-        // Semua section di halaman ini otomatis dapat animasi (tanpa perlu
-        // menambahkan class manual di tiap file HTML).
-        // Section ".stats" DIKECUALIKAN: kartu statistiknya sengaja dibuat
-        // "kaca" (backdrop-filter blur) yang menumpuk ke atas hero lewat
-        // margin-top negatif, dan efek blur itu gampang rusak kalau parent-nya
-        // diberi "transform" (transform pada leluhur mengubah acuan blur
-        // backdrop-filter). Jadi section ini dibiarkan seperti semula.
+        
+        
+        
+        
+        
+        
+        
         const revealSections = document.querySelectorAll("section:not(.stats)");
         if (!revealSections.length) return;
 
-        // Kartu-kartu di dalam section ikut fade-up tapi dengan jeda
-        // (stagger), supaya terasa lebih hidup dan tidak "nempel" bareng.
-        // ".stat-card" sengaja tidak diikutkan karena alasan yang sama
-        // seperti di atas (glassmorphism).
+        
+        
+        
+        
         const staggerSelector = [
             ".pillar-item", ".vision-card", ".mission-card",
             ".method-item", ".catalog-card"
         ].join(", ");
 
-        // Elemen yang SUDAH kelihatan di layar sejak halaman baru dibuka
-        // (belum sempat discroll) TIDAK usah dikasih animasi reveal ini.
-        // Kalau tetap dikasih, dia bakal langsung dianggap "masuk viewport"
-        // begitu IntersectionObserver jalan, terus mainin animasi fade+slide-
-        // nya sendiri — bertumpuk sama animasi cross-fade dari native
-        // View Transition (lihat @view-transition di style.css) yang sudah
-        // jalan duluan waktu halaman ini baru muncul. Efeknya jadi keliatan
-        // "transisi dobel" di judul halaman. Reveal ini cukup dipakai buat
-        // elemen yang baru muncul pas user beneran scroll ke bawah.
+        
+        
+        
+        
+        
+        
+        
+        
+        
         const isInInitialViewport = (el) => {
             const rect = el.getBoundingClientRect();
             return rect.top < window.innerHeight && rect.bottom > 0;
         };
 
         revealSections.forEach(section => {
-            // Class "reveal-section" (opacity+translateY) ditempel ke
-            // wrapper ".container" di dalam section, BUKAN ke <section>
-            // itu sendiri. <section> menyimpan background-color solid
-            // (bg-white/bg-light) yang menutupi warna body (--primary-dark)
-            // di baliknya — kalau <section>-nya sendiri yang di-transform/
-            // opacity, kotak itu ikut tergeser/transparan sesaat dan celah
-            // di posisi aslinya menampakkan warna gelap body. Dengan
-            // menganimasikan ".container" saja, <section> tetap diam &
-            // background solidnya tetap 100% menutupi area itu sepanjang
-            // waktu. Section tanpa ".container" langsung (mis. .hero/
-            // .page-header) fallback ke section itu sendiri — aman karena
-            // keduanya sama-sama gelap seperti body.
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             const revealTarget = section.querySelector(":scope > .container") || section;
             if (!isInInitialViewport(revealTarget)) {
                 revealTarget.classList.add("reveal-section");
@@ -666,24 +619,24 @@ document.addEventListener("DOMContentLoaded", () => {
             items.forEach((item, index) => {
                 if (isInInitialViewport(item)) return;
                 item.classList.add("reveal-item");
-                // Delay bertahap, dibatasi maksimal 0.5s biar tidak lambat
+                
                 item.style.setProperty("--reveal-delay", `${Math.min(index * 0.08, 0.5)}s`);
             });
         });
 
-        // Setelah elemen selesai fade-up, lepas class reveal-nya supaya
-        // "transform" ikut kembali ke "none". Ini penting: transform yang
-        // "menempel" (walau cuma translateY(0)) tetap membuat browser
-        // membentuk containing block baru, yang bisa mengacaukan efek
-        // seperti backdrop-filter/blur pada elemen turunannya. Ini juga
-        // sekalian best-practice: will-change dilepas setelah tidak
-        // dipakai lagi supaya lebih ringan buat browser.
+        
+        
+        
+        
+        
+        
+        
         const cleanupReveal = (el) => {
             el.classList.remove("reveal-section", "reveal-item", "is-visible");
             el.style.removeProperty("--reveal-delay");
         };
 
-        // Fallback untuk browser sangat lama yang tidak mendukung IntersectionObserver
+        
         if (!("IntersectionObserver" in window)) {
             document.querySelectorAll(".reveal-section, .reveal-item").forEach(el => {
                 cleanupReveal(el);
@@ -698,7 +651,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     el.classList.add("is-visible");
                     observer.unobserve(el);
                     el.addEventListener("transitionend", () => cleanupReveal(el), { once: true });
-                    // Jaring pengaman kalau transitionend tidak sempat terpicu
+                    
                     setTimeout(() => cleanupReveal(el), 1400);
                 }
             });
@@ -714,14 +667,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initScrollReveal();
 
-    // Scroll to Top click
+    
     if (scrollTopBtn) {
         scrollTopBtn.addEventListener("click", () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
     }
 
-    // Mobile Navbar Toggle (drawer + backdrop overlay)
+    
     const navOverlay = document.getElementById("navOverlay");
 
     function openMobileMenu() {
@@ -738,7 +691,7 @@ document.addEventListener("DOMContentLoaded", () => {
         navToggle.setAttribute("aria-expanded", "false");
         if (navOverlay) navOverlay.classList.remove("active");
         unlockBodyScroll();
-        // Close any open dropdown when closing menu
+        
         document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => d.classList.remove("dropdown-open"));
         navToggle.classList.remove("nav-toggle-subpanel-open");
     }
@@ -753,15 +706,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Tap outside (on the dimmed backdrop) closes the drawer
+    
     if (navOverlay) {
         navOverlay.addEventListener("click", closeMobileMenu);
     }
 
-    // Close menu when clicking nav item
+    
     navLinks.forEach(link => {
         link.addEventListener("click", () => {
-            // Jangan tutup menu utama jika ini adalah trigger dropdown di mobile
+            
             const isMobile = navToggle && window.getComputedStyle(navToggle).display !== "none";
             if (link.classList.contains("nav-dropdown-trigger") && isMobile) {
                 return;
@@ -771,28 +724,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* ----------------------------------------------------------------------
-       NAVBAR DROPDOWN — Mobile tap toggle
-       ----------------------------------------------------------------------
-       Etalase Produk sekarang tampil sebagai panel full-screen terpisah
-       yang cuma dianimasikan pakai transform (slide dari kanan), bukan
-       accordion max-height lagi — jadi tidak perlu lagi trik "force reflow"
-       yang dulu dipakai buat mengakali timing animasi tinggi konten. */
+    
     const navDropdowns = document.querySelectorAll(".nav-dropdown");
 
     navDropdowns.forEach(dropdown => {
         const trigger = dropdown.querySelector(".nav-dropdown-trigger");
         if (!trigger) return;
 
-        // On mobile (touch devices): tap trigger toggles dropdown open/close
+        
         trigger.addEventListener("click", (e) => {
-            // Only intercept on mobile (when nav-toggle is visible)
+            
             if (!navToggle || window.getComputedStyle(navToggle).display === "none") return;
 
-            e.preventDefault(); // prevent navigation on tap
+            e.preventDefault(); 
             const isOpen = dropdown.classList.contains("dropdown-open");
 
-            // Close all other dropdowns first
+            
             navDropdowns.forEach(d => d.classList.remove("dropdown-open"));
 
             if (!isOpen) {
@@ -803,7 +750,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Tombol "back" di header panel Etalase Produk -> kembali ke list utama
+        
         const backBtn = dropdown.querySelector("[data-dropdown-back]");
         if (backBtn) {
             backBtn.addEventListener("click", () => {
@@ -813,7 +760,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Close dropdown when clicking outside (desktop)
+    
     document.addEventListener("click", (e) => {
         if (!e.target.closest(".nav-dropdown")) {
             navDropdowns.forEach(d => d.classList.remove("dropdown-open"));
@@ -821,26 +768,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /* ----------------------------------------------------------------------
-       URL PARAM → AUTO-FILTER KATEGORI di products.html
-       ---------------------------------------------------------------------- */
+    
     const urlParams = new URLSearchParams(window.location.search);
     const categoryParam = urlParams.get("category");
 
     if (categoryParam && filterTabs) {
         const matchingBtn = filterTabs.querySelector(`.filter-btn[data-filter="${categoryParam}"]`);
         if (matchingBtn) {
-            // Aktifkan filter sesuai URL param
+            
             const activeBtn = filterTabs.querySelector(".filter-btn.active");
             if (activeBtn) activeBtn.classList.remove("active");
             matchingBtn.classList.add("active");
             currentFilter = categoryParam;
             if (filterDropdownLabel) filterDropdownLabel.textContent = matchingBtn.textContent;
 
-            // Render produk
+            
             if (productsGrid) renderProducts();
 
-            // Smooth scroll ke section produk
+            
             const productsSection = document.getElementById("products");
             if (productsSection) {
                 setTimeout(() => {
@@ -850,11 +795,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
-
-    /* ----------------------------------------------------------------------
-       TRUST STATS COUNTER ANIMATION
-       ---------------------------------------------------------------------- */
+    
     const statsSection = document.querySelector(".stats");
     let statsAnimated = false;
     
@@ -865,7 +806,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const isPercent = counter.innerText.includes("%");
             const isPlus = counter.innerText.includes("+");
             let count = 0;
-            const speed = target / 40; // speed multiplier
+            const speed = target / 40; 
             
             const updateCount = () => {
                 count += speed;
@@ -918,7 +859,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         
-        // Filter catalog
+        
         const filtered = PRODUCT_DATA.filter(p => {
             const matchesCategory = (currentFilter === "all" || p.category === currentFilter);
             
@@ -931,7 +872,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return matchesCategory && matchesSearch;
         });
 
-        // Toggle clear search button visibility
+        
         if (clearSearch) {
             if (query) {
                 clearSearch.style.display = "block";
@@ -940,7 +881,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Handle no results state
+        
         if (filtered.length === 0) {
             productsGrid.style.display = "none";
             if (noResults) noResults.style.display = "block";
@@ -950,13 +891,13 @@ document.addEventListener("DOMContentLoaded", () => {
         productsGrid.style.display = "grid";
         if (noResults) noResults.style.display = "none";
 
-        // Render card layouts
+        
         filtered.forEach(p => {
             const card = document.createElement("div");
             card.className = "product-card";
             card.setAttribute("data-id", p.id);
             
-            // Generate list of spec tags
+            
             let specsLi = "";
             let keys = Object.keys(p.specs).slice(0, 3); // show top 3 specs on card
             keys.forEach(k => {
@@ -1117,12 +1058,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Trigger initial render
+    
     if (productsGrid) {
         renderProducts();
     }
 
-    // Attach search events
+    
     if (searchInput) {
         searchInput.addEventListener("input", renderProducts);
     }
@@ -1144,7 +1085,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Tombol pemicu dropdown kategori — hanya aktif secara visual di mobile (via CSS)
+    
     if (filterDropdownTrigger && filterTabs) {
         filterDropdownTrigger.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -1153,7 +1094,7 @@ document.addEventListener("DOMContentLoaded", () => {
             filterDropdownTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
         });
 
-        // Klik di luar dropdown akan menutupnya
+        
         document.addEventListener("click", (e) => {
             if (!e.target.closest(".filter-sidebar")) {
                 closeFilterDropdown();
@@ -1161,7 +1102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Filter tab logic — sidebar selalu tampil, tidak perlu collapse
+    
     if (filterTabs) {
         filterTabs.querySelectorAll(".filter-btn").forEach(btn => {
             btn.addEventListener("click", () => {
@@ -1176,9 +1117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ----------------------------------------------------------------------
-       PRODUCT DETAIL MODAL CONTROLLER
-       ---------------------------------------------------------------------- */
+    
     window.openProductDetail = function(productId) {
         const product = PRODUCT_DATA.find(p => p.id === productId);
         if (!product) return;
@@ -1208,18 +1147,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (modalTitle) modalTitle.innerText = product.name;
         if (modalBrand) modalBrand.innerText = `Brand: ${product.brand}`;
         
-        // Show actual image instead of vector icons in modal body
+        
         if (modalIcon) {
             modalIcon.innerHTML = `<img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='assets/brand/logo.png';">`;
         }
 
-        // Keep image + name on the trigger so the lightbox knows what to open
+        
         if (modalImgTrigger) {
             modalImgTrigger.dataset.fullImg = product.image;
             modalImgTrigger.dataset.fullAlt = product.name;
         }
         
-        // Generate full technical table
+        
         if (modalSpecsTable) {
             let tableRows = "";
             // Models row
@@ -1249,17 +1188,17 @@ document.addEventListener("DOMContentLoaded", () => {
             modalWaBtn.href = `https://wa.me/628161317107?text=${encodeURIComponent(waText)}`;
         }
         
-        // Open modal
+        
         if (productModal) {
             productModal.classList.add("active");
-            lockBodyScroll(); // lock page scrolling
+            lockBodyScroll(); 
         }
     };
 
     function closeModal() {
         if (productModal) {
             productModal.classList.remove("active");
-            unlockBodyScroll(); // unlock page scrolling
+            unlockBodyScroll(); 
         }
         if (productImgLightbox) {
             productImgLightbox.classList.remove("active");
@@ -1276,9 +1215,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ----------------------------------------------------------------------
-       PRODUCT IMAGE LIGHTBOX (opened from the square glass image inside modal)
-       ---------------------------------------------------------------------- */
+    
     function openProductImgLightbox() {
         if (!modalImgTrigger || !productImgLightbox || !productImgLightboxImg) return;
         const fullSrc = modalImgTrigger.dataset.fullImg;
@@ -1314,14 +1251,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ----------------------------------------------------------------------
-       COMPANY PROFILE PDF MODAL
-       ---------------------------------------------------------------------- */
+    
     let pdfLoaded = false;
 
     function openPdfModal() {
         if (!pdfProfileModal) return;
-        // Load PDF into iframe hanya saat dibuka (biar ringan di awal load)
+        
         if (pdfViewerFrame && !pdfLoaded) {
             pdfViewerFrame.src = PDF_PROFILE_PATH;
             pdfLoaded = true;
@@ -1350,9 +1285,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ----------------------------------------------------------------------
-       LIGHTBOX BROSUR VIEWER
-       ---------------------------------------------------------------------- */
+    
     function openLightbox(index) {
         activeCatalogIndex = index;
         const catalog = catalogImages[activeCatalogIndex];
@@ -1387,7 +1320,7 @@ document.addEventListener("DOMContentLoaded", () => {
         openLightbox(activeCatalogIndex);
     }
 
-    // Attach click events to Unduh Brosur cards
+    
     const catalogCards = document.querySelectorAll(".catalog-card");
     if (catalogCards.length > 0) {
         catalogCards.forEach(card => {
@@ -1410,7 +1343,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Keyboard support (Esc to close, Arrows to navigate)
+    
     document.addEventListener("keydown", (e) => {
         if (lightbox && lightbox.classList.contains("active")) {
             if (e.key === "Escape") closeLightbox();
@@ -1428,108 +1361,4 @@ document.addEventListener("DOMContentLoaded", () => {
             if (e.key === "Escape") closeMobileMenu();
         }
     });
-
-    /* ----------------------------------------------------------------------
-       CONTACT FORM & WHATSAPP REDIRECT GENERATOR
-       ---------------------------------------------------------------------- */
-    if (contactForm) {
-        contactForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            
-            // Inputs
-            const name = document.getElementById("formName");
-            const company = document.getElementById("formCompany");
-            const email = document.getElementById("formEmail");
-            const phone = document.getElementById("formPhone");
-            const subject = document.getElementById("formSubject").value;
-            const message = document.getElementById("formMessage");
-            const btnSubmit = document.getElementById("btnSubmitForm");
-            
-            let isValid = true;
-
-            // Reset error states
-            document.querySelectorAll(".form-group").forEach(group => group.classList.remove("error"));
-
-            // Validation logic
-            if (!name || !name.value.trim()) {
-                if (name) name.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-            if (!company || !company.value.trim()) {
-                if (company) company.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-            
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || !email.value.trim() || !emailRegex.test(email.value.trim())) {
-                if (email) email.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-            
-            if (!phone || !phone.value.trim()) {
-                if (phone) phone.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-            
-            if (!message || !message.value.trim()) {
-                if (message) message.closest(".form-group").classList.add("error");
-                isValid = false;
-            }
-
-            if (!isValid) return;
-
-            // Visual loading state
-            if (btnSubmit) btnSubmit.classList.add("loading");
-
-            // Simulate server submit delay (1.5 seconds)
-            setTimeout(() => {
-                if (btnSubmit) btnSubmit.classList.remove("loading");
-                
-                // Format WhatsApp redirect message
-                const formattedMessage = `Halo PT. Bintang Surya Teknik Persada.\n` +
-                                         `Saya telah mengisi formulir kontak di website Anda dengan detail sebagai berikut:\n\n` +
-                                         `• Nama Lengkap: ${name.value.trim()}\n` +
-                                         `• Perusahaan: ${company.value.trim()}\n` +
-                                         `• Email: ${email.value.trim()}\n` +
-                                         `• WhatsApp: ${phone.value.trim()}\n` +
-                                         `• Topik/Subjek: ${subject}\n` +
-                                         `• Detail Permintaan:\n${message.value.trim()}\n\n` +
-                                         `Mohon dibantu pembuatan surat penawaran harganya. Terima kasih.`;
-                
-                const successWaBtn = document.getElementById("successWaBtn");
-                if (successWaBtn) {
-                    successWaBtn.href = `https://wa.me/628161317107?text=${encodeURIComponent(formattedMessage)}`;
-                }
-                
-                const successSubjectEl = document.getElementById("successSubject");
-                if (successSubjectEl) successSubjectEl.innerText = subject;
-                
-                // Open Success Overlay
-                if (formSuccessOverlay) {
-                    formSuccessOverlay.classList.add("active");
-                    lockBodyScroll();
-                }
-                
-                // Reset form fields
-                contactForm.reset();
-            }, 1500);
-        });
-    }
-
-    // Close success overlay
-    if (successCloseBtn) {
-        successCloseBtn.addEventListener("click", () => {
-            if (formSuccessOverlay) formSuccessOverlay.classList.remove("active");
-            unlockBodyScroll();
-        });
-    }
-    
-    if (formSuccessOverlay) {
-        formSuccessOverlay.addEventListener("click", (e) => {
-            if (e.target === formSuccessOverlay) {
-                formSuccessOverlay.classList.remove("active");
-                unlockBodyScroll();
-            }
-        });
-    }
 });

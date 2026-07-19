@@ -1,0 +1,12 @@
+# robots.txt
+# File ini memberi tahu robot Google (dan mesin pencari lain) halaman mana
+# yang boleh dan tidak boleh dijelajahi (crawl) di website ini.
+
+User-agent: *
+Allow: /
+
+# Halaman error tidak perlu dijelajahi/diindex
+Disallow: /404.html
+
+# Lokasi peta situs (sitemap), supaya Google tahu semua halaman penting
+Sitemap: https://www.bstptangerang.co.id/sitemap.xml
