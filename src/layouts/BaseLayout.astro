@@ -1,0 +1,89 @@
+---
+import { siteInfo } from '../data/siteInfo';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../../css/style.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  activeNav?: string;
+}
+
+const {
+  title = `${siteInfo.companyName} | ${siteInfo.tagline}`,
+  description = siteInfo.description,
+  activeNav = 'home',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Meta Dasar -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- SEO -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="keywords" content="PT Bintang Surya Teknik Persada, BSTP, distributor motor induksi, jual pompa industri, jual gearbox, hoist tangerang, mechanical electrical distributor">
+  <meta name="author" content="PT. Bintang Surya Teknik Persada">
+  <meta name="robots" content="index, follow">
+
+  <!-- Bahasa & Lokasi -->
+  <meta http-equiv="Content-Language" content="id">
+  <meta name="geo.region" content="ID-BT">
+  <meta name="geo.placename" content="Tangerang Selatan">
+  <meta name="geo.position" content="-6.2626;106.6912">
+  <meta name="ICBM" content="-6.2626, 106.6912">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/brand/bstp.webp" type="image/webp">
+  
+  <!-- Font Awesome -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <Navbar activeNav={activeNav} />
+  
+  <main>
+    <slot />
+  </main>
+
+  <Footer />
+
+  <script>
+    // Global client-side scroll interactivity
+    const navbar = document.getElementById('navbar');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    if (navbar) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+          if (scrollTopBtn) scrollTopBtn.classList.add('active');
+        } else {
+          navbar.classList.remove('scrolled');
+          if (scrollTopBtn) scrollTopBtn.classList.remove('active');
+        }
+      });
+    }
+
+    if (scrollTopBtn) {
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  </script>
+</body>
+</html>

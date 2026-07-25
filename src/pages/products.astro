@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Etalase Produk | PT. Bintang Surya Teknik Persada" activeNav="products">
+    <!-- Header Halaman -->
+    <section class="page-header">
+        <div class="page-header-bg-overlay"></div>
+        <div class="container">
+            <h1 class="page-header-title">Katalog &amp; Etalase Produk</h1>
+            <p class="page-header-subtitle">Temukan spesifikasi teknis lengkap untuk kebutuhan motor penggerak, gearbox, dan pompa industri Anda.</p>
+        </div>
+    </section>
+
+    <!-- Section Produk & Filter -->
+    <section class="products" id="products">
+        <div class="container">
+
+            <!-- Search Bar -->
+            <div class="search-box catalog-search">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Cari nama produk, tipe, model, atau brand...">
+                <button class="clear-search" id="clearSearch" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Layout Katalog -->
+            <div class="catalog-layout">
+
+                <!-- Sidebar Filter Kategori -->
+                <aside class="filter-sidebar">
+                    <p class="filter-sidebar-label"><i class="fa-solid fa-sliders"></i> Kategori</p>
+
+                    <!-- Filter Dropdown Trigger Mobile -->
+                    <button type="button" class="filter-dropdown-trigger" id="filterDropdownTrigger" aria-expanded="false" aria-controls="filterTabs">
+                        <span class="filter-dropdown-trigger-left">
+                            <i class="fa-solid fa-sliders"></i>
+                            <span id="filterDropdownLabel">Pilih Kategori</span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down filter-dropdown-chevron"></i>
+                    </button>
+
+                    <div class="filter-tabs" id="filterTabs">
+                        <button class="filter-btn" data-filter="all"><i class="fa-solid fa-layer-group"></i><span>Semua Produk</span></button>
+                        <button class="filter-btn" data-filter="motor"><i class="fa-solid fa-bolt"></i><span>Elektromotor</span></button>
+                        <button class="filter-btn" data-filter="gearmotor"><i class="fa-solid fa-gears"></i><span>Helical Gear Motor</span></button>
+                        <button class="filter-btn" data-filter="gearbox"><i class="fa-solid fa-cog"></i><span>Worm Gear Reducer</span></button>
+                        <button class="filter-btn" data-filter="worm-gear"><i class="fa-solid fa-circle-nodes"></i><span>Worm Gear</span></button>
+                        <button class="filter-btn" data-filter="inverter"><i class="fa-solid fa-sliders"></i><span>Inverter</span></button>
+                        <button class="filter-btn" data-filter="pump"><i class="fa-solid fa-water"></i><span>Centrifugal Pump</span></button>
+                        <button class="filter-btn" data-filter="pump"><i class="fa-solid fa-faucet-drip"></i><span>Pompa Celup</span></button>
+                        <button class="filter-btn" data-filter="vibrator"><i class="fa-solid fa-wave-square"></i><span>Vibrator</span></button>
+                        <button class="filter-btn" data-filter="pulley"><i class="fa-solid fa-circle-half-stroke"></i><span>Pulley</span></button>
+                        <button class="filter-btn" data-filter="inverter-compressor"><i class="fa-solid fa-wind"></i><span>Compressor</span></button>
+                        <button class="filter-btn" data-filter="motor"><i class="fa-solid fa-fan"></i><span>Blower</span></button>
+                        <button class="filter-btn" data-filter="lifting"><i class="fa-solid fa-link"></i><span>Chain Hoist</span></button>
+                        <button class="filter-btn" data-filter="gear-pump"><i class="fa-solid fa-droplet"></i><span>Gear Pump</span></button>
+                        <button class="filter-btn" data-filter="genset"><i class="fa-solid fa-bolt-lightning"></i><span>Genset</span></button>
+                    </div>
+                </aside>
+
+                <!-- Grid Produk Utama & No Results -->
+                <div class="catalog-main">
+                    <div class="products-grid" id="productsGrid"></div>
+                    <div class="no-results" id="noResults">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h3>Produk tidak ditemukan</h3>
+                        <p>Silakan coba kata kunci lain atau hubungi sales kami langsung untuk menanyakan ketersediaan produk.</p>
+                        <a href="/contact" class="btn btn-primary">Hubungi Sales Kami</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Detail Produk -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-body">
+                <div class="modal-main">
+                    <div class="modal-img-container" id="modalImgTrigger" role="button" tabindex="0" aria-label="Perbesar gambar produk">
+                        <div class="modal-icon-placeholder" id="modalIcon"></div>
+                        <span class="modal-img-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                    </div>
+
+                    <div class="modal-header-info">
+                        <span class="modal-category" id="modalCategory">Kategori</span>
+                        <h2 class="modal-title" id="modalTitle">Nama Produk</h2>
+                        <span class="modal-brand" id="modalBrand">Brand</span>
+                    </div>
+
+                    <div class="modal-details">
+                        <h3>Spesifikasi Teknis</h3>
+                        <div class="specs-table-wrapper">
+                            <table class="specs-table" id="modalSpecsTable"></table>
+                        </div>
+                        
+                        <div class="modal-action-box">
+                            <p>Ingin berdiskusi mengenai kapasitas, ketersediaan stok, atau harga khusus?</p>
+                            <a href="" id="modalWaBtn" target="_blank" class="btn btn-whatsapp-large">
+                                <i class="fa-brands fa-whatsapp"></i> Hubungi WhatsApp Sales Kami
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div class="image-lightbox" id="productImgLightbox">
+        <button class="lightbox-close-btn" id="productImgLightboxClose" aria-label="Tutup Lightbox"><i class="fa-solid fa-xmark"></i></button>
+        <div class="image-lightbox-stage">
+            <img src="" alt="" id="productImgLightboxImg" class="image-lightbox-img">
+        </div>
+    </div>
+
+    <script src="/js/app.js" is:inline></script>
+</BaseLayout>

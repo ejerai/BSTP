@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteInfo } from '../data/siteInfo';
+---
+
+<BaseLayout title={`Halaman Tidak Ditemukan | ${siteInfo.companyName}`}>
+  <div class="min-h-screen flex items-center justify-center bg-slate-900 text-white px-6 text-center">
+    <div>
+      <h1 class="text-8xl font-black text-blue-500 mb-4">404</h1>
+      <h2 class="text-3xl font-bold mb-2">Halaman Tidak Ditemukan</h2>
+      <p class="text-slate-400 mb-8 max-w-md mx-auto">
+        Maaf, halaman yang Anda cari tidak tersedia atau telah dipindahkan.
+      </p>
+      <a href="/" class="btn btn-primary btn-lg">
+        <i class="fa-solid fa-house"></i>
+        <span>Kembali ke Beranda</span>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

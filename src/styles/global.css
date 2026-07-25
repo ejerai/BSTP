@@ -1,0 +1,13 @@
+/* Tailwind Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Disable Tailwind preflight body font override to protect original style.css */
+@layer base {
+  body {
+    font-family: var(--font-primary, 'Plus Jakarta Sans', sans-serif);
+    background-color: var(--primary-dark, #020617);
+    color: var(--text-dark, #0f172a);
+  }
+}
