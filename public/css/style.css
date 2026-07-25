@@ -515,8 +515,8 @@ img {
 
 .dropdown-categories-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
     margin-bottom: 12px;
 }
 
@@ -524,31 +524,41 @@ img {
     display: flex;
     align-items: center;
     gap: 10px;
+    min-width: 0;
     padding: 9px 12px;
-    border-radius: 9px;
+    border-radius: 12px;
+    background: var(--secondary-light);
     color: var(--primary-dark);
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     transition: background 0.18s ease, color 0.18s ease;
     text-decoration: none;
 }
 
 .dropdown-cat-item i {
-    font-size: 14px;
-    color: var(--secondary);
-    width: 18px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
     flex-shrink: 0;
-    transition: color 0.18s ease;
+    border-radius: 9px;
+    background: #ffffff;
+    color: var(--secondary);
+    font-size: 13px;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.dropdown-cat-item span {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .dropdown-cat-item:hover {
-    background: var(--secondary-light);
-    color: var(--primary-dark);
-}
-
-.dropdown-cat-item:hover i {
-    color: var(--secondary-hover);
+    background: var(--secondary);
+    color: #ffffff;
 }
 
 .dropdown-divider {
@@ -596,6 +606,18 @@ img {
 .nav-dropdown.dropdown-open .nav-chevron {
     transform: rotate(180deg);
     color: #000000;
+}
+
+/* Guard: on desktop the dropdown must never be height-capped. If a leftover
+   inline max-height from the mobile accordion (app.js) sticks around after
+   the viewport switches back to desktop, this forces it back to auto so the
+   white background/shadow always covers the full grid instead of cutting
+   off the last row. */
+@media (min-width: 769px) {
+    .nav-dropdown-menu {
+        max-height: none !important;
+        overflow: visible !important;
+    }
 }
 
 .hero {
@@ -1128,6 +1150,10 @@ img {
     flex-direction: column;
     gap: 4px;
     width: 100%;
+}
+
+.filter-tabs-grid {
+    display: contents;
 }
 
 .filter-btn {
@@ -3115,6 +3141,7 @@ img {
     .nav-dropdown.dropdown-open .nav-dropdown-menu {
         margin-top: 8px;
         pointer-events: auto;
+        transform: none;
         /* max-height is set inline by JS to the content's real height */
     }
 
@@ -3127,19 +3154,36 @@ img {
         padding: 8px 4px 12px;
     }
 
+    .nav-dropdown-menu,
+    .nav-dropdown-menu .nav-subpanel-body,
+    .nav-dropdown-menu .dropdown-categories-grid {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .nav-subpanel-body .dropdown-categories-grid,
     .dropdown-categories-grid {
-        grid-template-columns: 1fr 1fr;
+        display: grid !important;
+        grid-auto-flow: row !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
         gap: 9px;
+        width: 100%;
     }
 
     .dropdown-cat-item {
-        display: flex;
+        display: flex !important;
+        flex-direction: row !important;
         align-items: center;
         gap: 9px;
+        grid-column: auto !important;
+        width: 100%;
         min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
         font-size: 12px;
         font-weight: 600;
-        padding: 11px 10px;
+        padding: 10px 10px;
         color: var(--primary-dark);
         background: var(--secondary-light);
         border: 1px solid transparent;
@@ -3151,10 +3195,10 @@ img {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
         flex-shrink: 0;
-        border-radius: 8px;
+        border-radius: 9px;
         background: #ffffff;
         color: var(--secondary);
         font-size: 12px;
@@ -3170,14 +3214,8 @@ img {
 
     .dropdown-cat-item:hover,
     .dropdown-cat-item:focus-visible {
-        background: rgba(37, 99, 235, 0.14);
-        border-color: rgba(37, 99, 235, 0.3);
-        color: var(--primary-dark);
-    }
-
-    .dropdown-cat-item:hover i,
-    .dropdown-cat-item:focus-visible i {
         background: var(--secondary);
+        border-color: var(--secondary);
         color: #ffffff;
     }
 
@@ -3543,71 +3581,119 @@ img {
 
     
     .filter-tabs {
-        position: absolute;
-        top: calc(100% + 12px);
-        left: 0;
-        right: 0;
-        z-index: 60;
-        flex-direction: column;
-        gap: 2px;
-        max-height: min(60vh, 420px);
-        overflow-y: auto;
-        padding: 8px;
+        position: static;
+        z-index: 5;
+        display: block;
+        width: 100%;
+        max-height: 0;
+        margin-top: 0;
+        padding: 0;
         background-color: var(--bg-white);
-        border: 1px solid var(--border-color);
+        border: 1px solid transparent;
         border-radius: var(--radius-md);
-        box-shadow: var(--shadow-md);
-        opacity: 0;
-        visibility: hidden;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
         pointer-events: none;
-        transform-origin: top center;
-        transform: rotateX(-90deg);
-        transition: opacity 0.22s var(--ease), transform 0.3s var(--ease),
-                    visibility 0.3s var(--ease);
+        transform: none;
+        overflow: hidden;
+        transition: max-height 0.4s var(--ease), margin-top 0.4s var(--ease),
+                    border-color 0.3s ease, box-shadow 0.3s ease;
+        
+        touch-action: pan-y;
+        overscroll-behavior-y: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .filter-tabs::-webkit-scrollbar {
+        display: none;
+        width: 0;
     }
 
     .filter-tabs.open {
-        opacity: 1;
-        visibility: visible;
-        transform: rotateX(0deg);
+        margin-top: 10px;
         pointer-events: auto;
+        border-color: var(--border-color);
+        box-shadow: var(--shadow-sm);
+        /* max-height diatur langsung oleh JS sesuai tinggi konten asli */
+    }
+
+    
+    .filter-tabs-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        gap: 9px;
+        width: 100%;
+        padding: 10px;
     }
 
     .filter-btn {
-        font-size: 14px;
-        padding: 11px 12px;
-        border: none;
-        border-radius: 10px;
-        background-color: transparent;
+        display: flex !important;
+        align-items: center;
+        gap: 9px;
         width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 10px 10px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background-color: var(--secondary-light);
+        color: var(--primary-dark);
         text-align: left;
         justify-content: flex-start;
-        gap: 12px;
-        color: var(--text-muted);
+        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
 
     .filter-btn i {
-        width: 18px;
-        text-align: center;
-        font-size: 14px;
-        color: var(--text-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
         flex-shrink: 0;
+        border-radius: 9px;
+        background: #ffffff;
+        color: var(--secondary);
+        font-size: 12px;
+        transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    .filter-btn:hover {
-        background-color: var(--bg-light);
+    .filter-btn span {
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .filter-btn:hover,
+    .filter-btn:focus-visible {
+        background: var(--secondary);
+        border-color: var(--secondary);
+        color: #ffffff;
+    }
+
+    .filter-btn:hover i,
+    .filter-btn:focus-visible i {
+        background: rgba(255, 255, 255, 0.25);
+        color: #ffffff;
     }
 
     .filter-btn.active {
-        background-color: var(--secondary-light);
-        color: var(--secondary);
-        font-weight: 600;
-        border: none;
-        padding-left: 12px;
+        background-color: var(--secondary);
+        color: #ffffff;
+        font-weight: 700;
+        border-color: var(--secondary);
+        padding-left: 10px;
     }
 
     .filter-btn.active i {
-        color: var(--secondary);
+        background: rgba(255, 255, 255, 0.25);
+        color: #ffffff;
     }
 
     .products-grid {

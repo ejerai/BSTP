@@ -718,6 +718,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     
+    window.addEventListener("resize", () => {
+        const isMobileNow = navToggle && window.getComputedStyle(navToggle).display !== "none";
+
+        if (!isMobileNow) {
+            
+            navDropdowns.forEach(dropdown => {
+                dropdown.classList.remove("dropdown-open");
+                const menu = dropdown.querySelector(".nav-dropdown-menu");
+                if (menu) menu.style.maxHeight = "";
+            });
+            if (navToggle) navToggle.classList.remove("nav-toggle-subpanel-open");
+            return;
+        }
+
+        navDropdowns.forEach(dropdown => {
+            if (!dropdown.classList.contains("dropdown-open")) return;
+            const menu = dropdown.querySelector(".nav-dropdown-menu");
+            if (!menu) return;
+            menu.style.maxHeight = "none";
+            const fullHeight = menu.scrollHeight;
+            menu.style.maxHeight = fullHeight + "px";
+        });
+    });
+
+    
     const urlParams = new URLSearchParams(window.location.search);
     const categoryParam = urlParams.get("category");
 
@@ -1028,8 +1053,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Buka dropdown kategori (khusus tampilan mobile) - memanjang ke bawah sesuai tinggi konten asli
+    function openFilterDropdown() {
+        if (filterTabs) {
+            filterTabs.classList.add("open");
+            filterTabs.style.maxHeight = "none";
+            const fullHeight = filterTabs.scrollHeight;
+            filterTabs.style.maxHeight = "0px";
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    filterTabs.style.maxHeight = fullHeight + "px";
+                });
+            });
+        }
+        if (filterDropdownTrigger) {
+            filterDropdownTrigger.classList.add("open");
+            filterDropdownTrigger.setAttribute("aria-expanded", "true");
+        }
+    }
+
     // Tutup dropdown kategori (khusus tampilan mobile)
     function closeFilterDropdown() {
+        if (filterTabs && filterTabs.classList.contains("open")) {
+            filterTabs.style.maxHeight = filterTabs.scrollHeight + "px";
+            requestAnimationFrame(() => {
+                filterTabs.style.maxHeight = "0px";
+            });
+        }
         if (filterTabs) filterTabs.classList.remove("open");
         if (filterDropdownTrigger) {
             filterDropdownTrigger.classList.remove("open");
@@ -1041,9 +1092,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (filterDropdownTrigger && filterTabs) {
         filterDropdownTrigger.addEventListener("click", (e) => {
             e.stopPropagation();
-            const isOpen = filterTabs.classList.toggle("open");
-            filterDropdownTrigger.classList.toggle("open", isOpen);
-            filterDropdownTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            const isOpen = filterTabs.classList.contains("open");
+            if (isOpen) {
+                closeFilterDropdown();
+            } else {
+                openFilterDropdown();
+            }
         });
 
         
