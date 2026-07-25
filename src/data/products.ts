@@ -17,8 +17,8 @@ export const productsData: Product[] = [
     image: "assets/images/catalog/elektromotor1.webp",
     models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
     specs: {
-      "Daya": "3W – 250W",
-      "Tipe": "AC Induction / DC Gearmotor",
+      "Daya": "0,37 KW – 315 KW",
+      "Tipe": "Horizontal",
       "Tegangan": "220V AC / 12V – 90V DC",
       "Aplikasi": "Conveyor, Otomasi, Industri Umum"
     }
@@ -31,7 +31,7 @@ export const productsData: Product[] = [
     image: "assets/images/catalog/elektromotor2.webp",
     models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
     specs: {
-      "Daya": "3W – 250W",
+      "Daya": "0,37 KW – 315 KW",
       "Tipe": "AC Induction / DC Gearmotor",
       "Tegangan": "220V AC / 12V – 90V DC",
       "Aplikasi": "Conveyor, Otomasi, Industri Umum"

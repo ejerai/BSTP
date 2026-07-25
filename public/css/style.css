@@ -143,6 +143,7 @@ img {
 
 .section-title {
     font-size: 36px;
+    font-weight: 800;
     margin-bottom: 16px;
 }
 
@@ -2500,6 +2501,7 @@ img {
     font-size: 14px;
     margin-bottom: 24px;
     line-height: 1.6;
+    text-align: justify;
 }
 
 .social-links {
@@ -2525,16 +2527,18 @@ img {
     transform: translateY(-3px);
 }
 
+.footer-brand h3,
 .footer-links h3,
 .footer-products h3,
 .footer-contact h3 {
-    color: var(--text-light);
+    color: #ffffff;
     font-size: 16px;
     margin-bottom: 24px;
     position: relative;
     padding-bottom: 10px;
 }
 
+.footer-brand h3::after,
 .footer-links h3::after,
 .footer-products h3::after,
 .footer-contact h3::after {
