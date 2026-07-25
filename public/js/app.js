@@ -1,4 +1,3 @@
-
 const PRODUCT_DATA = [
     
     {
@@ -209,7 +208,7 @@ const PRODUCT_DATA = [
         id: "helical-gearmotor-2",
         name: "Helical Gear Motor",
         category: "gearmotor",
-        brand: "Mini Gear Motor / IEC Series",
+        brand: "Compact Gearmotor Series",
         image: "/assets/images/catalog/helicalgearmotor2.webp",
         models: ["CHCZ ... P", "CHCF ... P", "CHCZ ... HS"],
         specs: {
@@ -223,7 +222,7 @@ const PRODUCT_DATA = [
         id: "helical-gearmotor-3",
         name: "Helical Gear Motor",
         category: "gearmotor",
-        brand: "Variator / Gearhead Series",
+        brand: "Compact Gearmotor Series",
         image: "/assets/images/catalog/helicalgearmotor3.webp",
         models: ["Variable Helical", "Variator Foot Mounting", "Variator Flange Mounting", "Spiral Bevel 25W–200W"],
         specs: {
@@ -296,76 +295,6 @@ const PRODUCT_DATA = [
 
     
     {
-        id: "hoist-hhxg-a",
-        name: "Electric Chain Hoist Type HHXG-A",
-        category: "lifting",
-        brand: "Hoist Crane Series",
-        image: "/assets/images/catalog/chain-hoist.png",
-        models: ["HHXG-A-005-1S", "HHXG-A-010-1S", "HHXG-A-020-2S", "HHXG-A-030-3S"],
-        specs: {
-            "Kapasitas Angkat": "0.5 Ton ~ 3 Ton",
-            "Tipe": "Hook Suspension Electric Hoist",
-            "Rantai Beban": "Rantai Baja G80 Alloy Steel",
-            "Kecepatan Angkat": "Single Speed"
-        }
-    },
-    {
-        id: "hoist-shh-a",
-        name: "Electric Chain Hoist Type SHH-A Series",
-        category: "lifting",
-        brand: "Hoist Crane Series",
-        image: "/assets/images/catalog/chain-hoist.png",
-        models: ["SHH-A-003-1D", "SHH-A-005-1D", "SHH-A-010-1D", "SHH-A-020-2D", "SHH-A-030-1D", "SHH-A-050-2D"],
-        specs: {
-            "Kapasitas Angkat": "0.25 Ton ~ 5 Ton",
-            "Rantai Dimensi": "Φ 5 x 15 mm / Φ 11.2 x 34 mm",
-            "Kelas Isolasi": "F / Proteksi IP54",
-            "Kecepatan": "Pilihan Single Speed / Dual Speed"
-        }
-    },
-    {
-        id: "hoist-shh-am",
-        name: "Electric Chain Hoist with Trolley Type SHH-AM",
-        category: "lifting",
-        brand: "Hoist Crane Series",
-        image: "/assets/images/catalog/chain-hoist.png",
-        models: ["SHH-AM Series (c/w Motorized Trolley)"],
-        specs: {
-            "Kapasitas Angkat": "0.25 Ton ~ 5 Ton",
-            "Tipe Trolley": "Motorized Trolley (bisa berjalan di girder)",
-            "Rantai Beban": "Φ 5 x 15 mm / Φ 11.2 x 34 mm"
-        }
-    },
-    {
-        id: "chain-block-hsz",
-        name: "Chain Block HSZ-A622 & Hand Lever Block HSH-A620",
-        category: "lifting",
-        brand: "Lifting Gear Series",
-        image: "/assets/images/catalog/chain-hoist.png",
-        models: ["HSZ-A622 Chain Block", "HSH-A620 Hand Lever Block"],
-        specs: {
-            "Kapasitas Chain Block": "0.5 ~ 30 Ton (Rantai Manual)",
-            "Kapasitas Lever Block": "0.75 ~ 9 Ton",
-            "Panjang Rantai": "Standard 3 meter (bisa dipesan khusus)",
-            "Sertifikasi": "Uji Beban Proof Load 1.5x Kapasitas Maks"
-        }
-    },
-    {
-        id: "manual-trolley-gcl",
-        name: "Gear Trolley & Manual Plain Trolley GCL810",
-        category: "lifting",
-        brand: "Lifting Gear Series",
-        image: "/assets/images/catalog/chain-hoist.png",
-        models: ["GCL810 Plain Trolley", "GCT810 Geared Trolley"],
-        specs: {
-            "Kapasitas": "0.5 ~ 10 Ton",
-            "Aplikasi": "Dudukan Hoist manual/listrik pada balok I-Beam / H-Beam",
-            "Proof Load": "0.625 ~ 12.5 Ton"
-        }
-    },
-
-    
-    {
         id: "inverter-1",
         name: "Inverter (VFD)",
         category: "inverter",
@@ -380,21 +309,6 @@ const PRODUCT_DATA = [
         }
     },
 
-    
-    {
-        id: "pulley-1",
-        name: "Pulley",
-        category: "pulley",
-        brand: "Industrial Pulley Series",
-        image: "/assets/images/catalog/pulley.webp",
-        models: ["V-Belt Pulley", "Timing Pulley", "Flat Belt Pulley"],
-        specs: {
-            "Tipe": "V-Belt / Timing / Flat Belt Pulley",
-            "Material": "Cast Iron / Aluminium / Baja",
-            "Aplikasi": "Transmisi Daya, Conveyor, Pompa, Kompresor",
-            "Standar": "SPZ, SPA, SPB, SPC Series"
-        }
-    }
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -692,7 +606,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (navOverlay) navOverlay.classList.remove("active");
         unlockBodyScroll();
         
-        document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => d.classList.remove("dropdown-open"));
+        document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => {
+            d.classList.remove("dropdown-open");
+            const menu = d.querySelector(".nav-dropdown-menu");
+            if (menu) menu.style.maxHeight = "";
+        });
         navToggle.classList.remove("nav-toggle-subpanel-open");
     }
 
@@ -727,6 +645,34 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const navDropdowns = document.querySelectorAll(".nav-dropdown");
 
+    function openDropdownAccordion(dropdown) {
+        const menu = dropdown.querySelector(".nav-dropdown-menu");
+        dropdown.classList.add("dropdown-open");
+        if (menu) {
+            
+            menu.style.maxHeight = "none";
+            const fullHeight = menu.scrollHeight;
+            menu.style.maxHeight = "0px";
+            
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    menu.style.maxHeight = fullHeight + "px";
+                });
+            });
+        }
+    }
+
+    function closeDropdownAccordion(dropdown) {
+        const menu = dropdown.querySelector(".nav-dropdown-menu");
+        dropdown.classList.remove("dropdown-open");
+        if (menu) {
+            menu.style.maxHeight = menu.scrollHeight + "px";
+            requestAnimationFrame(() => {
+                menu.style.maxHeight = "0px";
+            });
+        }
+    }
+
     navDropdowns.forEach(dropdown => {
         const trigger = dropdown.querySelector(".nav-dropdown-trigger");
         if (!trigger) return;
@@ -740,13 +686,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const isOpen = dropdown.classList.contains("dropdown-open");
 
             
-            navDropdowns.forEach(d => d.classList.remove("dropdown-open"));
+            navDropdowns.forEach(d => {
+                if (d !== dropdown) closeDropdownAccordion(d);
+            });
 
             if (!isOpen) {
-                dropdown.classList.add("dropdown-open");
+                openDropdownAccordion(dropdown);
                 if (navToggle) navToggle.classList.add("nav-toggle-subpanel-open");
-            } else if (navToggle) {
-                navToggle.classList.remove("nav-toggle-subpanel-open");
+            } else {
+                closeDropdownAccordion(dropdown);
+                if (navToggle) navToggle.classList.remove("nav-toggle-subpanel-open");
             }
         });
 
@@ -754,7 +703,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const backBtn = dropdown.querySelector("[data-dropdown-back]");
         if (backBtn) {
             backBtn.addEventListener("click", () => {
-                dropdown.classList.remove("dropdown-open");
+                closeDropdownAccordion(dropdown);
                 if (navToggle) navToggle.classList.remove("nav-toggle-subpanel-open");
             });
         }
@@ -763,7 +712,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     document.addEventListener("click", (e) => {
         if (!e.target.closest(".nav-dropdown")) {
-            navDropdowns.forEach(d => d.classList.remove("dropdown-open"));
+            navDropdowns.forEach(d => closeDropdownAccordion(d));
             if (navToggle) navToggle.classList.remove("nav-toggle-subpanel-open");
         }
     });
@@ -949,10 +898,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>`;
             }
 
+            const showBrand = p.category === "motor" || p.category === "gearmotor";
+            const brandHTML = showBrand ? `<span class="product-brand">${p.brand}</span>` : "";
+
             card.innerHTML = `
                 ${imgBoxHTML}
                 <div class="product-details-box">
-                    <span class="product-brand">${p.brand}</span>
+                    ${brandHTML}
                     <h3 class="product-name">${p.name}</h3>
                     <ul class="product-specs-summary">
                         ${specsLi}
