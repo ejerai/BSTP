@@ -6,7 +6,7 @@ const PRODUCT_DATA = [
         name: "Elektromotor",
         category: "motor",
         brand: "Gear Motor / DC Motor Series",
-        image: "assets/images/catalog/elektromotor1.webp",
+        image: "/assets/images/catalog/elektromotor1.webp",
         models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
         specs: {
             "Daya": "3W – 250W",
@@ -20,7 +20,7 @@ const PRODUCT_DATA = [
         name: "Elektromotor",
         category: "motor",
         brand: "Gear Motor / DC Motor Series",
-        image: "assets/images/catalog/elektromotor2.webp",
+        image: "/assets/images/catalog/elektromotor2.webp",
         models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
         specs: {
             "Daya": "3W – 250W",
@@ -34,7 +34,7 @@ const PRODUCT_DATA = [
         name: "Elektromotor",
         category: "motor",
         brand: "Gear Motor / DC Motor Series",
-        image: "assets/images/catalog/elektromotor3.webp",
+        image: "/assets/images/catalog/elektromotor3.webp",
         models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
         specs: {
             "Daya": "3W – 250W",
@@ -50,7 +50,7 @@ const PRODUCT_DATA = [
         name: "Vibrator Motor",
         category: "vibrator",
         brand: "ITAL VIBRAS / ADK / BONZER",
-        image: "assets/images/catalog/vibrator1.webp",
+        image: "/assets/images/catalog/vibrator1.webp",
         models: ["VAM Series (1-Phase)", "VA Series (3-Phase)", "AF/T Series"],
         specs: {
             "Tipe": "Industrial Vibrator Motor",
@@ -64,7 +64,7 @@ const PRODUCT_DATA = [
         name: "Vibrator Motor",
         category: "vibrator",
         brand: "ALLIANCE",
-        image: "assets/images/catalog/vibrator2.webp",
+        image: "/assets/images/catalog/vibrator2.webp",
         models: ["AVI Series"],
         specs: {
             "Kelas": "Heavy Duty",
@@ -80,7 +80,7 @@ const PRODUCT_DATA = [
         name: "Worm Gear Reducer",
         category: "gearbox",
         brand: "CHENTA / REVCO / YUEMA",
-        image: "assets/images/catalog/wormgearreducer1.webp",
+        image: "/assets/images/catalog/wormgearreducer1.webp",
         models: ["WPA 40-250", "WPS 40-250"],
         specs: {
             "Ukuran (Sizes)": "40, 50, 60, 70, 80, 100, 120, 135, 155, 175, 200, 250",
@@ -94,7 +94,7 @@ const PRODUCT_DATA = [
         name: "Worm Gear Reducer",
         category: "gearbox",
         brand: "CHENTA / REVCO",
-        image: "assets/images/catalog/wormgearreducer2.webp",
+        image: "/assets/images/catalog/wormgearreducer2.webp",
         models: ["WPDA 50-155", "WPDS 50-250"],
         specs: {
             "Ukuran (Sizes)": "50, 60, 70, 80, 100, 120, 135, 147, 155, 175, 200, 250",
@@ -108,7 +108,7 @@ const PRODUCT_DATA = [
         name: "Worm Gear Reducer",
         category: "gearbox",
         brand: "MOTOVARIO / YUEMA",
-        image: "assets/images/catalog/wormgearreducer3.webp",
+        image: "/assets/images/catalog/wormgearreducer3.webp",
         models: ["NMRV 30-150", "RV 30-150"],
         specs: {
             "Ukuran (Sizes)": "30 - 40 - 50 - 63 - 75 - 90 - 110 - 130 - 150",
@@ -122,7 +122,7 @@ const PRODUCT_DATA = [
         name: "Worm Gear Reducer",
         category: "gearbox",
         brand: "YUEMA / TRANSMAX",
-        image: "assets/images/catalog/wormgearreducer4.webp",
+        image: "/assets/images/catalog/wormgearreducer4.webp",
         models: ["TR Series", "TRF Series", "TK Series", "TKF Series"],
         specs: {
             "Tipe": "Helical / Helical Bevel Gearbox",
@@ -138,7 +138,7 @@ const PRODUCT_DATA = [
         name: "Worm Gear",
         category: "worm-gear",
         brand: "CHENTA / REVCO / YUEMA",
-        image: "assets/images/catalog/wormgear1.webp",
+        image: "/assets/images/catalog/wormgear1.webp",
         models: ["WPA Series", "WPS Series"],
         specs: {
             "Tipe": "Worm Gear Set",
@@ -152,7 +152,7 @@ const PRODUCT_DATA = [
         name: "Worm Gear",
         category: "worm-gear",
         brand: "CHENTA / REVCO",
-        image: "assets/images/catalog/wormgear2.webp",
+        image: "/assets/images/catalog/wormgear2.webp",
         models: ["WPDA Series", "WPDS Series"],
         specs: {
             "Tipe": "Double Stage Worm Gear",
@@ -166,7 +166,7 @@ const PRODUCT_DATA = [
         name: "Worm Gear",
         category: "worm-gear",
         brand: "MOTOVARIO / YUEMA",
-        image: "assets/images/catalog/wormgear3.webp",
+        image: "/assets/images/catalog/wormgear3.webp",
         models: ["NMRV 30-150", "RV 30-150"],
         specs: {
             "Ukuran (Sizes)": "30 - 40 - 50 - 63 - 75 - 90 - 110 - 130 - 150",
@@ -180,7 +180,7 @@ const PRODUCT_DATA = [
         name: "Worm Gear",
         category: "worm-gear",
         brand: "Industrial Gearbox Series",
-        image: "assets/images/catalog/wormgear4.webp",
+        image: "/assets/images/catalog/wormgear4.webp",
         models: ["ZDY Series", "ZLY Series", "BWD Series", "XWD Series"],
         specs: {
             "Tipe": "Cycloidal / Parallel Shaft Reducer",
@@ -196,7 +196,7 @@ const PRODUCT_DATA = [
         name: "Helical Gear Motor",
         category: "gearmotor",
         brand: "Compact Gearmotor Series",
-        image: "assets/images/catalog/helicalgearmotor1.webp",
+        image: "/assets/images/catalog/helicalgearmotor1.webp",
         models: ["G3LM Series", "G3FM Series", "G3LS Series", "G3L Series"],
         specs: {
             "Ukuran (Sizes)": "18 - 22 - 28 - 32 mm",
@@ -210,7 +210,7 @@ const PRODUCT_DATA = [
         name: "Helical Gear Motor",
         category: "gearmotor",
         brand: "Mini Gear Motor / IEC Series",
-        image: "assets/images/catalog/helicalgearmotor2.webp",
+        image: "/assets/images/catalog/helicalgearmotor2.webp",
         models: ["CHCZ ... P", "CHCF ... P", "CHCZ ... HS"],
         specs: {
             "Ukuran Frame (Sizes)": "01 - 02 - 03 - 04",
@@ -224,7 +224,7 @@ const PRODUCT_DATA = [
         name: "Helical Gear Motor",
         category: "gearmotor",
         brand: "Variator / Gearhead Series",
-        image: "assets/images/catalog/helicalgearmotor3.webp",
+        image: "/assets/images/catalog/helicalgearmotor3.webp",
         models: ["Variable Helical", "Variator Foot Mounting", "Variator Flange Mounting", "Spiral Bevel 25W–200W"],
         specs: {
             "Kapasitas Daya": "0.18 ~ 7.5 kW",
@@ -240,7 +240,7 @@ const PRODUCT_DATA = [
         name: "Centrifugal Pump",
         category: "pump",
         brand: "EBARA / CNP / Fire Hydrant Series",
-        image: "assets/images/catalog/centrifugalpump1.webp",
+        image: "/assets/images/catalog/centrifugalpump1.webp",
         models: ["Ebara End Suction", "Fire Hydrant Pump", "Electric Hydrant Pump"],
         specs: {
             "Tipe": "End Suction / Fire Hydrant Centrifugal Pump",
@@ -254,7 +254,7 @@ const PRODUCT_DATA = [
         name: "Centrifugal Pump",
         category: "pump",
         brand: "CNP (Nanfang)",
-        image: "assets/images/catalog/centrifugalpump2.webp",
+        image: "/assets/images/catalog/centrifugalpump2.webp",
         models: ["CHL Series", "CHLF Series", "CDL Series", "CDLF Series"],
         specs: {
             "Tipe": "Multistage Centrifugal Pump",
@@ -268,7 +268,7 @@ const PRODUCT_DATA = [
         name: "Centrifugal Pump",
         category: "pump",
         brand: "CNP / SPECK PUMPEN",
-        image: "assets/images/catalog/centrifugalpump3.webp",
+        image: "/assets/images/catalog/centrifugalpump3.webp",
         models: ["SJ Series Deepwell", "ASK Series", "SK Series", "VH Series"],
         specs: {
             "Tipe": "Submersible / Side Channel Pump",
@@ -284,7 +284,7 @@ const PRODUCT_DATA = [
         name: "Gear Pump",
         category: "gear-pump",
         brand: "KOSHIN (Made in Japan) / YUEMA",
-        image: "assets/images/catalog/gearpump.webp",
+        image: "/assets/images/catalog/gearpump.webp",
         models: ["GL Series", "GC Series", "GB Series", "2CY Series", "Asphalt Gear Pump"],
         specs: {
             "Koneksi Diameter": "13 mm (1/2\") hingga 50 mm (2\")",
@@ -300,7 +300,7 @@ const PRODUCT_DATA = [
         name: "Electric Chain Hoist Type HHXG-A",
         category: "lifting",
         brand: "Hoist Crane Series",
-        image: "assets/images/catalog/chain-hoist.png",
+        image: "/assets/images/catalog/chain-hoist.png",
         models: ["HHXG-A-005-1S", "HHXG-A-010-1S", "HHXG-A-020-2S", "HHXG-A-030-3S"],
         specs: {
             "Kapasitas Angkat": "0.5 Ton ~ 3 Ton",
@@ -314,7 +314,7 @@ const PRODUCT_DATA = [
         name: "Electric Chain Hoist Type SHH-A Series",
         category: "lifting",
         brand: "Hoist Crane Series",
-        image: "assets/images/catalog/chain-hoist.png",
+        image: "/assets/images/catalog/chain-hoist.png",
         models: ["SHH-A-003-1D", "SHH-A-005-1D", "SHH-A-010-1D", "SHH-A-020-2D", "SHH-A-030-1D", "SHH-A-050-2D"],
         specs: {
             "Kapasitas Angkat": "0.25 Ton ~ 5 Ton",
@@ -328,7 +328,7 @@ const PRODUCT_DATA = [
         name: "Electric Chain Hoist with Trolley Type SHH-AM",
         category: "lifting",
         brand: "Hoist Crane Series",
-        image: "assets/images/catalog/chain-hoist.png",
+        image: "/assets/images/catalog/chain-hoist.png",
         models: ["SHH-AM Series (c/w Motorized Trolley)"],
         specs: {
             "Kapasitas Angkat": "0.25 Ton ~ 5 Ton",
@@ -341,7 +341,7 @@ const PRODUCT_DATA = [
         name: "Chain Block HSZ-A622 & Hand Lever Block HSH-A620",
         category: "lifting",
         brand: "Lifting Gear Series",
-        image: "assets/images/catalog/chain-hoist.png",
+        image: "/assets/images/catalog/chain-hoist.png",
         models: ["HSZ-A622 Chain Block", "HSH-A620 Hand Lever Block"],
         specs: {
             "Kapasitas Chain Block": "0.5 ~ 30 Ton (Rantai Manual)",
@@ -355,7 +355,7 @@ const PRODUCT_DATA = [
         name: "Gear Trolley & Manual Plain Trolley GCL810",
         category: "lifting",
         brand: "Lifting Gear Series",
-        image: "assets/images/catalog/chain-hoist.png",
+        image: "/assets/images/catalog/chain-hoist.png",
         models: ["GCL810 Plain Trolley", "GCT810 Geared Trolley"],
         specs: {
             "Kapasitas": "0.5 ~ 10 Ton",
@@ -370,7 +370,7 @@ const PRODUCT_DATA = [
         name: "Inverter (VFD)",
         category: "inverter",
         brand: "ABB / SCHNEIDER / INVT / HITACHI / CUTES",
-        image: "assets/images/catalog/inverter1.webp",
+        image: "/assets/images/catalog/inverter1.webp",
         models: ["ABB VFD Drives", "Schneider Altivar VFD", "INVT Goodrive", "Hitachi VFD Series", "Cutes Inverter"],
         specs: {
             "Fungsi": "Pengatur Kecepatan Putaran Motor Induksi AC",
@@ -386,7 +386,7 @@ const PRODUCT_DATA = [
         name: "Pulley",
         category: "pulley",
         brand: "Industrial Pulley Series",
-        image: "assets/images/catalog/pulley.webp",
+        image: "/assets/images/catalog/pulley.webp",
         models: ["V-Belt Pulley", "Timing Pulley", "Flat Belt Pulley"],
         specs: {
             "Tipe": "V-Belt / Timing / Flat Belt Pulley",
@@ -480,7 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const pdfModalClose = document.getElementById("pdfModalClose");
     const pdfViewerFrame = document.getElementById("pdfViewerFrame");
-    const PDF_PROFILE_PATH = "assets/KATALOG.pdf";
+    const PDF_PROFILE_PATH = "/assets/KATALOG.pdf";
     
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightboxImg");
@@ -498,17 +498,17 @@ document.addEventListener("DOMContentLoaded", () => {
     
     
     const catalogImages = [
-        { title: "Cover Brosur PT. BSTP", src: "assets/brand/logo.png" },
-        { title: "AC Induktion Motor & Blower", src: "assets/images/catalog/ac-motor.png" },
-        { title: "Industrial Pumps", src: "assets/images/catalog/industrial-pump.png" },
-        { title: "Koshin & Yuema Gear Pump", src: "assets/images/catalog/gear-pump.png" },
-        { title: "CNP & Speck Centrifugal Pump", src: "assets/images/catalog/centrifugal-pump.png" },
-        { title: "Helical & Bevel Gearbox", src: "assets/images/catalog/helical-bevel-gearbox.png" },
-        { title: "Worm Gearbox", src: "assets/images/catalog/worm-gearbox.png" },
-        { title: "Pararel Gear Box & Cycloidal Speed Reducer", src: "assets/images/catalog/parallel-gearbox-catalog.png" },
-        { title: "Compact, Mini Gear Motor & Variator", src: "assets/images/catalog/compact-gear-motor-catalog.png" },
-        { title: "Electric Chain Hoist & Chain Block", src: "assets/images/catalog/chain-hoist.png" },
-        { title: "Vibrator, Inverter & Air Compressor", src: "assets/images/catalog/vibrator-inverter-compressor.png" }
+        { title: "Cover Brosur PT. BSTP", src: "/assets/brand/logo.png" },
+        { title: "AC Induktion Motor & Blower", src: "/assets/images/catalog/ac-motor.png" },
+        { title: "Industrial Pumps", src: "/assets/images/catalog/industrial-pump.png" },
+        { title: "Koshin & Yuema Gear Pump", src: "/assets/images/catalog/gear-pump.png" },
+        { title: "CNP & Speck Centrifugal Pump", src: "/assets/images/catalog/centrifugal-pump.png" },
+        { title: "Helical & Bevel Gearbox", src: "/assets/images/catalog/helical-bevel-gearbox.png" },
+        { title: "Worm Gearbox", src: "/assets/images/catalog/worm-gearbox.png" },
+        { title: "Pararel Gear Box & Cycloidal Speed Reducer", src: "/assets/images/catalog/parallel-gearbox-catalog.png" },
+        { title: "Compact, Mini Gear Motor & Variator", src: "/assets/images/catalog/compact-gear-motor-catalog.png" },
+        { title: "Electric Chain Hoist & Chain Block", src: "/assets/images/catalog/chain-hoist.png" },
+        { title: "Vibrator, Inverter & Air Compressor", src: "/assets/images/catalog/vibrator-inverter-compressor.png" }
     ];
 
     
@@ -928,7 +928,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const slides = p.images.map((src, i) => `
                     <img src="${src}" alt="${p.name} ${i + 1}" 
                          class="product-card-img card-slide ${i === 0 ? 'active' : ''}" 
-                         onerror="this.onerror=null; this.src='assets/brand/logo.png';">`
+                         onerror="this.onerror=null; this.src='/assets/brand/logo.png';">`
                 ).join("");
                 const dots = p.images.map((_, i) => `
                     <button class="slide-dot ${i === 0 ? 'active' : ''}" data-index="${i}" aria-label="Slide ${i + 1}"></button>`
@@ -945,7 +945,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 imgBoxHTML = `
                 <div class="product-img-box">
                     <span class="product-tag">${cleanCategory}</span>
-                    <img src="${p.image}" alt="${p.name}" class="product-card-img" onerror="this.onerror=null; this.src='assets/brand/logo.png';">
+                    <img src="${p.image}" alt="${p.name}" class="product-card-img" onerror="this.onerror=null; this.src='/assets/brand/logo.png';">
                 </div>`;
             }
 
@@ -1149,7 +1149,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         
         if (modalIcon) {
-            modalIcon.innerHTML = `<img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='assets/brand/logo.png';">`;
+            modalIcon.innerHTML = `<img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='/assets/brand/logo.png';">`;
         }
 
         
