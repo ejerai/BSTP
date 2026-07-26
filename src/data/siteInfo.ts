@@ -7,7 +7,6 @@ export interface SiteInfo {
   phoneWhatsApp: { number: string; display: string; name: string }[];
   address: string;
   googleMapsUrl: string;
-  tokopediaUrl: string;
 }
 
 export const siteInfo: SiteInfo = {
@@ -22,7 +21,6 @@ export const siteInfo: SiteInfo = {
   ],
   address: 'Jl. Raya Utama No. 88, Kawasan Industri, Jakarta, Indonesia',
   googleMapsUrl: 'https://maps.google.com/?q=PT+Bintang+Surya+Teknik+Persada',
-  tokopediaUrl: 'https://tokopedia.com',
 };
 
 export const navCategories = [

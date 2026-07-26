@@ -4,7 +4,7 @@ const PRODUCT_DATA = [
         id: "elektromotor-1",
         name: "Elektromotor",
         category: "motor",
-        brand: "Gear Motor / DC Motor Series",
+        brand: "Motor / DC Motor Series",
         image: "/assets/images/catalog/elektromotor1.webp",
         specs: {
             "Daya": "0.37 KW – 315 KW",
@@ -15,22 +15,22 @@ const PRODUCT_DATA = [
         id: "elektromotor-2",
         name: "Elektromotor",
         category: "motor",
-        brand: "Gear Motor / DC Motor Series",
+        brand: "Motor / DC Motor Series",
         image: "/assets/images/catalog/elektromotor2.webp",
         specs: {
             "Daya": "0.37 KW – 315 KW",
-            "Tipe": "Horizontal Flank",
+            "Tipe": "Horizontal Flange",
         }
     },
     {
         id: "elektromotor-3",
         name: "Elektromotor",
         category: "motor",
-        brand: "Gear Motor / DC Motor Series",
+        brand: "Motor / DC Motor Series",
         image: "/assets/images/catalog/elektromotor3.webp",
         specs: {
             "Daya": "0.37 KW – 315 KW",
-            "Tipe": "Horizontal Vertical",
+            "Tipe": "Vertical",
         }
     },
 
@@ -816,9 +816,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* ----------------------------------------------------------------------
-       PRODUCT CATALOG LOGIC
-       ---------------------------------------------------------------------- */
     function renderProducts() {
         if (!productsGrid) return;
         productsGrid.innerHTML = "";
@@ -878,7 +875,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             
             let specsLi = "";
-            let keys = Object.keys(p.specs).slice(0, 3); // show top 3 specs on card
+            let keys = Object.keys(p.specs).slice(0, 3); 
             keys.forEach(k => {
                 let val = p.specs[k];
                 if (val.length > 28) val = val.substring(0, 25) + "...";
