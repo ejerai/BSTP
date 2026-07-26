@@ -1190,12 +1190,8 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // WhatsApp redirection pre-filled text
         if (modalWaBtn) {
-            const waText = `Halo PT. Bintang Surya Teknik Persada,\nsaya tertarik dengan produk berikut:\n\n` +
-                           `• Nama Produk: ${product.name}\n` +
-                           `• Brand: ${product.brand ?? '-'}\n` +
-                           `• Model/Tipe: ${product.models?.[0] ?? '-'}\n\n` +
-                           `Bisakah saya meminta brosur digital lengkap, informasi ketersediaan stok barang, dan surat penawaran harga resmi (Quotation)? Terima kasih.`;
-                           
+            const waText = `Halo, saya tertarik dengan produk "${product.name}". Apakah saya boleh bertanya beberapa hal mengenai produk ini?`;
+                            
             modalWaBtn.href = `https://wa.me/628161317107?text=${encodeURIComponent(waText)}`;
         }
         
