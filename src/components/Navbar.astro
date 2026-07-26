@@ -56,14 +56,38 @@ const { activeNav = 'home' } = Astro.props;
                     </button>
                     <div class="nav-subpanel-body">
                     <div class="dropdown-categories-grid">
-                        <a href="/products?category=motor" class="dropdown-cat-item"><i class="fa-solid fa-bolt"></i><span>Elektromotor</span></a>
-                        <a href="/products?category=gearmotor" class="dropdown-cat-item"><i class="fa-solid fa-gears"></i><span>Helical Gear Motor</span></a>
-                        <a href="/products?category=gearbox" class="dropdown-cat-item"><i class="fa-solid fa-cog"></i><span>Worm Gear Reducer</span></a>
-                        <a href="/products?category=worm-gear" class="dropdown-cat-item"><i class="fa-solid fa-circle-nodes"></i><span>Worm Gear</span></a>
-                        <a href="/products?category=inverter" class="dropdown-cat-item"><i class="fa-solid fa-sliders"></i><span>Inverter</span></a>
-                        <a href="/products?category=pump" class="dropdown-cat-item"><i class="fa-solid fa-water"></i><span>Centrifugal Pump</span></a>
-                        <a href="/products?category=gear-pump" class="dropdown-cat-item"><i class="fa-solid fa-droplet"></i><span>Gear Pump</span></a>
-                        <a href="/products?category=vibrator" class="dropdown-cat-item"><i class="fa-solid fa-wave-square"></i><span>Vibrator</span></a>
+                        <a href="/products?category=motor" class="dropdown-cat-item">
+                            <svg class="dropdown-cat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="13 2 4.5 13.5 11 13.5 9.5 22 19.5 9.5 12.5 9.5 13 2"/></svg>
+                            <span>Elektromotor</span>
+                        </a>
+                        <a href="/products?category=gearmotor" class="dropdown-cat-item">
+                            <svg class="dropdown-cat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a1 1 0 0 1 1 1v1.06a7.002 7.002 0 0 1 2.1.87l.75-.75a1 1 0 1 1 1.42 1.42l-.75.75c.4.62.7 1.32.87 2.1H18a1 1 0 1 1 0 2h-1.06a7.002 7.002 0 0 1-.87 2.1l.75.75a1 1 0 1 1-1.42 1.42l-.75-.75a7.002 7.002 0 0 1-2.1.87V17a1 1 0 1 1-2 0v-1.06a7.002 7.002 0 0 1-2.1-.87l-.75.75a1 1 0 0 1-1.42-1.42l.75-.75a7.002 7.002 0 0 1-.87-2.1H5a1 1 0 1 1 0-2h1.06c.17-.78.47-1.48.87-2.1l-.75-.75a1 1 0 1 1 1.42-1.42l.75.75c.62-.4 1.32-.7 2.1-.87V3a1 1 0 0 1 1-1zm0 6a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+                            <span>Helical Gear Motor</span>
+                        </a>
+                        <a href="/products?category=gearbox" class="dropdown-cat-item">
+                            <svg class="dropdown-cat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8zm4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+                            <span>Worm Gear Reducer</span>
+                        </a>
+                        <a href="/products?category=worm-gear" class="dropdown-cat-item">
+                            <svg class="dropdown-cat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-2a7 7 0 1 1-2.05-4.95L14 10h6V4l-2.24 2.24A8.98 8.98 0 0 0 12 3z"/></svg>
+                            <span>Worm Gear</span>
+                        </a>
+                        <a href="/products?category=inverter" class="dropdown-cat-item">
+                            <svg class="dropdown-cat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="3" width="2" height="18" rx="1"/><circle cx="6" cy="9" r="2.3"/><rect x="11" y="3" width="2" height="18" rx="1"/><circle cx="12" cy="15" r="2.3"/><rect x="17" y="3" width="2" height="18" rx="1"/><circle cx="18" cy="7" r="2.3"/></svg>
+                            <span>Inverter</span>
+                        </a>
+                        <a href="/products?category=pump" class="dropdown-cat-item">
+                            <svg class="dropdown-cat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c-.28 0-.55.13-.73.36C9.62 5.1 6 10.28 6 14a6 6 0 0 0 12 0c0-3.72-3.62-8.9-5.27-11.64A.93.93 0 0 0 12 2zm0 15.5A3.5 3.5 0 0 1 8.5 14c0-1.86 1.83-4.9 3.5-7.36 1.67 2.46 3.5 5.5 3.5 7.36A3.5 3.5 0 0 1 12 17.5z"/></svg>
+                            <span>Centrifugal Pump</span>
+                        </a>
+                        <a href="/products?category=gear-pump" class="dropdown-cat-item">
+                            <svg class="dropdown-cat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 4a2 2 0 0 1 2 2v1a1 1 0 1 1-2 0V6h-3v3h1a1 1 0 1 1 0 2h-1v3h3v-1a1 1 0 1 1 2 0v1a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-1H8v1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1a1 1 0 1 1 2 0v1h2v-3H7a1 1 0 1 1 0-2h1V6H6v1a1 1 0 1 1-2 0V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1h2V6a2 2 0 0 1 2-2h2z"/></svg>
+                            <span>Gear Pump</span>
+                        </a>
+                        <a href="/products?category=vibrator" class="dropdown-cat-item">
+                            <svg class="dropdown-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12h3.5l1.5-6 4 14 2-11 1.5 3h6.5"/></svg>
+                            <span>Vibrator</span>
+                        </a>
                     </div>
                     </div>
                 </div>
