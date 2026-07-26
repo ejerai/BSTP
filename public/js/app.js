@@ -6,12 +6,9 @@ const PRODUCT_DATA = [
         category: "motor",
         brand: "Gear Motor / DC Motor Series",
         image: "/assets/images/catalog/elektromotor1.webp",
-        models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
         specs: {
-            "Daya": "3W – 250W",
-            "Tipe": "AC Induction / DC Gearmotor",
-            "Tegangan": "220V AC / 12V – 90V DC",
-            "Aplikasi": "Conveyor, Otomasi, Industri Umum"
+            "Daya": "0.37 KW – 315 KW",
+            "Tipe": "Horizontal",
         }
     },
     {
@@ -20,12 +17,9 @@ const PRODUCT_DATA = [
         category: "motor",
         brand: "Gear Motor / DC Motor Series",
         image: "/assets/images/catalog/elektromotor2.webp",
-        models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
         specs: {
-            "Daya": "3W – 250W",
-            "Tipe": "AC Induction / DC Gearmotor",
-            "Tegangan": "220V AC / 12V – 90V DC",
-            "Aplikasi": "Conveyor, Otomasi, Industri Umum"
+            "Daya": "0.37 KW – 315 KW",
+            "Tipe": "Horizontal Flank",
         }
     },
     {
@@ -34,12 +28,9 @@ const PRODUCT_DATA = [
         category: "motor",
         brand: "Gear Motor / DC Motor Series",
         image: "/assets/images/catalog/elektromotor3.webp",
-        models: ["AC Induction Motor", "DC Gearmotor Series", "IK Series", "Z Series"],
         specs: {
-            "Daya": "3W – 250W",
-            "Tipe": "AC Induction / DC Gearmotor",
-            "Tegangan": "220V AC / 12V – 90V DC",
-            "Aplikasi": "Conveyor, Otomasi, Industri Umum"
+            "Daya": "0.37 KW – 315 KW",
+            "Tipe": "Horizontal Vertical",
         }
     },
 
@@ -48,28 +39,22 @@ const PRODUCT_DATA = [
         id: "vibrator-1",
         name: "Vibrator Motor",
         category: "vibrator",
-        brand: "ITAL VIBRAS / ADK / BONZER",
         image: "/assets/images/catalog/vibrator1.webp",
-        models: ["VAM Series (1-Phase)", "VA Series (3-Phase)", "AF/T Series"],
         specs: {
-            "Tipe": "Industrial Vibrator Motor",
-            "Tegangan": "220V (1-Phase) / 220V–360V (3-Phase)",
-            "Aplikasi": "Screening, Silo, Vibrating Feeder, Konstruksi Beton",
-            "Kualitas": "Standard Internasional"
+            "Available Range": "90 WATT - 14000 WATT",
+            "Pole": "2P / 4P / 6p",
+            "Voltage": "380V – 460V 3 Phase 50 Hz / 60 Hz",
         }
     },
     {
         id: "vibrator-2",
         name: "Vibrator Motor",
         category: "vibrator",
-        brand: "ALLIANCE",
         image: "/assets/images/catalog/vibrator2.webp",
-        models: ["AVI Series"],
         specs: {
-            "Kelas": "Heavy Duty",
-            "Tipe": "Vibrator Motor",
-            "Proteksi": "IP66 / Kelas Isolasi F",
-            "Aplikasi": "Industri Berat, Konstruksi"
+            "Available Range": "90 WATT - 14000 WATT",
+            "Pole": "2P / 4P / 6p",
+            "Voltage": "380V – 460V 3 Phase 50 Hz / 60 Hz",
         }
     },
 
@@ -78,56 +63,48 @@ const PRODUCT_DATA = [
         id: "worm-gear-reducer-1",
         name: "Worm Gear Reducer",
         category: "gearbox",
-        brand: "CHENTA / REVCO / YUEMA",
         image: "/assets/images/catalog/wormgearreducer1.webp",
-        models: ["WPA 40-250", "WPS 40-250"],
+        models: ["WORM GEAR WPA/WPO/WPX/WPS"],
         specs: {
-            "Ukuran (Sizes)": "40, 50, 60, 70, 80, 100, 120, 135, 155, 175, 200, 250",
+            "Ukuran (Sizes)": "40 - 50 - 60 - 70 - 80 - 100 - 120 - 135 - 155 - 175 - 200 - 250",
             "Rasio Putaran (Ratio)": "1/10 ~ 1/60",
-            "Tipe": "Worm Gear Reducer",
-            "Koneksi Input": "Solid Shaft (WPA / WPS)"
+            "Casing": "Cast Iron"
         }
     },
     {
         id: "worm-gear-reducer-2",
         name: "Worm Gear Reducer",
         category: "gearbox",
-        brand: "CHENTA / REVCO",
         image: "/assets/images/catalog/wormgearreducer2.webp",
-        models: ["WPDA 50-155", "WPDS 50-250"],
+        models: ["WORM GEAR WPA/WPO/WPX/WPS"],
         specs: {
-            "Ukuran (Sizes)": "50, 60, 70, 80, 100, 120, 135, 147, 155, 175, 200, 250",
-            "Rasio Putaran (Ratio)": "1/10 ~ 1/60 (per stage)",
-            "Tipe": "Double Stage Worm Gearbox",
-            "Koneksi Input": "Flange Motor IEC (WPDA) / Shaft (WPDS)"
+            "Ukuran (Sizes)": "40 - 50 - 60 - 70 - 80 - 100 - 120 - 135 - 155 - 175 - 200 - 250",
+            "Rasio Putaran (Ratio)": "1/10 ~ 1/60",
+            "Casing": "Cast Iron"
         }
     },
     {
         id: "worm-gear-reducer-3",
         name: "Worm Gear Reducer",
         category: "gearbox",
-        brand: "MOTOVARIO / YUEMA",
         image: "/assets/images/catalog/wormgearreducer3.webp",
-        models: ["NMRV 30-150", "RV 30-150"],
+        models: ["WORM GEAR WPA/WPO/WPX/WPS"],
         specs: {
-            "Ukuran (Sizes)": "30 - 40 - 50 - 63 - 75 - 90 - 110 - 130 - 150",
-            "Rasio Putaran (Ratio)": "1.3 ~ 27,001 (Kombinasi)",
-            "Daya Motor (Power)": "0.12 ~ 160 kW",
-            "Bahan Bodi": "Aluminium / Cast Iron"
+            "Ukuran (Sizes)": "40 - 50 - 60 - 70 - 80 - 100 - 120 - 135 - 155 - 175 - 200 - 250",
+            "Rasio Putaran (Ratio)": "1/10 ~ 1/60",
+            "Casing": "Cast Iron"
         }
     },
     {
         id: "worm-gear-reducer-4",
         name: "Worm Gear Reducer",
         category: "gearbox",
-        brand: "YUEMA / TRANSMAX",
         image: "/assets/images/catalog/wormgearreducer4.webp",
-        models: ["TR Series", "TRF Series", "TK Series", "TKF Series"],
+        models: ["WORM GEAR WPA/WPO/WPX/WPS"],
         specs: {
-            "Tipe": "Helical / Helical Bevel Gearbox",
-            "Torsi Maksimal": "50,000 Nm",
-            "Rasio Putaran (Ratio)": "1.3 ~ 32,625",
-            "Daya Motor (Power)": "0.12 ~ 200 kW"
+            "Ukuran (Sizes)": "40 - 50 - 60 - 70 - 80 - 100 - 120 - 135 - 155 - 175 - 200 - 250",
+            "Rasio Putaran (Ratio)": "1/10 ~ 1/60",
+            "Casing": "Cast Iron"
         }
     },
 
@@ -136,56 +113,52 @@ const PRODUCT_DATA = [
         id: "worm-gear-1",
         name: "Worm Gear",
         category: "worm-gear",
-        brand: "CHENTA / REVCO / YUEMA",
         image: "/assets/images/catalog/wormgear1.webp",
-        models: ["WPA Series", "WPS Series"],
+        models: ["Worm Gear MRV"],
         specs: {
-            "Tipe": "Worm Gear Set",
-            "Rasio Putaran (Ratio)": "1/10 ~ 1/60",
-            "Aplikasi": "Transmisi Daya Sudut Siku",
-            "Material": "Cast Iron / Bronze Worm Wheel"
+            "Ukuran (Sizes)": "030 - 040 - 050 - 063 - 075 - 090 - 110 - 130 - 150",
+            "Rasio Putaran (Ratio)": "7.5 ~ 100",
+            "Power": "UP TO 7,5KW",
+            "Casing": "Aluminium"
         }
     },
     {
         id: "worm-gear-2",
         name: "Worm Gear",
         category: "worm-gear",
-        brand: "CHENTA / REVCO",
         image: "/assets/images/catalog/wormgear2.webp",
-        models: ["WPDA Series", "WPDS Series"],
+        models: ["Worm Gear MRV"],
         specs: {
-            "Tipe": "Double Stage Worm Gear",
-            "Rasio Putaran (Ratio)": "1/10 ~ 1/60 (per stage)",
-            "Aplikasi": "Rasio Reduksi Tinggi",
-            "Koneksi": "IEC Flange / Shaft Input"
+            "Ukuran (Sizes)": "030 - 040 - 050 - 063 - 075 - 090 - 110 - 130 - 150",
+            "Rasio Putaran (Ratio)": "7.5 ~ 100",
+            "Power": "UP TO 7,5KW",
+            "Casing": "Aluminium"
         }
     },
     {
         id: "worm-gear-3",
         name: "Worm Gear",
         category: "worm-gear",
-        brand: "MOTOVARIO / YUEMA",
         image: "/assets/images/catalog/wormgear3.webp",
-        models: ["NMRV 30-150", "RV 30-150"],
+        models: ["Worm Gear MRV"],
         specs: {
-            "Ukuran (Sizes)": "30 - 40 - 50 - 63 - 75 - 90 - 110 - 130 - 150",
-            "Tipe": "NMRV Worm Gear",
-            "Daya Motor (Power)": "0.12 ~ 160 kW",
-            "Bahan Bodi": "Aluminium / Cast Iron"
+            "Ukuran (Sizes)": "030 - 040 - 050 - 063 - 075 - 090 - 110 - 130 - 150",
+            "Rasio Putaran (Ratio)": "7.5 ~ 100",
+            "Power": "UP TO 7,5KW",
+            "Casing": "Aluminium"
         }
     },
     {
         id: "worm-gear-4",
         name: "Worm Gear",
         category: "worm-gear",
-        brand: "Industrial Gearbox Series",
         image: "/assets/images/catalog/wormgear4.webp",
-        models: ["ZDY Series", "ZLY Series", "BWD Series", "XWD Series"],
+        models: ["Worm Gear MRV"],
         specs: {
-            "Tipe": "Cycloidal / Parallel Shaft Reducer",
-            "Daya (Power Range)": "0.12 - 6000 kW",
-            "Rasio Transmisi (Ratio)": "1.25 - 650000",
-            "Torsi Output": "Hingga 950 kNm"
+            "Ukuran (Sizes)": "030 - 040 - 050 - 063 - 075 - 090 - 110 - 130 - 150",
+            "Rasio Putaran (Ratio)": "7.5 ~ 100",
+            "Power": "UP TO 7,5KW",
+            "Casing": "Aluminium"
         }
     },
 
@@ -196,12 +169,11 @@ const PRODUCT_DATA = [
         category: "gearmotor",
         brand: "Compact Gearmotor Series",
         image: "/assets/images/catalog/helicalgearmotor1.webp",
-        models: ["G3LM Series", "G3FM Series", "G3LS Series", "G3L Series"],
         specs: {
-            "Ukuran (Sizes)": "18 - 22 - 28 - 32 mm",
-            "Torsi Maksimal": "120 Nm",
-            "Rasio Putaran (Ratio)": "5 ~ 200",
-            "Daya Motor (Power)": "0.1 ~ 1.5 kW"
+            "Ukuran (Sizes)": "57, 67, 77, 87, 97, 107",
+            "Torsi Maksimal": "830 Nm",
+            "Rasio Putaran (Ratio)": "1.3 ~ 6.45",
+            "Daya Motor (Power)": "0.12 ~ 45KW"
         }
     },
     {
@@ -210,12 +182,11 @@ const PRODUCT_DATA = [
         category: "gearmotor",
         brand: "Compact Gearmotor Series",
         image: "/assets/images/catalog/helicalgearmotor2.webp",
-        models: ["CHCZ ... P", "CHCF ... P", "CHCZ ... HS"],
         specs: {
-            "Ukuran Frame (Sizes)": "01 - 02 - 03 - 04",
-            "Torsi Maksimal": "500 Nm",
-            "Rasio Putaran (Ratio)": "3.66 ~ 54",
-            "Daya Motor (Power)": "0.12 ~ 4 kW"
+            "Ukuran (Sizes)": "27, 37, 47, 57, 67, 77, 87, 97, 107, 137, 147, 167",
+            "Torsi Maksimal": "18000 Nm",
+            "Rasio Putaran (Ratio)": "1.3 ~ 27001",
+            "Daya Motor (Power)": "0.12 ~ 160 KW"
         }
     },
     {
@@ -224,12 +195,11 @@ const PRODUCT_DATA = [
         category: "gearmotor",
         brand: "Compact Gearmotor Series",
         image: "/assets/images/catalog/helicalgearmotor3.webp",
-        models: ["Variable Helical", "Variator Foot Mounting", "Variator Flange Mounting", "Spiral Bevel 25W–200W"],
         specs: {
-            "Kapasitas Daya": "0.18 ~ 7.5 kW",
-            "Torsi Maksimal": "1,000 Nm",
-            "Rasio Putaran (Ratio)": "5 (Variasi Manual)",
-            "Tipe": "Helical / Spiral Bevel Gearmotor"
+            "Ukuran (Sizes)": "27, 37, 47, 57, 67, 77, 87, 97, 107, 137, 147, 167",
+            "Torsi Maksimal": "18000 Nm",
+            "Rasio Putaran (Ratio)": "1.3 ~ 27001",
+            "Daya Motor (Power)": "0.12 ~ 160 KW"
         }
     },
 
@@ -238,42 +208,36 @@ const PRODUCT_DATA = [
         id: "centrifugal-pump-1",
         name: "Centrifugal Pump",
         category: "pump",
-        brand: "EBARA / CNP / Fire Hydrant Series",
         image: "/assets/images/catalog/centrifugalpump1.webp",
-        models: ["Ebara End Suction", "Fire Hydrant Pump", "Electric Hydrant Pump"],
         specs: {
-            "Tipe": "End Suction / Fire Hydrant Centrifugal Pump",
-            "Aplikasi": "Transfer Air, Proteksi Kebakaran Gedung",
-            "Material Impeller": "Bronze / Cast Iron",
-            "Penggerak": "Motor Listrik / Mesin Diesel"
+            "Desain": "Back Pull-out Design (Kemudahan Maintenance)",
+            "Temperatur Seal": "Standard Mechanical Seal 10°C ~ 140°C",
+            "Tekanan Operasional": "1.6 MPa ~ 2.4 MPa",
+            "Tekanan Pengujian": "Maksimal Test Pressure 3.6 MPa"
         }
     },
     {
         id: "centrifugal-pump-2",
         name: "Centrifugal Pump",
         category: "pump",
-        brand: "CNP (Nanfang)",
         image: "/assets/images/catalog/centrifugalpump2.webp",
-        models: ["CHL Series", "CHLF Series", "CDL Series", "CDLF Series"],
         specs: {
-            "Tipe": "Multistage Centrifugal Pump",
-            "Kapasitas Alir (Q)": "Hingga 240 m³/h",
-            "Head Dorong (H)": "Hingga 305 m",
-            "Material": "Stainless Steel (SUS 304 / 316)"
+            "Material Impeller": "Cast Iron / Bronze / Stainless Steel",
+            "Shaft Sealing & Pelumas": "Mechanical Seal / Gland Packing (Oil / Grease)",
+            "Performa (Q / H)": "Flow Rate 2-1100 m³/h, Head 2-150 m",
+            "Kecepatan (Speed)": "1450/2900 RPM (50Hz) | 1750/3500 RPM (60Hz)"
         }
     },
     {
         id: "centrifugal-pump-3",
         name: "Centrifugal Pump",
         category: "pump",
-        brand: "CNP / SPECK PUMPEN",
         image: "/assets/images/catalog/centrifugalpump3.webp",
-        models: ["SJ Series Deepwell", "ASK Series", "SK Series", "VH Series"],
         specs: {
-            "Tipe": "Submersible / Side Channel Pump",
-            "Kapasitas Alir": "Hingga 260 m³/h",
-            "Head Dorong (H)": "Hingga 381 m",
-            "Aplikasi": "Sumur Bor, Minyak Panas, Cairan Kimia"
+            "Material Impeller": "Cast Iron / Bronze / Stainless Steel",
+            "Shaft Sealing & Pelumas": "Mechanical Seal / Gland Packing (Oil / Grease)",
+            "Performa (Q / H)": "Flow Rate 2-1100 m³/h, Head 2-150 m",
+            "Kecepatan (Speed)": "1450/2900 RPM (50Hz) | 1750/3500 RPM (60Hz)"
         }
     },
 
@@ -282,30 +246,52 @@ const PRODUCT_DATA = [
         id: "gear-pump-1",
         name: "Gear Pump",
         category: "gear-pump",
-        brand: "KOSHIN (Made in Japan) / YUEMA",
         image: "/assets/images/catalog/gearpump.webp",
-        models: ["GL Series", "GC Series", "GB Series", "2CY Series", "Asphalt Gear Pump"],
+        models: ["GL Series", "GC Series", "GB Series"],
         specs: {
-            "Koneksi Diameter": "13 mm (1/2\") hingga 50 mm (2\")",
-            "Daya Motor": "0.4 kW hingga 7.5 kW",
-            "Tekanan Maks": "0.5 MPa ~ 1 MPa",
-            "Aplikasi Khusus": "Oli, Asphalt Cair, Cairan Kental"
+            "Delivery Volume": "10 L/MIN (2 USG/MIN) hingga 56 L/MIN (14 USG/MIN)",
+            "Power": "200 W hingga 750 W",
+            "Pressure": "0.1 - 0.3 MPA (1 - 3 KG/CM²)",
+            "Applications": "Solar, Minyak"
         }
     },
 
     
     {
         id: "inverter-1",
-        name: "Inverter (VFD)",
+        name: "Inverter GD-10",
         category: "inverter",
-        brand: "ABB / SCHNEIDER / INVT / HITACHI / CUTES",
         image: "/assets/images/catalog/inverter1.webp",
-        models: ["ABB VFD Drives", "Schneider Altivar VFD", "INVT Goodrive", "Hitachi VFD Series", "Cutes Inverter"],
         specs: {
-            "Fungsi": "Pengatur Kecepatan Putaran Motor Induksi AC",
-            "Fitur": "Soft Start/Stop, Proteksi Overload, Hemat Energi",
-            "Rentang Daya": "0.37 kW hingga 500 kW",
-            "Merk": "ABB / Schneider / INVT / Hitachi / Cutes"
+            "Rated Input Voltage (V)": "1PH 220V(-15%)~240V(+10%)",
+            "Rated Input Frequency (Hz)": "50Hz or 60Hz, Permissible Range: 47~63Hz",
+            "Rated Output Voltage (V)": "Equal to Input Voltage with Less Than 5% Error",
+            "Rated Output Frequency (Hz)": "50Hz/60Hz, Fluctuation Range: ±5%",
+            "Control Mode": "V/F Control",
+        }
+    },
+    {
+        id: "inverter-2",
+        name: "Inverter GD-20",
+        category: "inverter",
+        image: "/assets/images/catalog/inverter2.png",
+        specs: {
+            "Rated Input Voltage (V)": "1PH 220V (-15%) ~ 240V (+10%)",
+            "Rated Frequency (Hz)": "50Hz or 60Hz, Permissible Range: 47~63Hz",
+            "Rated Output Voltage (V)": "Equal to Input Voltage with Less Than 5% Error",
+            "Control Mode": "SVPWM, SVC",
+        }
+    },
+    {
+        id: "inverter-3",
+        name: "Inverter VFD C",
+        category: "inverter",
+        image: "/assets/images/catalog/inverter3.png",
+        specs: {
+            "Kapasitas Daya": "0.75 ~ 400 kW",
+            "Fitur PLC": "Built-in Delta PLC 10k steps & Calendar Function",
+            "Komunikasi": "Built-in MODBUS & BACnet (Option: Profibus-DP, Ethernet-IP, CANopen)",
+            "Proteksi & Desain": "Special PCB Coating, IP20/NEMA1 LCD Display, CE/UL Safety",
         }
     },
 
@@ -717,6 +703,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // ── WA CTA Dropdown Logic ──────────────────────────────────────────
+    const navCtaWA = document.getElementById("navCtaWA");
+    const navCtaDropdown = document.querySelector(".nav-cta-dropdown");
+    if (navCtaWA && navCtaDropdown) {
+        navCtaWA.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isOpen = navCtaDropdown.classList.toggle("open");
+            navCtaWA.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".nav-cta-dropdown")) {
+                navCtaDropdown.classList.remove("open");
+                navCtaWA.setAttribute("aria-expanded", "false");
+            }
+        });
+    }
+
     
     window.addEventListener("resize", () => {
         const isMobileNow = navToggle && window.getComputedStyle(navToggle).display !== "none";
@@ -839,8 +843,8 @@ document.addEventListener("DOMContentLoaded", () => {
             
             const matchesSearch = !query || 
                 p.name.toLowerCase().includes(query) ||
-                p.brand.toLowerCase().includes(query) ||
-                p.models.some(m => m.toLowerCase().includes(query)) ||
+                (p.brand?.toLowerCase().includes(query) ?? false) ||
+                (p.models?.some(m => m.toLowerCase().includes(query)) ?? false) ||
                 Object.values(p.specs).some(s => s.toLowerCase().includes(query));
                 
             return matchesCategory && matchesSearch;
@@ -1151,7 +1155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (modalCategory) modalCategory.innerText = categoryLabels[product.category] || "Kategori Produk";
         if (modalTitle) modalTitle.innerText = product.name;
-        if (modalBrand) modalBrand.innerText = `Brand: ${product.brand}`;
+        if (modalBrand) modalBrand.innerText = product.brand ? `Brand: ${product.brand}` : '';
         
         
         if (modalIcon) {
@@ -1167,11 +1171,13 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (modalSpecsTable) {
             let tableRows = "";
-            // Models row
-            tableRows += `<tr>
-                <td class="spec-name">Tipe / Model</td>
-                <td class="spec-val">${product.models.join(", ")}</td>
-            </tr>`;
+            // Models row — hanya tampil kalau ada
+            if (product.models && product.models.length > 0) {
+                tableRows += `<tr>
+                    <td class="spec-name">Tipe / Model</td>
+                    <td class="spec-val">${product.models.join(", ")}</td>
+                </tr>`;
+            }
             
             // Custom Specs rows
             Object.entries(product.specs).forEach(([key, val]) => {
@@ -1187,8 +1193,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (modalWaBtn) {
             const waText = `Halo PT. Bintang Surya Teknik Persada,\nsaya tertarik dengan produk berikut:\n\n` +
                            `• Nama Produk: ${product.name}\n` +
-                           `• Brand: ${product.brand}\n` +
-                           `• Model/Tipe: ${product.models[0]}\n\n` +
+                           `• Brand: ${product.brand ?? '-'}\n` +
+                           `• Model/Tipe: ${product.models?.[0] ?? '-'}\n\n` +
                            `Bisakah saya meminta brosur digital lengkap, informasi ketersediaan stok barang, dan surat penawaran harga resmi (Quotation)? Terima kasih.`;
                            
             modalWaBtn.href = `https://wa.me/628161317107?text=${encodeURIComponent(waText)}`;

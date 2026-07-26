@@ -15,7 +15,7 @@ export const siteInfo: SiteInfo = {
   shortName: 'BSTP',
   tagline: 'Distributor Resmi & Supplier Peralatan Industri Terpercaya',
   description: 'Distributor resmi dan supplier peralatan industri terpercaya sejak 2005. Menyediakan Electro Motor, Gearbox, Pump, Inverter, Pulley, dan sparepart industri berkategori lengkap dengan garansi resmi.',
-  emails: ['Sumarmobst@yahoo.com', 'Sulartobst@gmail.com'],
+  emails: ['bintangteknikpersada@gmail.com', 'Sumarmobst@yahoo.com', 'Sulartobst@gmail.com'],
   phoneWhatsApp: [
     { number: '6281315998599', display: '+62 813-1599-8599', name: 'Pak Sumarmo' },
     { number: '628128362624', display: '+62 812-8362-624', name: 'Pak Sularto' },

@@ -3706,3 +3706,112 @@ img {
         display: none;
     }
 }
+
+/* ── WA CTA Dropdown Styles ────────────────────────────────────────── */
+.nav-cta-dropdown {
+    position: relative;
+}
+
+.nav-cta-dropdown .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.nav-cta-chevron {
+    font-size: 11px;
+    transition: transform 0.3s ease;
+}
+
+.nav-cta-dropdown.open .nav-cta-chevron {
+    transform: rotate(180deg);
+}
+
+.nav-cta-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 220px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 1000;
+}
+
+.nav-cta-dropdown.open .nav-cta-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-cta-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #0f172a;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-cta-menu-item i {
+    font-size: 22px;
+    color: #25d366;
+    flex-shrink: 0;
+}
+
+.nav-cta-menu-item div {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-cta-menu-item strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.nav-cta-menu-item span {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 1px;
+}
+
+.nav-cta-menu-item:hover {
+    background-color: #f1f5f9;
+}
+
+@media (max-width: 991px) {
+    .nav-cta-menu {
+        position: static;
+        top: auto;
+        right: auto;
+        width: 100%;
+        box-shadow: none;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+        margin-top: 8px;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .nav-cta-dropdown.open .nav-cta-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+}

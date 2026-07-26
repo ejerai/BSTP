@@ -61,12 +61,10 @@ const { activeNav = 'home' } = Astro.props;
                         <a href="/products?category=gearmotor" class="dropdown-cat-item"><i class="fa-solid fa-gears"></i><span>Helical Gear Motor</span></a>
                         <a href="/products?category=gearbox" class="dropdown-cat-item"><i class="fa-solid fa-cog"></i><span>Worm Gear Reducer</span></a>
                         <a href="/products?category=worm-gear" class="dropdown-cat-item"><i class="fa-solid fa-circle-nodes"></i><span>Worm Gear</span></a>
-                        <a href="/products?category=pulley" class="dropdown-cat-item"><i class="fa-solid fa-compact-disc"></i><span>Pulley</span></a>
                         <a href="/products?category=inverter" class="dropdown-cat-item"><i class="fa-solid fa-sliders"></i><span>Inverter</span></a>
                         <a href="/products?category=pump" class="dropdown-cat-item"><i class="fa-solid fa-water"></i><span>Centrifugal Pump</span></a>
                         <a href="/products?category=gear-pump" class="dropdown-cat-item"><i class="fa-solid fa-droplet"></i><span>Gear Pump</span></a>
                         <a href="/products?category=vibrator" class="dropdown-cat-item"><i class="fa-solid fa-wave-square"></i><span>Vibrator</span></a>
-                        <a href="/products?category=lifting" class="dropdown-cat-item"><i class="fa-solid fa-weight-hanging"></i><span>Chain Hoist</span></a>
                     </div>
                     </div>
                 </div>
@@ -98,11 +96,28 @@ const { activeNav = 'home' } = Astro.props;
                     </span>
                 </a>
             </li>
-            <li class="nav-cta-item">
-                <a href="https://wa.me/628161317107?text=Halo%20PT.%20Bintang%20Surya%20Teknik%20Persada%2C%20saya%20ingin%20berkonsultasi%20mengenai%20produk%20industri." 
-                   target="_blank" class="nav-cta" id="navCtaWA">
-                    <i class="fa-brands fa-whatsapp"></i> Hubungi Kami
-                </a>
+            <li class="nav-cta-item nav-cta-dropdown">
+                <button type="button" class="nav-cta" id="navCtaWA" aria-expanded="false">
+                    <i class="fa-brands fa-whatsapp"></i> Hubungi Kami <i class="fa-solid fa-chevron-down nav-cta-chevron"></i>
+                </button>
+                <div class="nav-cta-menu" id="navCtaMenu">
+                    <a href="https://wa.me/628161317107?text=Halo%20PT.%20Bintang%20Surya%20Teknik%20Persada%2C%20saya%20ingin%20berkonsultasi%20mengenai%20produk%20industri." 
+                       target="_blank" class="nav-cta-menu-item">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp 1</strong>
+                            <span>+62 816-1317-107</span>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/6285881994889?text=Halo%20PT.%20Bintang%20Surya%20Teknik%20Persada%2C%20saya%20ingin%20berkonsultasi%20mengenai%20produk%20industri." 
+                       target="_blank" class="nav-cta-menu-item">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp 2</strong>
+                            <span>+62 858-8199-4889</span>
+                        </div>
+                    </a>
+                </div>
             </li>
         </ul>
     </div>
