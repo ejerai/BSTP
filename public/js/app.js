@@ -926,7 +926,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const showBrand = p.category === "motor" || p.category === "gearmotor";
-            const brandHTML = showBrand ? `<span class="product-brand">${p.brand}</span>` : "";
+            const brandHTML = showBrand && p.brand ? `<span class="product-brand">${p.brand}</span>` : "";
+            const brandMsg = p.brand ? ` (${p.brand})` : "";
 
             card.innerHTML = `
                 ${imgBoxHTML}
@@ -941,7 +942,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <button class="btn btn-detail" onclick="openProductDetail('${p.id}')">
                             <i class="fa-solid fa-list-check"></i> Detail
                         </button>
-                        <a href="https://wa.me/628161317107?text=${encodeURIComponent(`Halo PT. Bintang Surya Teknik Persada, saya tertarik dengan produk ${p.name} (${p.brand}). Mohon informasi penawaran harga & ketersediaan stok.`)}" 
+                        <a href="https://wa.me/628161317107?text=${encodeURIComponent(`Halo PT. Bintang Surya Teknik Persada, saya tertarik dengan produk ${p.name}${brandMsg}. Mohon informasi penawaran harga & ketersediaan stok.`)}" 
                            target="_blank" class="btn btn-quote">
                             <i class="fa-brands fa-whatsapp"></i> Minta Harga
                         </a>
