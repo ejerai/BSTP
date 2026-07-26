@@ -3697,6 +3697,7 @@ img {
         margin-top: 0;
         padding: 0;
         background-color: var(--bg-white);
+        background-clip: padding-box;
         border: 1px solid transparent;
         border-radius: var(--radius-md);
         box-shadow: none;
