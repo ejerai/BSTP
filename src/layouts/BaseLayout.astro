@@ -8,12 +8,14 @@ interface Props {
   title?: string;
   description?: string;
   activeNav?: string;
+  hideChrome?: boolean;
 }
 
 const {
   title = `${siteInfo.companyName} | ${siteInfo.tagline}`,
   description = siteInfo.description,
   activeNav = 'home',
+  hideChrome = false,
 } = Astro.props;
 ---
 
@@ -61,13 +63,13 @@ const {
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <Navbar activeNav={activeNav} />
-  
+  {!hideChrome && <Navbar activeNav={activeNav} />}
+
   <main>
     <slot />
   </main>
 
-  <Footer />
+  {!hideChrome && <Footer />}
 
   <script>
     // Global client-side scroll interactivity
