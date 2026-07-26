@@ -380,6 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const pdfModalClose = document.getElementById("pdfModalClose");
     const pdfViewerFrame = document.getElementById("pdfViewerFrame");
+    const pdfViewerLoading = document.getElementById("pdfViewerLoading");
     const PDF_PROFILE_PATH = "/assets/KATALOG.pdf";
     
     const lightbox = document.getElementById("lightbox");
@@ -397,19 +398,19 @@ document.addEventListener("DOMContentLoaded", () => {
     let activeCatalogIndex = 0;
     
     
-    const catalogImages = [
-        { title: "Cover Brosur PT. BSTP", src: "/assets/brand/logo.png" },
-        { title: "AC Induktion Motor & Blower", src: "/assets/images/catalog/ac-motor.png" },
-        { title: "Industrial Pumps", src: "/assets/images/catalog/industrial-pump.png" },
-        { title: "Koshin & Yuema Gear Pump", src: "/assets/images/catalog/gear-pump.png" },
-        { title: "CNP & Speck Centrifugal Pump", src: "/assets/images/catalog/centrifugal-pump.png" },
-        { title: "Helical & Bevel Gearbox", src: "/assets/images/catalog/helical-bevel-gearbox.png" },
-        { title: "Worm Gearbox", src: "/assets/images/catalog/worm-gearbox.png" },
-        { title: "Pararel Gear Box & Cycloidal Speed Reducer", src: "/assets/images/catalog/parallel-gearbox-catalog.png" },
-        { title: "Compact, Mini Gear Motor & Variator", src: "/assets/images/catalog/compact-gear-motor-catalog.png" },
-        { title: "Electric Chain Hoist & Chain Block", src: "/assets/images/catalog/chain-hoist.png" },
-        { title: "Vibrator, Inverter & Air Compressor", src: "/assets/images/catalog/vibrator-inverter-compressor.png" }
-    ];
+    // Dibangun otomatis dari setiap .catalog-card di halaman (bukan daftar manual),
+    // supaya gambar yang terbuka di lightbox SELALU sesuai dengan thumbnail yang diklik
+    // dan link download-nya juga ikut benar. Urut berdasarkan data-index tiap kartu.
+    const catalogImages = Array.from(document.querySelectorAll(".catalog-card"))
+        .sort((a, b) => parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10))
+        .map((card) => {
+            const titleEl = card.querySelector(".catalog-info h3");
+            const imgEl = card.querySelector(".catalog-thumb img");
+            return {
+                title: titleEl ? titleEl.textContent.trim() : (imgEl ? imgEl.alt : "Brosur"),
+                src: card.dataset.src || (imgEl ? imgEl.getAttribute("src") : "")
+            };
+        });
 
     
     
@@ -1264,15 +1265,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     
-    let pdfLoaded = false;
+    let pdfLoadTimeout = null;
 
     function openPdfModal() {
         if (!pdfProfileModal) return;
-        
-        if (pdfViewerFrame && !pdfLoaded) {
+
+        if (pdfViewerFrame && pdfViewerLoading) {
+            // Tampilkan spinner & sembunyikan iframe dulu setiap dibuka
+            pdfViewerFrame.classList.remove("loaded");
+            pdfViewerLoading.classList.remove("hidden");
+
+            const markLoaded = () => {
+                pdfViewerFrame.classList.add("loaded");
+                pdfViewerLoading.classList.add("hidden");
+                if (pdfLoadTimeout) clearTimeout(pdfLoadTimeout);
+            };
+
+            pdfViewerFrame.onload = markLoaded;
+
+            // Jaga-jaga: kalau event 'load' tidak pernah terpicu (mis. PDF besar/lambat),
+            // tetap tampilkan iframe setelah beberapa detik supaya tidak terlihat "nge-hang".
+            if (pdfLoadTimeout) clearTimeout(pdfLoadTimeout);
+            pdfLoadTimeout = setTimeout(markLoaded, 6000);
+
+            // Selalu set ulang src setiap dibuka (browser akan pakai cache kalau file sama),
+            // supaya kalau percobaan sebelumnya gagal, tetap dicoba lagi.
             pdfViewerFrame.src = PDF_PROFILE_PATH;
-            pdfLoaded = true;
         }
+
         pdfProfileModal.classList.add("active");
         lockBodyScroll();
     }
@@ -1281,6 +1301,19 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!pdfProfileModal) return;
         pdfProfileModal.classList.remove("active");
         unlockBodyScroll();
+
+        // Lepas iframe PDF supaya proses render/plugin PDF tidak terus nyangkut
+        // di memori browser dan bikin halaman lag setelah modal ditutup.
+        if (pdfViewerFrame) {
+            pdfViewerFrame.onload = null;
+            pdfViewerFrame.removeAttribute("src");
+            pdfViewerFrame.classList.remove("loaded");
+        }
+        if (pdfViewerLoading) pdfViewerLoading.classList.remove("hidden");
+        if (pdfLoadTimeout) {
+            clearTimeout(pdfLoadTimeout);
+            pdfLoadTimeout = null;
+        }
     }
 
     if (aboutImageTrigger) {
@@ -1306,7 +1339,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (lightboxTitle) lightboxTitle.innerText = catalog.title;
         if (lightboxDownload) {
             lightboxDownload.href = catalog.src;
-            lightboxDownload.setAttribute("download", catalog.title + ".png");
+            const fileExt = (catalog.src.split(".").pop() || "png").split("?")[0];
+            lightboxDownload.setAttribute("download", catalog.title + "." + fileExt);
         }
         
         if (lightbox) {

@@ -298,7 +298,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     </a>
                 </div>
             </div>
-            <iframe class="pdf-viewer-frame" id="pdfViewerFrame" title="Company Profile BSTP"></iframe>
+            <div class="pdf-viewer-wrap">
+                <div class="pdf-viewer-loading" id="pdfViewerLoading">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    <span>Memuat dokumen PDF...</span>
+                </div>
+                <iframe class="pdf-viewer-frame" id="pdfViewerFrame" title="Company Profile BSTP"></iframe>
+            </div>
         </div>
     </div>
 
