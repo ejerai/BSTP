@@ -712,6 +712,15 @@ document.addEventListener("DOMContentLoaded", () => {
             e.stopPropagation();
             const isOpen = navCtaDropdown.classList.toggle("open");
             navCtaWA.setAttribute("aria-expanded", isOpen ? "true" : "false");
+
+            if (isOpen) {
+                // Beri waktu animasi buka (opacity/transform) sedikit berjalan,
+                // baru scroll halus supaya seluruh panel WhatsApp terlihat penuh
+                // dan tidak ketutup toolbar browser di bagian bawah layar.
+                setTimeout(() => {
+                    navCtaDropdown.scrollIntoView({ behavior: "smooth", block: "end" });
+                }, 220);
+            }
         });
 
         document.addEventListener("click", (e) => {
