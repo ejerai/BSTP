@@ -2047,6 +2047,123 @@ img {
     }
 }
 
+/* ==========================================================================
+   Product Modal — Desktop "Instagram Post" Layout
+   Image on the left, details on the right, stacked like a social post.
+   Mobile (<=768px) is untouched and keeps the original centered layout.
+   ========================================================================== */
+@media (min-width: 769px) {
+    .modal-content {
+        max-width: 880px;
+        width: 90%;
+        max-height: 84vh;
+        border-radius: 24px;
+    }
+
+    .modal-body {
+        padding: 0;
+        display: block;
+    }
+
+    .modal-main {
+        display: grid;
+        grid-template-columns: minmax(0, 50%) minmax(0, 1fr);
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "img header"
+            "img details";
+        min-height: 440px;
+        max-height: 84vh;
+    }
+
+    /* Left column — product photo, full height, Instagram-style crop */
+    .modal-img-container {
+        grid-area: img;
+        width: 100%;
+        max-width: none;
+        aspect-ratio: auto;
+        height: 100%;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        border-right: 1px solid var(--border-color);
+    }
+
+    .modal-img-container img {
+        height: 100%;
+    }
+
+    .modal-icon-placeholder {
+        height: 100%;
+    }
+
+    /* Right column — header */
+    .modal-header-info {
+        grid-area: header;
+        text-align: left;
+        margin: 0;
+        padding: 46px 28px 0;
+    }
+
+    .modal-title {
+        font-size: 22px;
+    }
+
+    /* Right column — specs + CTA, scrolls internally if content is long */
+    .modal-details {
+        grid-area: details;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        padding: 16px 28px 24px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .modal-details::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    .modal-details h3 {
+        text-align: left;
+    }
+
+    .specs-table-wrapper {
+        max-height: none;
+        overflow-y: visible;
+        margin-bottom: 16px;
+    }
+
+    /* WhatsApp CTA — compact, sits below the specs */
+    .modal-action-box {
+        margin-top: auto;
+        text-align: left;
+        padding: 14px 16px;
+    }
+
+    .modal-action-box p {
+        font-size: 12.5px;
+        margin-bottom: 10px;
+    }
+
+    .modal-action-box .btn-whatsapp-large {
+        width: auto;
+        font-size: 13.5px;
+        padding: 9px 18px;
+        border-radius: var(--radius-sm);
+        box-shadow: none;
+    }
+
+    .modal-close {
+        top: 16px;
+        right: 16px;
+    }
+}
+
 .pdf-modal-content {
     max-width: 900px;
     height: 88vh;
