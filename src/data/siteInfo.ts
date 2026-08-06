@@ -6,21 +6,31 @@ export interface SiteInfo {
   emails: string[];
   phoneWhatsApp: { number: string; display: string; name: string }[];
   address: string;
+  city: string;
+  region: string;
+  postalCode: string;
   googleMapsUrl: string;
+  latitude: number;
+  longitude: number;
 }
 
 export const siteInfo: SiteInfo = {
   companyName: 'PT. Bintang Surya Teknik Persada',
   shortName: 'BSTP',
   tagline: 'Distributor Resmi & Supplier Peralatan Industri Terpercaya',
-  description: 'Distributor resmi dan supplier peralatan industri terpercaya sejak 2005. Menyediakan Electro Motor, Gearbox, Pump, Inverter, Pulley, dan sparepart industri berkategori lengkap dengan garansi resmi.',
+  description: 'Distributor resmi dan supplier peralatan industri terpercaya. Menyediakan Electro Motor, Gearbox, Pompa Industri, Inverter, Pulley, dan sparepart industri berkategori lengkap dengan garansi resmi di Tangerang Selatan.',
   emails: ['bintangteknikpersada@gmail.com', 'Sumarmobst@yahoo.com', 'Sulartobst@gmail.com'],
   phoneWhatsApp: [
-    { number: '6281315998599', display: '+62 813-1599-8599', name: 'Pak Sumarmo' },
-    { number: '628128362624', display: '+62 812-8362-624', name: 'Pak Sularto' },
+    { number: '628161317107', display: '+62 816-1317-107', name: 'Sales Engineer 1' },
+    { number: '6285881994889', display: '+62 858-8199-4889', name: 'Sales Engineer 2' },
   ],
-  address: 'Jl. Raya Utama No. 88, Kawasan Industri, Jakarta, Indonesia',
-  googleMapsUrl: 'https://maps.google.com/?q=PT+Bintang+Surya+Teknik+Persada',
+  address: 'Jl. Abdurahman No.165, RW.8, Parigi Baru, Kec. Pd. Aren',
+  city: 'Kota Tangerang Selatan',
+  region: 'Banten',
+  postalCode: '15228',
+  googleMapsUrl: 'https://maps.app.goo.gl/ywgkJD4szouAUo9g8',
+  latitude: -6.262553664995171,
+  longitude: 106.6912459708451,
 };
 
 export const navCategories = [

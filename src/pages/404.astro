@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteInfo } from '../data/siteInfo';
 ---
 
-<BaseLayout title={`Halaman Tidak Ditemukan | ${siteInfo.companyName}`} hideChrome={true}>
+<BaseLayout title={`Halaman Tidak Ditemukan | ${siteInfo.companyName}`} hideChrome={true} noindex={true}>
   <section class="error-404-section">
     <div class="error-404-bg-overlay"></div>
 

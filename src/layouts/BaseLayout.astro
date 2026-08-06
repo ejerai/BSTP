@@ -9,6 +9,8 @@ interface Props {
   description?: string;
   activeNav?: string;
   hideChrome?: boolean;
+  noindex?: boolean;
+  ogImage?: string;
 }
 
 const {
@@ -16,13 +18,54 @@ const {
   description = siteInfo.description,
   activeNav = 'home',
   hideChrome = false,
+  noindex = false,
+  ogImage = '/assets/brand/header.webp',
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: siteInfo.companyName,
+  alternateName: siteInfo.shortName,
+  description: siteInfo.description,
+  url: Astro.site?.toString(),
+  telephone: siteInfo.phoneWhatsApp[0]?.display,
+  email: siteInfo.emails[0],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteInfo.address,
+    addressLocality: siteInfo.city,
+    addressRegion: siteInfo.region,
+    postalCode: siteInfo.postalCode,
+    addressCountry: 'ID',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: siteInfo.latitude,
+    longitude: siteInfo.longitude,
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '08:30',
+    closes: '17:00',
+  },
+  sameAs: [
+    'https://www.linkedin.com/company/pt-bintang-surya-teknik-persada/',
+    'https://www.instagram.com/ptbintangsuryateknikpersada/',
+    'https://www.tiktok.com/@bintangsuryagroup1',
+  ],
+};
 ---
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <!-- Meta Dasar -->
+  <meta name="google-site-verification" content="ZOd00Nkt3J3sdJDoyTEAwb6GfUATQMRAw9BBUdS_MbY" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#ffffff">
@@ -31,19 +74,38 @@ const {
   <!-- SEO -->
   <title>{title}</title>
   <meta name="description" content={description} />
-  <meta name="keywords" content="PT Bintang Surya Teknik Persada, BSTP, distributor motor induksi, jual pompa industri, jual gearbox, hoist tangerang, mechanical electrical distributor">
-  <meta name="author" content="PT. Bintang Surya Teknik Persada">
-  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="PT Bintang Surya Teknik Persada, BSTP, distributor motor induksi, jual pompa industri, jual gearbox, hoist tangerang selatan, mechanical electrical distributor">
+  <meta name="author" content={siteInfo.companyName}>
+  <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'}>
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph (preview link di WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={siteInfo.companyName} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={ogImageURL} />
+  <meta property="og:locale" content="id_ID" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL} />
+
+  <!-- Data Terstruktur: LocalBusiness (untuk local SEO & knowledge panel) -->
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 
   <!-- Styles -->
   <link rel="stylesheet" href="/css/style.css">
 
-  <!-- Bahasa & Lokasi -->
+  <!-- Bahasa & Lokasi (disesuaikan dengan alamat asli: Tangerang Selatan, Banten) -->
   <meta http-equiv="Content-Language" content="id">
   <meta name="geo.region" content="ID-BT">
-  <meta name="geo.placename" content="Tangerang Selatan">
-  <meta name="geo.position" content="-6.2626;106.6912">
-  <meta name="ICBM" content="-6.2626, 106.6912">
+  <meta name="geo.placename" content={siteInfo.city}>
+  <meta name="geo.position" content={`${siteInfo.latitude};${siteInfo.longitude}`}>
+  <meta name="ICBM" content={`${siteInfo.latitude}, ${siteInfo.longitude}`}>
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
@@ -52,11 +114,11 @@ const {
   <link rel="manifest" href="/favicons/site.webmanifest" />
   <link rel="mask-icon" href="/favicons/favicon.ico" color="#5bbad5" />
   <meta name="msapplication-TileColor" content="#ffffff" />
-  
+
   <!-- Font Awesome -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

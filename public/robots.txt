@@ -1,12 +1,6 @@
-# robots.txt
-# File ini memberi tahu robot Google (dan mesin pencari lain) halaman mana
-# yang boleh dan tidak boleh dijelajahi (crawl) di website ini.
-
 User-agent: *
 Allow: /
 
-# Halaman error tidak perlu dijelajahi/diindex
-Disallow: /404.astro
+Disallow: /404
 
-# Lokasi peta situs (sitemap), supaya Google tahu semua halaman penting
-Sitemap: https://bstp-demo.vercel.app/sitemap.xml
+Sitemap: https://www.ptbintangsuryateknikpersada.com/sitemap.xml
