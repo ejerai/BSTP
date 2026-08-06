@@ -1,6 +1,24 @@
+# ===================================================
+# Robots.txt for PT. Bintang Surya Teknik Persada
+# Domain: https://www.ptbintangsuryateknikpersada.com
+# ===================================================
+
 User-agent: *
 Allow: /
 
 Disallow: /404
+Disallow: /404.html
+Disallow: /*.json$
+Disallow: /favicons/
+
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+Allow: /*.webp
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.svg
+Allow: /*.pdf
 
 Sitemap: https://www.ptbintangsuryateknikpersada.com/sitemap-index.xml
