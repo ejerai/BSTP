@@ -64,15 +64,16 @@ const localBusinessSchema = {
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LBNLHZHEM6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LBNLHZHEM6"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-LBNLHZHEM6');
-</script>
+    gtag('config', 'G-LBNLHZHEM6');
+  </script>
+
   <!-- Meta Dasar -->
   <meta name="google-site-verification" content="ZOd00Nkt3J3sdJDoyTEAwb6GfUATQMRAw9BBUdS_MbY" />
   <meta charset="UTF-8" />
@@ -132,7 +133,6 @@ const localBusinessSchema = {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LBNLHZHEM6"></script>
 </head>
 <body>
   {!hideChrome && <Navbar activeNav={activeNav} />}
