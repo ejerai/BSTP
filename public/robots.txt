@@ -3,4 +3,4 @@ Allow: /
 
 Disallow: /404
 
-Sitemap: https://www.ptbintangsuryateknikpersada.com/sitemap.xml
+Sitemap: https://www.ptbintangsuryateknikpersada.com/sitemap-index.xml

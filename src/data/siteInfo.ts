@@ -13,7 +13,7 @@ export interface SiteInfo {
   latitude: number;
   longitude: number;
 }
- 
+
 export const siteInfo: SiteInfo = {
   companyName: 'PT. Bintang Surya Teknik Persada',
   shortName: 'BSTP',
