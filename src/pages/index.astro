@@ -85,61 +85,41 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
             
             <div class="brands-grid">
-                <div class="brand-item">
-                    <img src="/assets/images/brands/abb-logo.png" alt="ABB" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/cnp-logo.png" alt="CNP" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/hitachi-logo.png" alt="Hitachi" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/koshin-logo.png" alt="Koshin" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/liming-logo.png" alt="Liming" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/motovario-logo.png" alt="Motovario" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/puma-logo.png" alt="Puma" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/schneider-logo.png" alt="Schneider Electric" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/innomotics-logo.png" alt="Innomotics" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/speck-pumpen-logo.png" alt="Speck Pumpen" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/teco-logo.png" alt="Teco" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/yuema-logo.png" alt="Yuema" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/revco-logo.png" alt="Revco" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/bologna-logo.png" alt="Bologna" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/alliance-logo.png" alt="Alliance" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/chenta-logo.png" alt="Chenta" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/guomao-logo.png" alt="Guomao" loading="lazy">
-                </div>
-                <div class="brand-item">
-                    <img src="/assets/images/brands/transmax-logo.png" alt="Transmax" loading="lazy">
-                </div>
-            </div>
+    {[
+        ['abb-logo', 'ABB'],
+        ['cnp-logo', 'CNP'],
+        ['hitachi-logo', 'Hitachi'],
+        ['koshin-logo', 'Koshin'],
+        ['liming-logo', 'Liming'],
+        ['motovario-logo', 'Motovario'],
+        ['puma-logo', 'Puma'],
+        ['schneider-logo', 'Schneider Electric'],
+        ['innomotics-logo', 'Innomotics'],
+        ['speck-pumpen-logo', 'Speck Pumpen'],
+        ['teco-logo', 'Teco'],
+        ['yuema-logo', 'Yuema'],
+        ['revco-logo', 'Revco'],
+        ['bologna-logo', 'Bologna'],
+        ['alliance-logo', 'Alliance'],
+        ['chenta-logo', 'Chenta'],
+        ['guomao-logo', 'Guomao'],
+        ['transmax-logo', 'Transmax'],
+    ].map(([file, alt]) => (
+        <div class="brand-item">
+            <span class="brand-skeleton" aria-hidden="true"></span>
+            <img
+                src={`/assets/images/brands/${file}.webp`}
+                alt={alt}
+                loading="lazy"
+                decoding="async"
+                width="150"
+                height="50"
+                class="brand-logo-img"
+                onload="this.classList.add('is-loaded'); this.parentElement.classList.add('is-loaded')"
+            />
+        </div>
+    ))}
+</div>
         </div>
     </section>
 
@@ -311,3 +291,58 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <!-- Client-side script for PDF Modal & Scroll Reveal original behavior -->
     <script src="/js/app.js" is:inline></script>
 </BaseLayout>
+<style>
+    /* Modern lazyload: shimmer skeleton -> blur-up fade-in untuk logo brand */
+    .brand-item {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .brand-skeleton {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(
+            100deg,
+            rgba(226, 232, 240, 0.55) 30%,
+            rgba(248, 250, 252, 0.95) 50%,
+            rgba(226, 232, 240, 0.55) 70%
+        );
+        background-size: 250% 100%;
+        animation: brand-shimmer 1.5s ease-in-out infinite;
+        opacity: 1;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+    }
+
+    .brand-item.is-loaded .brand-skeleton {
+        opacity: 0;
+    }
+
+    .brand-logo-img {
+        opacity: 0;
+        transform: scale(0.9);
+        filter: blur(8px);
+        transition: opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease;
+    }
+
+    .brand-logo-img.is-loaded {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+
+    @keyframes brand-shimmer {
+        0% { background-position: 250% 0; }
+        100% { background-position: -250% 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .brand-skeleton { animation: none; }
+        .brand-logo-img {
+            transition: opacity 0.3s ease;
+            transform: none;
+            filter: none;
+        }
+    }
+</style>
