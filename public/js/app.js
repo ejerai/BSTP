@@ -1314,6 +1314,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pdfViewerCanvasWrap) pdfViewerCanvasWrap.classList.add("hidden");
         if (pdfViewerNav) pdfViewerNav.classList.add("hidden");
         if (pdfViewerError) pdfViewerError.classList.remove("hidden");
+        const detailEl = document.getElementById("pdfViewerErrorDetail");
+        if (detailEl) detailEl.textContent = reason ? `Detail teknis: ${reason}` : "";
         if (reason) console.warn("[PDF Viewer] Gagal memuat PDF:", reason);
     }
 

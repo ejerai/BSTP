@@ -2272,6 +2272,17 @@ img {
     line-height: 1.5;
 }
 
+.pdf-viewer-error-detail {
+    margin-top: 12px;
+    padding: 6px 12px;
+    background-color: #fee2e2;
+    color: #991b1b;
+    border-radius: 6px;
+    font-size: 12px;
+    word-break: break-word;
+    max-width: 90%;
+}
+
 .pdf-viewer-error.hidden {
     opacity: 0;
     pointer-events: none;
