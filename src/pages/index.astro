@@ -286,9 +286,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <div class="pdf-viewer-error hidden" id="pdfViewerError">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                     <p>Dokumen tidak bisa ditampilkan di sini.</p>
-                    <span>Kemungkinan diblokir oleh ad-blocker/ekstensi browser, atau ada masalah pada file di server. Silakan buka di tab baru atau unduh langsung lewat tombol di atas.</span>
+                    <span>Kemungkinan koneksi bermasalah, atau ada kendala pada file di server. Silakan buka di tab baru atau unduh langsung lewat tombol di atas.</span>
                 </div>
-                <iframe class="pdf-viewer-frame" id="pdfViewerFrame" title="Company Profile BSTP"></iframe>
+                <div class="pdf-viewer-canvas-wrap" id="pdfViewerCanvasWrap">
+                    <canvas id="pdfViewerCanvas"></canvas>
+                </div>
+                <div class="pdf-viewer-nav hidden" id="pdfViewerNav">
+                    <button type="button" class="pdf-nav-btn" id="pdfPrevPage" aria-label="Halaman sebelumnya">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <span class="pdf-page-indicator" id="pdfPageIndicator">1 / 1</span>
+                    <button type="button" class="pdf-nav-btn" id="pdfNextPage" aria-label="Halaman berikutnya">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

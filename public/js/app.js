@@ -379,9 +379,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pdfModalContent) pdfModalContent.setAttribute("data-scroll-lock-allow", "");
     }
     const pdfModalClose = document.getElementById("pdfModalClose");
-    const pdfViewerFrame = document.getElementById("pdfViewerFrame");
     const pdfViewerLoading = document.getElementById("pdfViewerLoading");
+    const pdfViewerCanvasWrap = document.getElementById("pdfViewerCanvasWrap");
+    const pdfViewerCanvas = document.getElementById("pdfViewerCanvas");
+    const pdfViewerNav = document.getElementById("pdfViewerNav");
+    const pdfPrevPageBtn = document.getElementById("pdfPrevPage");
+    const pdfNextPageBtn = document.getElementById("pdfNextPage");
+    const pdfPageIndicator = document.getElementById("pdfPageIndicator");
     const PDF_PROFILE_PATH = "/assets/KATALOG.pdf";
+    const PDFJS_VERSION = "3.11.174";
+    const PDFJS_SRC = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}/pdf.min.js`;
+    const PDFJS_WORKER_SRC = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}/pdf.worker.min.js`;
     
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightboxImg");
@@ -1268,22 +1276,85 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     
-    let pdfLoadTimeout = null;
     const pdfViewerError = document.getElementById("pdfViewerError");
 
+    let pdfjsLibLoadPromise = null;
+    let currentPdfDoc = null;
+    let currentPdfPage = 1;
+    let currentPdfScale = 1;
+    let pdfRenderTask = null;
+    let pdfResizeTimeout = null;
+
+    // Muat library PDF.js dari CDN sekali saja (baru dipanggil saat modal PDF pertama kali dibuka,
+    // supaya halaman lain tidak ikut menunggu load library ini).
+    function loadPdfJsLib() {
+        if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+        if (pdfjsLibLoadPromise) return pdfjsLibLoadPromise;
+
+        pdfjsLibLoadPromise = new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+            script.src = PDFJS_SRC;
+            script.onload = () => {
+                if (window.pdfjsLib) {
+                    window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_SRC;
+                    resolve(window.pdfjsLib);
+                } else {
+                    reject(new Error("pdfjsLib tidak tersedia setelah script dimuat"));
+                }
+            };
+            script.onerror = () => reject(new Error("Gagal memuat library PDF.js dari CDN"));
+            document.head.appendChild(script);
+        });
+
+        return pdfjsLibLoadPromise;
+    }
+
     function showPdfError(reason) {
-        if (pdfLoadTimeout) {
-            clearTimeout(pdfLoadTimeout);
-            pdfLoadTimeout = null;
-        }
-        if (pdfViewerFrame) {
-            pdfViewerFrame.onload = null;
-            pdfViewerFrame.removeAttribute("src");
-            pdfViewerFrame.classList.remove("loaded");
-        }
         if (pdfViewerLoading) pdfViewerLoading.classList.add("hidden");
+        if (pdfViewerCanvasWrap) pdfViewerCanvasWrap.classList.add("hidden");
+        if (pdfViewerNav) pdfViewerNav.classList.add("hidden");
         if (pdfViewerError) pdfViewerError.classList.remove("hidden");
         if (reason) console.warn("[PDF Viewer] Gagal memuat PDF:", reason);
+    }
+
+    function updatePdfNavState() {
+        if (!currentPdfDoc) return;
+        if (pdfPageIndicator) pdfPageIndicator.textContent = `${currentPdfPage} / ${currentPdfDoc.numPages}`;
+        if (pdfPrevPageBtn) pdfPrevPageBtn.disabled = currentPdfPage <= 1;
+        if (pdfNextPageBtn) pdfNextPageBtn.disabled = currentPdfPage >= currentPdfDoc.numPages;
+    }
+
+    function renderPdfPage(pageNumber) {
+        if (!currentPdfDoc || !pdfViewerCanvas) return;
+
+        currentPdfDoc.getPage(pageNumber).then((page) => {
+            // Hitung skala supaya lebar halaman pas dengan lebar kontainer (responsif di HP maupun desktop)
+            const containerWidth = pdfViewerCanvasWrap ? pdfViewerCanvasWrap.clientWidth : page.getViewport({ scale: 1 }).width;
+            const baseViewport = page.getViewport({ scale: 1 });
+            currentPdfScale = containerWidth > 0 ? containerWidth / baseViewport.width : 1;
+            const viewport = page.getViewport({ scale: currentPdfScale });
+
+            const canvas = pdfViewerCanvas;
+            const context = canvas.getContext("2d");
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            if (pdfRenderTask) pdfRenderTask.cancel();
+            pdfRenderTask = page.render({ canvasContext: context, viewport });
+
+            pdfRenderTask.promise.then(() => {
+                if (pdfViewerLoading) pdfViewerLoading.classList.add("hidden");
+                if (pdfViewerCanvasWrap) pdfViewerCanvasWrap.classList.remove("hidden");
+                const hasMultiplePages = currentPdfDoc.numPages > 1;
+                if (pdfViewerNav) pdfViewerNav.classList.toggle("hidden", !hasMultiplePages);
+                if (pdfViewerCanvasWrap) pdfViewerCanvasWrap.classList.toggle("with-nav", hasMultiplePages);
+                currentPdfPage = pageNumber;
+                updatePdfNavState();
+            }).catch((err) => {
+                if (err && err.name === "RenderingCancelledException") return;
+                showPdfError(err.message || err);
+            });
+        }).catch((err) => showPdfError(err.message || err));
     }
 
     function openPdfModal() {
@@ -1292,46 +1363,28 @@ document.addEventListener("DOMContentLoaded", () => {
         pdfProfileModal.classList.add("active");
         lockBodyScroll();
 
-        if (!pdfViewerFrame || !pdfViewerLoading) return;
+        if (!pdfViewerLoading || !pdfViewerCanvas) return;
 
-        // Reset tampilan setiap dibuka: spinner nyala, iframe & pesan error disembunyikan dulu
-        pdfViewerFrame.classList.remove("loaded");
+        // Reset tampilan setiap dibuka
         pdfViewerLoading.classList.remove("hidden");
         if (pdfViewerError) pdfViewerError.classList.add("hidden");
+        if (pdfViewerCanvasWrap) pdfViewerCanvasWrap.classList.add("hidden");
+        if (pdfViewerNav) pdfViewerNav.classList.add("hidden");
 
-        // Cek dulu file-nya benar-benar bisa diakses (bukan 404 / diblokir) sebelum
-        // dimasukkan ke iframe. Ini penting karena kalau request gagal, browser akan
-        // menampilkan halaman blokir bawaannya sendiri di dalam iframe -> membingungkan user.
-        fetch(PDF_PROFILE_PATH, { method: "GET", cache: "no-store" })
-            .then((res) => {
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const type = res.headers.get("content-type") || "";
-                if (type && !type.includes("pdf") && !type.includes("octet-stream")) {
-                    throw new Error(`Content-Type tidak sesuai: ${type}`);
-                }
+        // Kalau dokumen yang sama sudah pernah di-load sebelumnya, tinggal render ulang halaman terakhir
+        if (currentPdfDoc) {
+            renderPdfPage(currentPdfPage);
+            return;
+        }
 
-                const markLoaded = () => {
-                    pdfViewerFrame.classList.add("loaded");
-                    pdfViewerLoading.classList.add("hidden");
-                    if (pdfLoadTimeout) clearTimeout(pdfLoadTimeout);
-                };
-
-                pdfViewerFrame.onload = markLoaded;
-                pdfViewerFrame.onerror = () => showPdfError("iframe onerror");
-
-                // Jaga-jaga kalau event 'load' tidak pernah terpicu meski fetch sukses
-                if (pdfLoadTimeout) clearTimeout(pdfLoadTimeout);
-                pdfLoadTimeout = setTimeout(markLoaded, 6000);
-
-                // Banyak browser mobile (Chrome Android, Safari iOS) tidak punya
-                // PDF viewer bawaan untuk <iframe>, jadi PDF-nya nggak muncul (blank).
-                // Pakai Google Docs Viewer sebagai perantara render supaya konsisten
-                // tampil di semua device. Butuh URL absolut & file harus publik.
-                const absolutePdfUrl = new URL(PDF_PROFILE_PATH, window.location.origin).href;
-                const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absolutePdfUrl)}&embedded=true`;
-                pdfViewerFrame.src = viewerUrl;
+        loadPdfJsLib()
+            .then((pdfjsLib) => pdfjsLib.getDocument(PDF_PROFILE_PATH).promise)
+            .then((pdfDoc) => {
+                currentPdfDoc = pdfDoc;
+                currentPdfPage = 1;
+                renderPdfPage(1);
             })
-            .catch((err) => showPdfError(err.message));
+            .catch((err) => showPdfError(err.message || err));
     }
 
     function closePdfModal() {
@@ -1339,21 +1392,34 @@ document.addEventListener("DOMContentLoaded", () => {
         pdfProfileModal.classList.remove("active");
         unlockBodyScroll();
 
-        // Lepas iframe PDF supaya proses render/plugin PDF tidak terus nyangkut
-        // di memori browser dan bikin halaman lag setelah modal ditutup.
-        if (pdfViewerFrame) {
-            pdfViewerFrame.onload = null;
-            pdfViewerFrame.onerror = null;
-            pdfViewerFrame.removeAttribute("src");
-            pdfViewerFrame.classList.remove("loaded");
+        if (pdfRenderTask) {
+            pdfRenderTask.cancel();
+            pdfRenderTask = null;
         }
         if (pdfViewerLoading) pdfViewerLoading.classList.remove("hidden");
         if (pdfViewerError) pdfViewerError.classList.add("hidden");
-        if (pdfLoadTimeout) {
-            clearTimeout(pdfLoadTimeout);
-            pdfLoadTimeout = null;
-        }
+        if (pdfViewerCanvasWrap) pdfViewerCanvasWrap.classList.add("hidden");
+        if (pdfViewerNav) pdfViewerNav.classList.add("hidden");
     }
+
+    if (pdfPrevPageBtn) {
+        pdfPrevPageBtn.addEventListener("click", () => {
+            if (currentPdfDoc && currentPdfPage > 1) renderPdfPage(currentPdfPage - 1);
+        });
+    }
+
+    if (pdfNextPageBtn) {
+        pdfNextPageBtn.addEventListener("click", () => {
+            if (currentPdfDoc && currentPdfPage < currentPdfDoc.numPages) renderPdfPage(currentPdfPage + 1);
+        });
+    }
+
+    // Render ulang halaman saat ukuran layar berubah (mis. rotasi HP) supaya tetap pas lebarnya
+    window.addEventListener("resize", () => {
+        if (!pdfProfileModal || !pdfProfileModal.classList.contains("active") || !currentPdfDoc) return;
+        if (pdfResizeTimeout) clearTimeout(pdfResizeTimeout);
+        pdfResizeTimeout = setTimeout(() => renderPdfPage(currentPdfPage), 250);
+    });
 
     if (aboutImageTrigger) {
         aboutImageTrigger.addEventListener("click", openPdfModal);
