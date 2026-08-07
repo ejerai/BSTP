@@ -387,9 +387,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const pdfNextPageBtn = document.getElementById("pdfNextPage");
     const pdfPageIndicator = document.getElementById("pdfPageIndicator");
     const PDF_PROFILE_PATH = "/assets/KATALOG.pdf";
-    const PDFJS_VERSION = "3.11.174";
-    const PDFJS_SRC = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}/pdf.min.js`;
-    const PDFJS_WORKER_SRC = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS_VERSION}/pdf.worker.min.js`;
+    // Di-host sendiri (bukan dari CDN eksternal) supaya tidak tergantung akses ke domain luar
+    // yang bisa saja diblokir oleh firewall/jaringan tertentu.
+    const PDFJS_SRC = "/js/pdf.min.js";
+    const PDFJS_WORKER_SRC = "/js/pdf.worker.min.js";
     
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightboxImg");
