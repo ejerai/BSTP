@@ -1269,35 +1269,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     let pdfLoadTimeout = null;
+    const pdfViewerError = document.getElementById("pdfViewerError");
+
+    function showPdfError(reason) {
+        if (pdfLoadTimeout) {
+            clearTimeout(pdfLoadTimeout);
+            pdfLoadTimeout = null;
+        }
+        if (pdfViewerFrame) {
+            pdfViewerFrame.onload = null;
+            pdfViewerFrame.removeAttribute("src");
+            pdfViewerFrame.classList.remove("loaded");
+        }
+        if (pdfViewerLoading) pdfViewerLoading.classList.add("hidden");
+        if (pdfViewerError) pdfViewerError.classList.remove("hidden");
+        if (reason) console.warn("[PDF Viewer] Gagal memuat PDF:", reason);
+    }
 
     function openPdfModal() {
         if (!pdfProfileModal) return;
 
-        if (pdfViewerFrame && pdfViewerLoading) {
-            // Tampilkan spinner & sembunyikan iframe dulu setiap dibuka
-            pdfViewerFrame.classList.remove("loaded");
-            pdfViewerLoading.classList.remove("hidden");
-
-            const markLoaded = () => {
-                pdfViewerFrame.classList.add("loaded");
-                pdfViewerLoading.classList.add("hidden");
-                if (pdfLoadTimeout) clearTimeout(pdfLoadTimeout);
-            };
-
-            pdfViewerFrame.onload = markLoaded;
-
-            // Jaga-jaga: kalau event 'load' tidak pernah terpicu (mis. PDF besar/lambat),
-            // tetap tampilkan iframe setelah beberapa detik supaya tidak terlihat "nge-hang".
-            if (pdfLoadTimeout) clearTimeout(pdfLoadTimeout);
-            pdfLoadTimeout = setTimeout(markLoaded, 6000);
-
-            // Selalu set ulang src setiap dibuka (browser akan pakai cache kalau file sama),
-            // supaya kalau percobaan sebelumnya gagal, tetap dicoba lagi.
-            pdfViewerFrame.src = PDF_PROFILE_PATH;
-        }
-
         pdfProfileModal.classList.add("active");
         lockBodyScroll();
+
+        if (!pdfViewerFrame || !pdfViewerLoading) return;
+
+        // Reset tampilan setiap dibuka: spinner nyala, iframe & pesan error disembunyikan dulu
+        pdfViewerFrame.classList.remove("loaded");
+        pdfViewerLoading.classList.remove("hidden");
+        if (pdfViewerError) pdfViewerError.classList.add("hidden");
+
+        // Cek dulu file-nya benar-benar bisa diakses (bukan 404 / diblokir) sebelum
+        // dimasukkan ke iframe. Ini penting karena kalau request gagal, browser akan
+        // menampilkan halaman blokir bawaannya sendiri di dalam iframe -> membingungkan user.
+        fetch(PDF_PROFILE_PATH, { method: "GET", cache: "no-store" })
+            .then((res) => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const type = res.headers.get("content-type") || "";
+                if (type && !type.includes("pdf") && !type.includes("octet-stream")) {
+                    throw new Error(`Content-Type tidak sesuai: ${type}`);
+                }
+
+                const markLoaded = () => {
+                    pdfViewerFrame.classList.add("loaded");
+                    pdfViewerLoading.classList.add("hidden");
+                    if (pdfLoadTimeout) clearTimeout(pdfLoadTimeout);
+                };
+
+                pdfViewerFrame.onload = markLoaded;
+                pdfViewerFrame.onerror = () => showPdfError("iframe onerror");
+
+                // Jaga-jaga kalau event 'load' tidak pernah terpicu meski fetch sukses
+                if (pdfLoadTimeout) clearTimeout(pdfLoadTimeout);
+                pdfLoadTimeout = setTimeout(markLoaded, 6000);
+
+                pdfViewerFrame.src = PDF_PROFILE_PATH;
+            })
+            .catch((err) => showPdfError(err.message));
     }
 
     function closePdfModal() {
@@ -1309,10 +1337,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // di memori browser dan bikin halaman lag setelah modal ditutup.
         if (pdfViewerFrame) {
             pdfViewerFrame.onload = null;
+            pdfViewerFrame.onerror = null;
             pdfViewerFrame.removeAttribute("src");
             pdfViewerFrame.classList.remove("loaded");
         }
         if (pdfViewerLoading) pdfViewerLoading.classList.remove("hidden");
+        if (pdfViewerError) pdfViewerError.classList.add("hidden");
         if (pdfLoadTimeout) {
             clearTimeout(pdfLoadTimeout);
             pdfLoadTimeout = null;

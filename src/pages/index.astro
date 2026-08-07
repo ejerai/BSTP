@@ -283,6 +283,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     <i class="fa-solid fa-spinner fa-spin"></i>
                     <span>Memuat dokumen PDF...</span>
                 </div>
+                <div class="pdf-viewer-error hidden" id="pdfViewerError">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <p>Dokumen tidak bisa ditampilkan di sini.</p>
+                    <span>Kemungkinan diblokir oleh ad-blocker/ekstensi browser, atau ada masalah pada file di server. Silakan buka di tab baru atau unduh langsung lewat tombol di atas.</span>
+                </div>
                 <iframe class="pdf-viewer-frame" id="pdfViewerFrame" title="Company Profile BSTP"></iframe>
             </div>
         </div>
