@@ -1323,7 +1323,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (pdfLoadTimeout) clearTimeout(pdfLoadTimeout);
                 pdfLoadTimeout = setTimeout(markLoaded, 6000);
 
-                pdfViewerFrame.src = PDF_PROFILE_PATH;
+                // Banyak browser mobile (Chrome Android, Safari iOS) tidak punya
+                // PDF viewer bawaan untuk <iframe>, jadi PDF-nya nggak muncul (blank).
+                // Pakai Google Docs Viewer sebagai perantara render supaya konsisten
+                // tampil di semua device. Butuh URL absolut & file harus publik.
+                const absolutePdfUrl = new URL(PDF_PROFILE_PATH, window.location.origin).href;
+                const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(absolutePdfUrl)}&embedded=true`;
+                pdfViewerFrame.src = viewerUrl;
             })
             .catch((err) => showPdfError(err.message));
     }
