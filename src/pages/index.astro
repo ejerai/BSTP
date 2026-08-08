@@ -135,7 +135,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <div class="catalog-grid" style="margin-bottom: 40px;">
                 <div class="catalog-card" onclick="window.location.href='/products'">
                     <div class="catalog-thumb" style="background-color: #fff;">
-                        <img src="/assets/images/catalog/elektromotor1.webp" alt="Elektromotor">
+                        <span class="lazy-skeleton" aria-hidden="true"></span>
+                        <img src="/assets/images/catalog/elektromotor1.webp" alt="Elektromotor" class="lazy-img" loading="lazy" decoding="async" onload="this.classList.add('is-loaded'); this.parentElement.classList.add('is-loaded')">
                         <div class="catalog-overlay">
                             <i class="fa-solid fa-arrow-right"></i>
                             <span>Buka Etalase</span>
@@ -149,7 +150,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
                 <div class="catalog-card" onclick="window.location.href='/products'">
                     <div class="catalog-thumb" style="background-color: #fff;">
-                        <img src="/assets/images/catalog/wormgear1.webp" alt="Gearbox & Gearmotor">
+                        <span class="lazy-skeleton" aria-hidden="true"></span>
+                        <img src="/assets/images/catalog/wormgear1.webp" alt="Gearbox & Gearmotor" class="lazy-img" loading="lazy" decoding="async" onload="this.classList.add('is-loaded'); this.parentElement.classList.add('is-loaded')">
                         <div class="catalog-overlay">
                             <i class="fa-solid fa-arrow-right"></i>
                             <span>Buka Etalase</span>
@@ -163,7 +165,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
                 <div class="catalog-card" onclick="window.location.href='/products'">
                     <div class="catalog-thumb" style="background-color: #fff;">
-                        <img src="/assets/images/catalog/centrifugalpump2.webp" alt="Pompa Industri & CNP">
+                        <span class="lazy-skeleton" aria-hidden="true"></span>
+                        <img src="/assets/images/catalog/centrifugalpump2.webp" alt="Pompa Industri & CNP" class="lazy-img" loading="lazy" decoding="async" onload="this.classList.add('is-loaded'); this.parentElement.classList.add('is-loaded')">
                         <div class="catalog-overlay">
                             <i class="fa-solid fa-arrow-right"></i>
                             <span>Buka Etalase</span>
@@ -195,7 +198,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
             <div class="katalog-preview">
                 <div class="about-image-wrapper" id="aboutImageTrigger">
-                    <img src="/assets/brand/logo1.webp" alt="Logo PT. Bintang Surya Teknik Persada" class="about-img">
+                    <span class="lazy-skeleton" aria-hidden="true"></span>
+                    <img src="/assets/brand/logo1.webp" alt="Logo PT. Bintang Surya Teknik Persada" class="about-img lazy-img" loading="lazy" decoding="async" onload="this.classList.add('is-loaded'); this.parentElement.classList.add('is-loaded')">
                     <div class="about-experience-badge">
                         <span class="years">BSTP</span>
                         <span class="text">Lihat PDF</span>

@@ -790,6 +790,7 @@ img {
 }
 
 .brand-item {
+    position: relative;
     background-color: var(--bg-white);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
@@ -800,6 +801,47 @@ img {
     justify-content: center;
     transition: var(--transition-normal);
     box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+/* ------------------------------------------------------------------------
+   LAZY-LOAD SKELETON — satu desain dipakai bareng untuk logo brand,
+   thumbnail katalog, dan gambar company profile. Skeleton disembunyikan
+   otomatis (opacity:0) begitu wrapper induknya dapat class "is-loaded"
+   dari event onload gambar (lihat app.js / inline onload di index.astro).
+   ------------------------------------------------------------------------ */
+@keyframes lazySkeletonShimmer {
+    0% { background-position: -150% 0; }
+    100% { background-position: 150% 0; }
+}
+
+.brand-skeleton,
+.lazy-skeleton {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: linear-gradient(90deg, var(--bg-light) 25%, var(--border-color) 50%, var(--bg-light) 75%);
+    background-size: 200% 100%;
+    animation: lazySkeletonShimmer 1.4s ease-in-out infinite;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.is-loaded .brand-skeleton,
+.is-loaded .lazy-skeleton {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.brand-logo-img,
+.lazy-img {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.brand-logo-img.is-loaded,
+.lazy-img.is-loaded {
+    opacity: 1;
 }
 
 .brand-item:hover {
