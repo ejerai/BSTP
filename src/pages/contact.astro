@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteInfo } from '../data/siteInfo';
 ---
 
 <BaseLayout title="Hubungi Kami | PT. Bintang Surya Teknik Persada" activeNav="contact">
+    <link slot="head-extra" rel="stylesheet" href="/vendor/leaflet/leaflet.css">
     <!-- Header Halaman -->
     <section class="page-header">
         <div class="page-header-bg-overlay"></div>
@@ -87,17 +89,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     </div>
                 </div>
                 
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15864.035700863928!2d106.6912459708451!3d-6.262553664995171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fbf44d2dd4a7%3A0x63a1cd1c0af10b57!2sPT.%20Bintang%20Surya%20Teknik%20Persada!5e0!3m2!1sid!2sid!4v1784106256862!5m2!1sid!2sid" 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0; display: block;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="strict-origin-when-cross-origin">
-                </iframe>
+                <div id="officeMap" class="office-map" role="img" aria-label="Peta lokasi kantor PT. Bintang Surya Teknik Persada"></div>
+                <div class="map-error hidden" id="mapError">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <p>Peta tidak bisa dimuat.</p>
+                    <span>Silakan gunakan tombol "Buka di Google Maps" di atas untuk melihat lokasi kami.</span>
+                </div>
             </div>
         </div>
     </section>
 
+    <script define:vars={{ lat: siteInfo.latitude, lng: siteInfo.longitude, companyName: siteInfo.companyName, address: `${siteInfo.address}, ${siteInfo.city}` }}>
+        window.OFFICE_MAP_DATA = { lat, lng, companyName, address };
+    </script>
+    <script src="/vendor/leaflet/leaflet.js" is:inline></script>
     <script src="/js/app.js" is:inline></script>
 </BaseLayout>

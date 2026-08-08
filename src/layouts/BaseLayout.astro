@@ -135,6 +135,9 @@ const localBusinessSchema = {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+
+  <!-- Slot tambahan buat halaman tertentu yang butuh CSS/JS ekstra di <head> (mis. contact.astro pakai Leaflet map) -->
+  <slot name="head-extra" />
 </head>
 <body>
   {!hideChrome && <Navbar activeNav={activeNav} />}
