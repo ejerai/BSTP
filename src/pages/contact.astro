@@ -4,7 +4,6 @@ import { siteInfo } from '../data/siteInfo';
 ---
 
 <BaseLayout title="Hubungi Kami | PT. Bintang Surya Teknik Persada" activeNav="contact">
-    <link slot="head-extra" rel="stylesheet" href="/vendor/leaflet/leaflet.css">
     <!-- Header Halaman -->
     <section class="page-header">
         <div class="page-header-bg-overlay"></div>
@@ -89,7 +88,18 @@ import { siteInfo } from '../data/siteInfo';
                     </div>
                 </div>
                 
-                <div id="officeMap" class="office-map" role="img" aria-label="Peta lokasi kantor PT. Bintang Surya Teknik Persada"></div>
+                <div class="office-map-wrap" id="officeMap">
+                    <span class="lazy-skeleton" aria-hidden="true"></span>
+                    <img
+                        src={`https://staticmap.openstreetmap.de/staticmap.php?center=${siteInfo.latitude},${siteInfo.longitude}&zoom=16&size=1200x500&maptype=mapnik&markers=${siteInfo.latitude},${siteInfo.longitude},red-pushpin`}
+                        alt={`Peta lokasi kantor ${siteInfo.companyName}`}
+                        class="office-map-img lazy-img"
+                        loading="lazy"
+                        decoding="async"
+                        onload="this.classList.add('is-loaded'); this.parentElement.classList.add('is-loaded')"
+                        onerror="this.parentElement.classList.add('hidden'); document.getElementById('mapError')?.classList.remove('hidden')"
+                    />
+                </div>
                 <div class="map-error hidden" id="mapError">
                     <i class="fa-solid fa-map-location-dot"></i>
                     <p>Peta tidak bisa dimuat.</p>
@@ -99,9 +109,5 @@ import { siteInfo } from '../data/siteInfo';
         </div>
     </section>
 
-    <script define:vars={{ lat: siteInfo.latitude, lng: siteInfo.longitude, companyName: siteInfo.companyName, address: `${siteInfo.address}, ${siteInfo.city}` }}>
-        window.OFFICE_MAP_DATA = { lat, lng, companyName, address };
-    </script>
-    <script src="/vendor/leaflet/leaflet.js" is:inline></script>
     <script src="/js/app.js" is:inline></script>
 </BaseLayout>

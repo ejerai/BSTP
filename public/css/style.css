@@ -1885,13 +1885,13 @@ img {
     display: inline-block;
     font-size: 11px;
     text-transform: uppercase;
-    color: #0069ff;
+    color: var(--secondary);
     background-color: var(--secondary-light);
     border: 1px solid rgba(37, 99, 235, 0.15);
     font-weight: 700;
     letter-spacing: 0.6px;
     padding: 5px 12px;
-    border-radius: 9px;
+    border-radius: 999px;
 }
 
 .modal-title {
@@ -2600,14 +2600,22 @@ img {
     margin-bottom: 16px;
 }
 
-.office-map {
+.office-map-wrap {
+    position: relative;
     width: 100%;
     height: 100%;
     background-color: var(--bg-light);
 }
 
-.office-map.hidden {
+.office-map-wrap.hidden {
     display: none;
+}
+
+.office-map-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .map-error {
@@ -2645,20 +2653,6 @@ img {
 
 .map-error.hidden {
     display: none;
-}
-
-/* Atribusi Leaflet/OpenStreetMap wajib tetap ada (syarat lisensi ODbL),
-   tapi dibuat sekecil & sesamar mungkin biar tetap terlihat clean */
-.leaflet-control-attribution {
-    font-size: 9px !important;
-    color: var(--text-muted) !important;
-    background-color: rgba(255, 255, 255, 0.75) !important;
-    padding: 1px 6px !important;
-    opacity: 0.75;
-}
-
-.leaflet-control-attribution a {
-    color: var(--text-muted) !important;
 }
 
 .scroll-to-top {

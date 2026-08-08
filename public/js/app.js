@@ -298,7 +298,6 @@ const PRODUCT_DATA = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
-    initOfficeMap();
     
     let scrollLockCount = 0;
     let savedScrollY = 0;
@@ -1522,48 +1521,4 @@ document.addEventListener("DOMContentLoaded", () => {
             if (e.key === "Escape") closeMobileMenu();
         }
     });
-
-    /* ----------------------------------------------------------------------
-       PETA KANTOR — pakai Leaflet + OpenStreetMap (bukan iframe Google Maps),
-       supaya tidak gampang kena blokir ad-blocker/ekstensi/proteksi jaringan
-       seperti yang sebelumnya terjadi pada embed iframe.
-       ---------------------------------------------------------------------- */
-    function initOfficeMap() {
-        const mapEl = document.getElementById("officeMap");
-        if (!mapEl) return; // halaman ini tidak punya peta, skip
-
-        const mapErrorEl = document.getElementById("mapError");
-        const data = window.OFFICE_MAP_DATA;
-
-        if (!window.L || !data) {
-            if (mapErrorEl) mapErrorEl.classList.remove("hidden");
-            if (mapEl) mapEl.classList.add("hidden");
-            console.warn("[Office Map] Leaflet atau data lokasi tidak tersedia");
-            return;
-        }
-
-        try {
-            const map = L.map(mapEl, {
-                scrollWheelZoom: false,
-            }).setView([data.lat, data.lng], 16);
-
-            L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
-                subdomains: "abcd",
-                maxZoom: 19,
-            }).addTo(map);
-
-            L.marker([data.lat, data.lng])
-                .addTo(map)
-                .bindPopup(`<strong>${data.companyName}</strong><br>${data.address}`)
-                .openPopup();
-
-            // Aktifkan scroll-zoom hanya setelah user klik peta, supaya scroll halaman tetap lancar
-            map.on("click", () => map.scrollWheelZoom.enable());
-        } catch (err) {
-            console.warn("[Office Map] Gagal inisialisasi peta:", err);
-            if (mapErrorEl) mapErrorEl.classList.remove("hidden");
-            if (mapEl) mapEl.classList.add("hidden");
-        }
-    }
 });
