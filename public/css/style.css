@@ -2364,7 +2364,7 @@ img {
 @media (max-width: 768px) {
     .pdf-modal-content {
         height: 92vh;
-        width: 95%;
+        width: 97%;
     }
 
     .pdf-modal-header {
@@ -2380,6 +2380,19 @@ img {
     .pdf-modal-actions .btn {
         flex: 1;
         justify-content: center;
+    }
+
+    .pdf-viewer-canvas-wrap {
+        padding: 8px;
+    }
+
+    .pdf-viewer-nav {
+        height: 50px;
+        gap: 24px;
+    }
+
+    .pdf-viewer-canvas-wrap.with-nav {
+        bottom: 50px;
     }
 }
 

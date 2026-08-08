@@ -929,7 +929,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 ).join("");
                 imgBoxHTML = `
                 <div class="product-img-box has-slider" data-slide-index="0">
-                    <span class="product-tag">${cleanCategory}</span>
                     <button class="slide-arrow slide-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
                     ${slides}
                     <button class="slide-arrow slide-next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
@@ -938,7 +937,6 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 imgBoxHTML = `
                 <div class="product-img-box">
-                    <span class="product-tag">${cleanCategory}</span>
                     <img src="${p.image}" alt="${p.name}" class="product-card-img" onerror="this.onerror=null; this.src='/assets/brand/logo.png';">
                 </div>`;
             }
@@ -950,6 +948,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.innerHTML = `
                 ${imgBoxHTML}
                 <div class="product-details-box">
+                    <span class="product-tag">${cleanCategory}</span>
                     ${brandHTML}
                     <h3 class="product-name">${p.name}</h3>
                     <ul class="product-specs-summary">
@@ -1332,7 +1331,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         currentPdfDoc.getPage(pageNumber).then((page) => {
             // Hitung skala supaya lebar halaman pas dengan lebar kontainer (responsif di HP maupun desktop)
-            const containerWidth = pdfViewerCanvasWrap ? pdfViewerCanvasWrap.clientWidth : page.getViewport({ scale: 1 }).width;
+            // Ambil lebar konten yang sebenarnya tersedia (dikurangi padding kiri-kanan wrap),
+            // supaya canvas render pas dan tidak disusutkan lagi oleh max-width:100% di CSS.
+            let containerWidth = page.getViewport({ scale: 1 }).width;
+            if (pdfViewerCanvasWrap) {
+                const wrapStyle = window.getComputedStyle(pdfViewerCanvasWrap);
+                const paddingX = parseFloat(wrapStyle.paddingLeft || 0) + parseFloat(wrapStyle.paddingRight || 0);
+                containerWidth = pdfViewerCanvasWrap.clientWidth - paddingX;
+            }
             const baseViewport = page.getViewport({ scale: 1 });
             currentPdfScale = containerWidth > 0 ? containerWidth / baseViewport.width : 1;
             const viewport = page.getViewport({ scale: currentPdfScale });
