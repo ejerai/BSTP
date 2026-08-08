@@ -1885,13 +1885,13 @@ img {
     display: inline-block;
     font-size: 11px;
     text-transform: uppercase;
-    color: var(--secondary);
+    color: #0069ff;
     background-color: var(--secondary-light);
     border: 1px solid rgba(37, 99, 235, 0.15);
     font-weight: 700;
     letter-spacing: 0.6px;
     padding: 5px 12px;
-    border-radius: 999px;
+    border-radius: 9px;
 }
 
 .modal-title {
