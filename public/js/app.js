@@ -295,6 +295,124 @@ const PRODUCT_DATA = [
         }
     },
 
+    {
+        id: "cycloidal-1",
+        name: "Cycloidal Speed Reducer",
+        category: "cycloidal",
+        image: "/assets/images/catalog/cycloidal2.webp",
+        specs: {
+            "Rasio Reduksi": "11 - 87",
+            "Daya": "0.37 KW – 45 KW",
+            "Tipe": "Foot Mounted, Hollow Output Shaft",
+            "Efisiensi": "> 92%"
+        }
+    },
+    
+    {
+        id: "bevel-gear-2",
+        name: "Bevel Gear Motor",
+        category: "bevel-gear",
+        image: "/assets/images/catalog/bevelgear2.webp",
+        specs: {
+            "Daya": "0.55 KW – 45 KW",
+            "Rasio Reduksi": "5 - 200",
+            "Tipe": "Helical-Bevel, Hollow Shaft Flange Output"
+        }
+    },
+    {
+        id: "bevel-gear-3",
+        name: "Bevel Gear Motor",
+        category: "bevel-gear",
+        image: "/assets/images/catalog/bevelgear3.webp",
+        specs: {
+            "Daya": "0.37 KW – 22 KW",
+            "Rasio Reduksi": "5 - 150",
+            "Tipe": "Compact Helical-Bevel, Flange Mounting"
+        }
+    },
+    {
+        id: "bevel-gear-4",
+        name: "Bevel Gear Motor",
+        category: "bevel-gear",
+        image: "/assets/images/catalog/bevelgear4.webp",
+        specs: {
+            "Daya": "1.5 KW – 75 KW",
+            "Rasio Reduksi": "5 - 250",
+            "Tipe": "Heavy Duty Helical-Bevel, Foot & Flange Mount"
+        }
+    },{
+        id: "bevel-gear-5",
+        name: "Bevel Gear Motor",
+        category: "bevel-gear",
+        image: "/assets/images/catalog/gearpump2.webp",
+        specs: {
+            "Delivery Volume": "10 L/MIN (2 USG/MIN) hingga 56 L/MIN (14 USG/MIN)",
+            "Power": "200 W hingga 750 W",
+            "Pressure": "0.1 - 0.3 MPA (1 - 3 KG/CM²)",
+            "Tipe Mounting": "Flange & Foot Mount, Tersedia 3 Varian Ukuran",
+            "Applications": "Solar, Minyak Pelumas, Oli Industri"
+        }
+    },
+    
+    {
+        id: "ring-blower-2",
+        name: "Ring Blower",
+        category: "ring-blower",
+        image: "/assets/images/catalog/ringblower2.webp",
+        specs: {
+            "Daya": "0.75 KW – 15 KW",
+            "Tekanan": "hingga 400 mbar",
+            "Aplikasi": "Aerasi Kolam, Vakum Industri, Pneumatic Conveying"
+        }
+    },
+    {
+        id: "root-blower-1",
+        name: "Root Blower",
+        category: "root-blower",
+        image: "/assets/images/catalog/rootblower1.webp",
+        specs: {
+            "Kapasitas": "2 - 150 m³/min",
+            "Tekanan": "hingga 1000 mbar",
+            "Aplikasi": "Pneumatic Conveying, WWTP"
+        }
+    },
+    
+    {
+        id: "compact-gear-2",
+        name: "Compact Gear Motor",
+        category: "compact-gear",
+        brand: "Helical Gearmotor Series",
+        image: "/assets/images/catalog/compactgear2.webp",
+        specs: {
+            "Daya": "0.1 KW – 2.2 KW",
+            "Rasio Reduksi": "3 - 200",
+            "Desain": "Helical Gear, Housing Compact Horizontal"
+        }
+    },
+    
+    {
+        id: "mini-gear-2",
+        name: "Mini Gear Motor",
+        category: "mini-gear",
+        image: "/assets/images/catalog/minigear2.webp",
+        specs: {
+            "Daya": "6 W – 200 W",
+            "Frekuensi": "50/60Hz",
+            "Tipe": "Vertical Flange Mount"
+        }
+    },
+    {
+        id: "mini-gear-3",
+        name: "Mini Gear Motor",
+        category: "mini-gear",
+        image: "/assets/images/catalog/minigear3.webp",
+        specs: {
+            "Daya": "6 W – 200 W",
+            "Kontrol": "Dilengkapi Speed Controller Digital",
+            "Aplikasi": "Automasi Skala Kecil"
+        }
+    },
+
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -604,8 +722,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => {
             d.classList.remove("dropdown-open");
-            const menu = d.querySelector(".nav-dropdown-menu");
-            if (menu) menu.style.maxHeight = "";
         });
         navToggle.classList.remove("nav-toggle-subpanel-open");
     }
@@ -642,31 +758,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const navDropdowns = document.querySelectorAll(".nav-dropdown");
 
     function openDropdownAccordion(dropdown) {
-        const menu = dropdown.querySelector(".nav-dropdown-menu");
         dropdown.classList.add("dropdown-open");
-        if (menu) {
-            
-            menu.style.maxHeight = "none";
-            const fullHeight = menu.scrollHeight;
-            menu.style.maxHeight = "0px";
-            
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    menu.style.maxHeight = fullHeight + "px";
-                });
-            });
-        }
     }
 
     function closeDropdownAccordion(dropdown) {
-        const menu = dropdown.querySelector(".nav-dropdown-menu");
         dropdown.classList.remove("dropdown-open");
-        if (menu) {
-            menu.style.maxHeight = menu.scrollHeight + "px";
-            requestAnimationFrame(() => {
-                menu.style.maxHeight = "0px";
-            });
-        }
     }
 
     navDropdowns.forEach(dropdown => {
@@ -911,7 +1007,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 "lifting": "Hoist & Crane",
                 "inverter": "Inverter (VFD)",
                 "pulley": "Pulley",
-                "inverter-compressor": "Inverter/Compressor"
+                "inverter-compressor": "Inverter/Compressor",
+                "cycloidal": "Cycloidal Speed Reducer",
+                "bevel-gear": "Bevel Gear Motor",
+                "ring-blower": "Ring Blower",
+                "root-blower": "Root Blower",
+                "compact-gear": "Compact Gear Motor",
+                "mini-gear": "Mini Gear Motor"
             };
 
             const cleanCategory = categoryLabels[p.category] || "Industrial Component";
@@ -1166,7 +1268,13 @@ document.addEventListener("DOMContentLoaded", () => {
             "lifting": "Electric Hoist & Crane",
             "inverter": "Inverter (VFD)",
             "pulley": "Pulley",
-            "inverter-compressor": "Inverter/Compressor"
+            "inverter-compressor": "Inverter/Compressor",
+            "cycloidal": "Cycloidal Speed Reducer",
+            "bevel-gear": "Bevel Gear Motor",
+            "ring-blower": "Ring Blower",
+            "root-blower": "Root Blower",
+            "compact-gear": "Compact Gear Motor",
+            "mini-gear": "Mini Gear Motor"
         };
         
         if (modalCategory) modalCategory.innerText = categoryLabels[product.category] || "Kategori Produk";
