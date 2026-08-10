@@ -1893,7 +1893,7 @@ img {
     font-weight: 700;
     letter-spacing: 0.6px;
     padding: 5px 12px;
-    border-radius: 999px;
+    border-radius: 9px;
 }
 
 .modal-title {
@@ -4153,6 +4153,12 @@ img {
     .filter-btn.active i {
         background: rgba(255, 255, 255, 0.25);
         color: #ffffff;
+    }
+
+    /* "Semua Produk" dijadikan full-width di baris pertama, supaya sisa
+       kategori genap dan rapi berpasangan tanpa ada slot kosong. */
+    .filter-tabs-grid .filter-btn:first-child {
+        grid-column: 1 / -1;
     }
 
     .products-grid {
