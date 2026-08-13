@@ -1,5 +1,5 @@
 const PRODUCT_DATA = [
-    
+
     {
         id: "elektromotor-1",
         name: "Elektromotor",
@@ -34,7 +34,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    
+
     {
         id: "vibrator-1",
         name: "Vibrator Motor",
@@ -58,7 +58,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    
+
     {
         id: "worm-gear-reducer-1",
         name: "Worm Gear Reducer",
@@ -108,7 +108,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    
+
     {
         id: "worm-gear-1",
         name: "Worm Gear",
@@ -162,12 +162,11 @@ const PRODUCT_DATA = [
         }
     },
 
-    
+
     {
         id: "helical-gearmotor-1",
         name: "Helical Gear Motor",
         category: "gearmotor",
-        brand: "Compact Gearmotor Series",
         image: "/assets/images/catalog/helicalgearmotor1.webp",
         specs: {
             "Ukuran (Sizes)": "57, 67, 77, 87, 97, 107",
@@ -180,7 +179,6 @@ const PRODUCT_DATA = [
         id: "helical-gearmotor-2",
         name: "Helical Gear Motor",
         category: "gearmotor",
-        brand: "Compact Gearmotor Series",
         image: "/assets/images/catalog/helicalgearmotor2.webp",
         specs: {
             "Ukuran (Sizes)": "27, 37, 47, 57, 67, 77, 87, 97, 107, 137, 147, 167",
@@ -193,7 +191,6 @@ const PRODUCT_DATA = [
         id: "helical-gearmotor-3",
         name: "Helical Gear Motor",
         category: "gearmotor",
-        brand: "Compact Gearmotor Series",
         image: "/assets/images/catalog/helicalgearmotor3.webp",
         specs: {
             "Ukuran (Sizes)": "27, 37, 47, 57, 67, 77, 87, 97, 107, 137, 147, 167",
@@ -203,7 +200,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    
+
     {
         id: "centrifugal-pump-1",
         name: "Centrifugal Pump",
@@ -241,7 +238,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    
+
     {
         id: "gear-pump-1",
         name: "Gear Pump",
@@ -256,7 +253,7 @@ const PRODUCT_DATA = [
         }
     },
 
-    
+
     {
         id: "inverter-1",
         name: "Inverter GD-10",
@@ -296,6 +293,18 @@ const PRODUCT_DATA = [
     },
 
     {
+        id: "cycloidal-0",
+        name: "Cycloidal Speed Reducer",
+        category: "cycloidal",
+        image: "/assets/images/catalog/cycloidal1.webp",
+        specs: {
+            "Daya": "0.37 KW – 45 KW",
+            "Frekuensi": "50 Hz",
+            "Tipe": "Foot Mounted, Solid Output Shaft"
+        }
+    },
+
+    {
         id: "cycloidal-1",
         name: "Cycloidal Speed Reducer",
         category: "cycloidal",
@@ -307,7 +316,43 @@ const PRODUCT_DATA = [
             "Efisiensi": "> 92%"
         }
     },
-    
+
+    {
+        id: "cycloidal-3",
+        name: "Cycloidal Speed Reducer",
+        category: "cycloidal",
+        image: "/assets/images/catalog/cycloidal3.webp",
+        specs: {
+            "Daya": "0.37 KW – 45 KW",
+            "Frekuensi": "50 Hz",
+            "Tipe": "Flange Mounted, Hollow Output Shaft"
+        }
+    },
+
+    {
+        id: "cycloidal-4",
+        name: "Cycloidal Speed Reducer",
+        category: "cycloidal",
+        image: "/assets/images/catalog/cycloidal4.webp",
+        specs: {
+            "Daya": "0.37 KW – 45 KW",
+            "Frekuensi": "50 Hz",
+            "Tipe": "Vertical Foot Mounted"
+        }
+    },
+
+    {
+        id: "cycloidal-5",
+        name: "Cycloidal Speed Reducer",
+        category: "cycloidal",
+        image: "/assets/images/catalog/cycloidal5.webp",
+        specs: {
+            "Daya": "0.37 KW – 45 KW",
+            "Frekuensi": "50 Hz",
+            "Tipe": "Double Shaft Output"
+        }
+    },
+
     {
         id: "bevel-gear-2",
         name: "Bevel Gear Motor",
@@ -340,7 +385,7 @@ const PRODUCT_DATA = [
             "Rasio Reduksi": "5 - 250",
             "Tipe": "Heavy Duty Helical-Bevel, Foot & Flange Mount"
         }
-    },{
+    }, {
         id: "bevel-gear-5",
         name: "Bevel Gear Motor",
         category: "bevel-gear",
@@ -353,7 +398,7 @@ const PRODUCT_DATA = [
             "Applications": "Solar, Minyak Pelumas, Oli Industri"
         }
     },
-    
+
     {
         id: "ring-blower-2",
         name: "Ring Blower",
@@ -376,31 +421,20 @@ const PRODUCT_DATA = [
             "Aplikasi": "Pneumatic Conveying, WWTP"
         }
     },
-    
+
     {
         id: "compact-gear-2",
         name: "Compact Gear Motor",
         category: "compact-gear",
         brand: "Helical Gearmotor Series",
-        image: "/assets/images/catalog/compactgear2.webp",
+        image: "/assets/images/catalog/minigear2.webp",
         specs: {
             "Daya": "0.1 KW – 2.2 KW",
             "Rasio Reduksi": "3 - 200",
             "Desain": "Helical Gear, Housing Compact Horizontal"
         }
     },
-    
-    {
-        id: "mini-gear-2",
-        name: "Mini Gear Motor",
-        category: "mini-gear",
-        image: "/assets/images/catalog/minigear2.webp",
-        specs: {
-            "Daya": "6 W – 200 W",
-            "Frekuensi": "50/60Hz",
-            "Tipe": "Vertical Flange Mount"
-        }
-    },
+
     {
         id: "mini-gear-3",
         name: "Mini Gear Motor",
@@ -416,11 +450,11 @@ const PRODUCT_DATA = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     let scrollLockCount = 0;
     let savedScrollY = 0;
 
-    
+
     function findScrollLockAllowedAncestor(el) {
         while (el && el !== document.body && el.nodeType === 1) {
             if (el.hasAttribute && el.hasAttribute("data-scroll-lock-allow")) {
@@ -454,23 +488,23 @@ document.addEventListener("DOMContentLoaded", () => {
             document.removeEventListener("touchmove", handleLockTouchMove, { passive: false });
             document.documentElement.classList.remove("scroll-locked");
             document.body.classList.remove("scroll-locked");
-            
-            
-            
-            
+
+
+
+
             window.scrollTo({ top: savedScrollY, left: 0, behavior: "instant" });
         }
     }
 
-    
+
     const navbar = document.getElementById("navbar");
     const navToggle = document.getElementById("navToggle");
     const navMenu = document.getElementById("navMenu");
     const navLinks = document.querySelectorAll(".nav-link");
-    
-    
+
+
     if (navMenu) navMenu.setAttribute("data-scroll-lock-allow", "");
-    
+
     const searchInput = document.getElementById("searchInput");
     const clearSearch = document.getElementById("clearSearch");
     const filterTabs = document.getElementById("filterTabs");
@@ -478,7 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterDropdownLabel = document.getElementById("filterDropdownLabel");
     const productsGrid = document.getElementById("productsGrid");
     const noResults = document.getElementById("noResults");
-    
+
     const productModal = document.getElementById("productModal");
     if (productModal) {
         const productModalContent = productModal.querySelector(".modal-content");
@@ -489,7 +523,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const productImgLightbox = document.getElementById("productImgLightbox");
     const productImgLightboxImg = document.getElementById("productImgLightboxImg");
     const productImgLightboxClose = document.getElementById("productImgLightboxClose");
-    
+
     const aboutImageTrigger = document.getElementById("aboutImageTrigger");
     const pdfProfileModal = document.getElementById("pdfProfileModal");
     if (pdfProfileModal) {
@@ -509,7 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // yang bisa saja diblokir oleh firewall/jaringan tertentu.
     const PDFJS_SRC = "/js/pdf.min.js";
     const PDFJS_WORKER_SRC = "/js/pdf.worker.min.js";
-    
+
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightboxImg");
     const lightboxTitle = document.getElementById("lightboxTitle");
@@ -517,14 +551,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const lightboxClose = document.getElementById("lightboxClose");
     const lightboxPrev = document.getElementById("lightboxPrev");
     const lightboxNext = document.getElementById("lightboxNext");
-    
-    
+
+
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-    let currentFilter = null; 
+    let currentFilter = null;
     let activeCatalogIndex = 0;
-    
-    
+
+
     // Dibangun otomatis dari setiap .catalog-card di halaman (bukan daftar manual),
     // supaya gambar yang terbuka di lightbox SELALU sesuai dengan thumbnail yang diklik
     // dan link download-nya juga ikut benar. Urut berdasarkan data-index tiap kartu.
@@ -539,16 +573,16 @@ document.addEventListener("DOMContentLoaded", () => {
             };
         });
 
-    
-    
+
+
     if (navbar) {
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
 
         const updateNavbarScrollState = () => {
             if (window.scrollY > 50) {
@@ -560,15 +594,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
-        
-        
-        
+
+
+
         updateNavbarScrollState();
 
         window.addEventListener("scroll", () => {
             updateNavbarScrollState();
-            
-            
+
+
             const homeSection = document.getElementById("home");
             if (homeSection) {
                 const scrollPosition = window.scrollY + 120;
@@ -576,7 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const sectionTop = section.offsetTop;
                     const sectionHeight = section.offsetHeight;
                     const sectionId = section.getAttribute("id");
-                    
+
                     if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                         navLinks.forEach(link => {
                             link.classList.remove("active");
@@ -590,54 +624,54 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     function initScrollReveal() {
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
         const revealSections = document.querySelectorAll("section:not(.stats)");
         if (!revealSections.length) return;
 
-        
-        
-        
-        
+
+
+
+
         const staggerSelector = [
             ".pillar-item", ".vision-card", ".mission-card",
             ".method-item", ".catalog-card"
         ].join(", ");
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
         const isInInitialViewport = (el) => {
             const rect = el.getBoundingClientRect();
             return rect.top < window.innerHeight && rect.bottom > 0;
         };
 
         revealSections.forEach(section => {
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
+
+
+
             const revealTarget = section.querySelector(":scope > .container") || section;
             if (!isInInitialViewport(revealTarget)) {
                 revealTarget.classList.add("reveal-section");
@@ -647,24 +681,24 @@ document.addEventListener("DOMContentLoaded", () => {
             items.forEach((item, index) => {
                 if (isInInitialViewport(item)) return;
                 item.classList.add("reveal-item");
-                
+
                 item.style.setProperty("--reveal-delay", `${Math.min(index * 0.08, 0.5)}s`);
             });
         });
 
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
         const cleanupReveal = (el) => {
             el.classList.remove("reveal-section", "reveal-item", "is-visible");
             el.style.removeProperty("--reveal-delay");
         };
 
-        
+
         if (!("IntersectionObserver" in window)) {
             document.querySelectorAll(".reveal-section, .reveal-item").forEach(el => {
                 cleanupReveal(el);
@@ -679,7 +713,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     el.classList.add("is-visible");
                     observer.unobserve(el);
                     el.addEventListener("transitionend", () => cleanupReveal(el), { once: true });
-                    
+
                     setTimeout(() => cleanupReveal(el), 1400);
                 }
             });
@@ -695,14 +729,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initScrollReveal();
 
-    
+
     if (scrollTopBtn) {
         scrollTopBtn.addEventListener("click", () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
     }
 
-    
+
     const navOverlay = document.getElementById("navOverlay");
 
     function openMobileMenu() {
@@ -719,7 +753,7 @@ document.addEventListener("DOMContentLoaded", () => {
         navToggle.setAttribute("aria-expanded", "false");
         if (navOverlay) navOverlay.classList.remove("active");
         unlockBodyScroll();
-        
+
         document.querySelectorAll(".nav-dropdown.dropdown-open").forEach(d => {
             d.classList.remove("dropdown-open");
         });
@@ -736,15 +770,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     if (navOverlay) {
         navOverlay.addEventListener("click", closeMobileMenu);
     }
 
-    
+
     navLinks.forEach(link => {
         link.addEventListener("click", () => {
-            
+
             const isMobile = navToggle && window.getComputedStyle(navToggle).display !== "none";
             if (link.classList.contains("nav-dropdown-trigger") && isMobile) {
                 return;
@@ -754,7 +788,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    
+
     const navDropdowns = document.querySelectorAll(".nav-dropdown");
 
     function openDropdownAccordion(dropdown) {
@@ -769,15 +803,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const trigger = dropdown.querySelector(".nav-dropdown-trigger");
         if (!trigger) return;
 
-        
+
         trigger.addEventListener("click", (e) => {
-            
+
             if (!navToggle || window.getComputedStyle(navToggle).display === "none") return;
 
-            e.preventDefault(); 
+            e.preventDefault();
             const isOpen = dropdown.classList.contains("dropdown-open");
 
-            
+
             navDropdowns.forEach(d => {
                 if (d !== dropdown) closeDropdownAccordion(d);
             });
@@ -791,7 +825,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        
+
         const backBtn = dropdown.querySelector("[data-dropdown-back]");
         if (backBtn) {
             backBtn.addEventListener("click", () => {
@@ -801,7 +835,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    
+
     document.addEventListener("click", (e) => {
         if (!e.target.closest(".nav-dropdown")) {
             navDropdowns.forEach(d => closeDropdownAccordion(d));
@@ -836,12 +870,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     window.addEventListener("resize", () => {
         const isMobileNow = navToggle && window.getComputedStyle(navToggle).display !== "none";
 
         if (!isMobileNow) {
-            
+
             navDropdowns.forEach(dropdown => {
                 dropdown.classList.remove("dropdown-open");
                 const menu = dropdown.querySelector(".nav-dropdown-menu");
@@ -861,24 +895,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    
+
     const urlParams = new URLSearchParams(window.location.search);
     const categoryParam = urlParams.get("category");
 
     if (categoryParam && filterTabs) {
         const matchingBtn = filterTabs.querySelector(`.filter-btn[data-filter="${categoryParam}"]`);
         if (matchingBtn) {
-            
+
             const activeBtn = filterTabs.querySelector(".filter-btn.active");
             if (activeBtn) activeBtn.classList.remove("active");
             matchingBtn.classList.add("active");
             currentFilter = categoryParam;
             if (filterDropdownLabel) filterDropdownLabel.textContent = matchingBtn.textContent;
 
-            
+
             if (productsGrid) renderProducts();
 
-            
+
             const productsSection = document.getElementById("products");
             if (productsSection) {
                 setTimeout(() => {
@@ -888,10 +922,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    
+
     const statsSection = document.querySelector(".stats");
     let statsAnimated = false;
-    
+
     function animateCounters() {
         const counters = document.querySelectorAll(".stat-number");
         counters.forEach(counter => {
@@ -899,8 +933,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const isPercent = counter.innerText.includes("%");
             const isPlus = counter.innerText.includes("+");
             let count = 0;
-            const speed = target / 40; 
-            
+            const speed = target / 40;
+
             const updateCount = () => {
                 count += speed;
                 if (count < target) {
@@ -948,21 +982,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>`;
             return;
         }
-        
-        
+
+
         const filtered = PRODUCT_DATA.filter(p => {
             const matchesCategory = (currentFilter === "all" || p.category === currentFilter);
-            
-            const matchesSearch = !query || 
+
+            const matchesSearch = !query ||
                 p.name.toLowerCase().includes(query) ||
                 (p.brand?.toLowerCase().includes(query) ?? false) ||
                 (p.models?.some(m => m.toLowerCase().includes(query)) ?? false) ||
                 Object.values(p.specs).some(s => s.toLowerCase().includes(query));
-                
+
             return matchesCategory && matchesSearch;
         });
 
-        
+
         if (clearSearch) {
             if (query) {
                 clearSearch.style.display = "block";
@@ -971,7 +1005,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        
+
         if (filtered.length === 0) {
             productsGrid.style.display = "none";
             if (noResults) noResults.style.display = "block";
@@ -981,15 +1015,15 @@ document.addEventListener("DOMContentLoaded", () => {
         productsGrid.style.display = "grid";
         if (noResults) noResults.style.display = "none";
 
-        
+
         filtered.forEach(p => {
             const card = document.createElement("div");
             card.className = "product-card";
             card.setAttribute("data-id", p.id);
-            
-            
+
+
             let specsLi = "";
-            let keys = Object.keys(p.specs).slice(0, 3); 
+            let keys = Object.keys(p.specs).slice(0, 3);
             keys.forEach(k => {
                 let val = p.specs[k];
                 if (val.length > 28) val = val.substring(0, 25) + "...";
@@ -1087,10 +1121,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!imgBox) return;
 
         const slides = imgBox.querySelectorAll(".card-slide");
-        const dots   = imgBox.querySelectorAll(".slide-dot");
-        const prev   = imgBox.querySelector(".slide-prev");
-        const next   = imgBox.querySelector(".slide-next");
-        let current  = 0;
+        const dots = imgBox.querySelectorAll(".slide-dot");
+        const prev = imgBox.querySelector(".slide-prev");
+        const next = imgBox.querySelector(".slide-next");
+        let current = 0;
         let autoTimer;
 
         function goTo(idx) {
@@ -1157,16 +1191,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     if (productsGrid) {
         renderProducts();
     }
 
-    
+
     if (searchInput) {
         searchInput.addEventListener("input", renderProducts);
     }
-    
+
     if (clearSearch) {
         clearSearch.addEventListener("click", () => {
             searchInput.value = "";
@@ -1210,7 +1244,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    
+
     if (filterDropdownTrigger && filterTabs) {
         filterDropdownTrigger.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -1222,7 +1256,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        
+
         document.addEventListener("click", (e) => {
             if (!e.target.closest(".filter-sidebar")) {
                 closeFilterDropdown();
@@ -1230,7 +1264,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     if (filterTabs) {
         filterTabs.querySelectorAll(".filter-btn").forEach(btn => {
             btn.addEventListener("click", () => {
@@ -1245,18 +1279,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
-    window.openProductDetail = function(productId) {
+
+    window.openProductDetail = function (productId) {
         const product = PRODUCT_DATA.find(p => p.id === productId);
         if (!product) return;
-        
+
         const modalCategory = document.getElementById("modalCategory");
         const modalTitle = document.getElementById("modalTitle");
         const modalBrand = document.getElementById("modalBrand");
         const modalIcon = document.getElementById("modalIcon");
         const modalSpecsTable = document.getElementById("modalSpecsTable");
         const modalWaBtn = document.getElementById("modalWaBtn");
-        
+
         const categoryLabels = {
             "motor": "Elektromotor",
             "vibrator": "Vibrator Motor",
@@ -1276,23 +1310,23 @@ document.addEventListener("DOMContentLoaded", () => {
             "compact-gear": "Compact Gear Motor",
             "mini-gear": "Mini Gear Motor"
         };
-        
+
         if (modalCategory) modalCategory.innerText = categoryLabels[product.category] || "Kategori Produk";
         if (modalTitle) modalTitle.innerText = product.name;
         if (modalBrand) modalBrand.innerText = product.brand ? `Brand: ${product.brand}` : '';
-        
-        
+
+
         if (modalIcon) {
             modalIcon.innerHTML = `<img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='/assets/brand/logo.png';">`;
         }
 
-        
+
         if (modalImgTrigger) {
             modalImgTrigger.dataset.fullImg = product.image;
             modalImgTrigger.dataset.fullAlt = product.name;
         }
-        
-        
+
+
         if (modalSpecsTable) {
             let tableRows = "";
             // Models row — hanya tampil kalau ada
@@ -1302,7 +1336,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td class="spec-val">${product.models.join(", ")}</td>
                 </tr>`;
             }
-            
+
             // Custom Specs rows
             Object.entries(product.specs).forEach(([key, val]) => {
                 tableRows += `<tr>
@@ -1312,25 +1346,25 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             modalSpecsTable.innerHTML = tableRows;
         }
-        
+
         // WhatsApp redirection pre-filled text
         if (modalWaBtn) {
             const waText = `Halo, saya tertarik dengan produk "${product.name}". Apakah saya boleh bertanya beberapa hal mengenai produk ini?`;
-                            
+
             modalWaBtn.href = `https://wa.me/628161317107?text=${encodeURIComponent(waText)}`;
         }
-        
-        
+
+
         if (productModal) {
             productModal.classList.add("active");
-            lockBodyScroll(); 
+            lockBodyScroll();
         }
     };
 
     function closeModal() {
         if (productModal) {
             productModal.classList.remove("active");
-            unlockBodyScroll(); 
+            unlockBodyScroll();
         }
         if (productImgLightbox) {
             productImgLightbox.classList.remove("active");
@@ -1340,14 +1374,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (modalClose) {
         modalClose.addEventListener("click", closeModal);
     }
-    
+
     if (productModal) {
         productModal.addEventListener("click", (e) => {
             if (e.target === productModal) closeModal();
         });
     }
 
-    
+
     function openProductImgLightbox() {
         if (!modalImgTrigger || !productImgLightbox || !productImgLightboxImg) return;
         const fullSrc = modalImgTrigger.dataset.fullImg;
@@ -1383,7 +1417,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     const pdfViewerError = document.getElementById("pdfViewerError");
 
     let pdfjsLibLoadPromise = null;
@@ -1552,11 +1586,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     function openLightbox(index) {
         activeCatalogIndex = index;
         const catalog = catalogImages[activeCatalogIndex];
-        
+
         if (lightboxImg) lightboxImg.src = catalog.src;
         if (lightboxTitle) lightboxTitle.innerText = catalog.title;
         if (lightboxDownload) {
@@ -1564,7 +1598,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const fileExt = (catalog.src.split(".").pop() || "png").split("?")[0];
             lightboxDownload.setAttribute("download", catalog.title + "." + fileExt);
         }
-        
+
         if (lightbox) {
             lightbox.classList.add("active");
             lockBodyScroll();
@@ -1588,7 +1622,7 @@ document.addEventListener("DOMContentLoaded", () => {
         openLightbox(activeCatalogIndex);
     }
 
-    
+
     const catalogCards = document.querySelectorAll(".catalog-card");
     if (catalogCards.length > 0) {
         catalogCards.forEach(card => {
@@ -1602,7 +1636,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
     if (lightboxPrev) lightboxPrev.addEventListener("click", () => navigateLightbox(-1));
     if (lightboxNext) lightboxNext.addEventListener("click", () => navigateLightbox(1));
-    
+
     if (lightbox) {
         lightbox.addEventListener("click", (e) => {
             if (e.target === lightbox || e.target.classList.contains("lightbox-content")) {
@@ -1611,7 +1645,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     document.addEventListener("keydown", (e) => {
         if (lightbox && lightbox.classList.contains("active")) {
             if (e.key === "Escape") closeLightbox();
