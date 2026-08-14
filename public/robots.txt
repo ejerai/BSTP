@@ -9,7 +9,7 @@ Allow: /
 Disallow: /404
 Disallow: /404.html
 Disallow: /*.json$
-Disallow: /favicons/
+Allow: /favicons/
 
 Allow: /assets/
 Allow: /css/
