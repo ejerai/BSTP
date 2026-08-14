@@ -1278,9 +1278,30 @@ img {
     opacity: 1;
 }
 
+/* Spotlight Cursor Glow */
+.product-card {
+    --mx: 50%;
+    --my: 0%;
+}
+
+.product-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(240px circle at var(--mx) var(--my), rgba(37, 99, 235, 0.14), transparent 70%);
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.product-card:hover::after {
+    opacity: 1;
+}
+
 .product-img-box {
     height: 180px;
-    background-color: #f8fafc;
+    background-color: #fefefe;
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
@@ -2970,7 +2991,7 @@ img {
 .footer-bottom {
     padding: 30px 0;
     font-size: 13px;
-    background-color: var(--primary-dark);
+    background-color:#0a101f;
     color: rgba(248, 250, 252, 0.6);
 }
 
