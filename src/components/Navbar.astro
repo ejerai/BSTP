@@ -25,14 +25,6 @@ const { activeNav = 'home' } = Astro.props;
         </button>
         
         <ul class="nav-menu" id="navMenu">
-            <li class="nav-menu-header">
-                <div class="nav-menu-header-brand">
-                    <img src="/assets/brand/bstp.webp" alt="BSTP Logo" class="nav-menu-header-logo">
-                    <div class="nav-menu-header-text">
-                        <span class="nav-menu-header-main">PT. BINTANG SURYA TEKNIK PERSADA</span>
-                    </div>
-                </div>
-            </li>
             <li><a href="/" class={`nav-link ${activeNav === 'home' ? 'active' : ''}`}>
                 <span class="nav-link-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5192 7.82274C2 8.77128 2 9.91549 2 12.2039V13.725C2 17.6258 2 19.5763 3.17157 20.7881C4.34315 22 6.22876 22 10 22H14C17.7712 22 19.6569 22 20.8284 20.7881C22 19.5763 22 17.6258 22 13.725V12.2039C22 9.91549 22 8.77128 21.4808 7.82274C20.9616 6.87421 20.0131 6.28551 18.116 5.10812L16.116 3.86687C14.1106 2.62229 13.1079 2 12 2C10.8921 2 9.88939 2.62229 7.88403 3.86687L5.88403 5.10813C3.98695 6.28551 3.0384 6.87421 2.5192 7.82274ZM11.25 18C11.25 18.4142 11.5858 18.75 12 18.75C12.4142 18.75 12.75 18.4142 12.75 18V15C12.75 14.5858 12.4142 14.25 12 14.25C11.5858 14.25 11.25 14.5858 11.25 15V18Z"/></svg></span>
                 <span class="nav-link-text">Beranda</span>
@@ -145,23 +137,6 @@ const { activeNav = 'home' } = Astro.props;
                 <span class="nav-link-text">Kontak</span>
                 <svg class="nav-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
             </a></li>
-            <li class="nav-menu-map-item">
-                <a href="https://maps.app.goo.gl/ywgkJD4szouAUo9g8" target="_blank" class="nav-menu-map">
-                    <svg class="nav-menu-map-pattern" viewBox="0 0 300 150" preserveAspectRatio="none" fill="none" aria-hidden="true">
-                        <path d="M0 30 L300 45"/>
-                        <path d="M0 90 L300 70"/>
-                        <path d="M50 0 L25 150"/>
-                        <path d="M190 0 L225 150"/>
-                        <path d="M265 0 L290 150"/>
-                    </svg>
-                    <i class="fa-solid fa-location-dot nav-menu-map-pin" aria-hidden="true"></i>
-                    <span class="nav-menu-map-overlay">
-                        <span class="nav-menu-map-title">Kunjungi Kantor Kami</span>
-                        <span class="nav-menu-map-address">Jl. Abdurahman No.165, Tangerang Selatan</span>
-                        <span class="nav-menu-map-btn"><i class="fa-solid fa-map-pin" aria-hidden="true"></i> Buka di Google Maps</span>
-                    </span>
-                </a>
-            </li>
             <li class="nav-cta-item nav-cta-dropdown">
                 <button type="button" class="nav-cta" id="navCtaWA" aria-expanded="false">
                     <span class="nav-cta-left"><i class="fa-brands fa-whatsapp"></i> Hubungi Kami</span>
