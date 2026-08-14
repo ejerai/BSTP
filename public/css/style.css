@@ -2851,14 +2851,14 @@ img {
 }
 
 .footer {
-    background-color: #ffffff;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border-color);
+    background-color: var(--primary);
+    color: rgba(248, 250, 252, 0.75);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .footer-top {
     padding: 80px 0 60px 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .footer-container {
@@ -2875,6 +2875,7 @@ img {
     margin-bottom: 24px;
     line-height: 1.6;
     text-align: justify;
+    color: rgba(248, 250, 252, 0.75);
 }
 
 .social-links {
@@ -2885,19 +2886,21 @@ img {
 .social-links a {
     width: 36px;
     height: 36px;
-    background-color: var(--bg-light, #f1f5f9);
-    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
+    color: rgba(248, 250, 252, 0.8);
     font-size: 14px;
+    transition: var(--transition-fast);
 }
 
 .social-links a:hover {
     background-color: var(--accent);
-    color: var(--text-light);
+    border-color: var(--accent);
+    color: #ffffff;
     transform: translateY(-3px);
 }
 
@@ -2905,7 +2908,7 @@ img {
 .footer-links h3,
 .footer-products h3,
 .footer-contact h3 {
-    color: var(--text-dark);
+    color: #ffffff;
     font-size: 16px;
     margin-bottom: 24px;
     position: relative;
@@ -2939,13 +2942,14 @@ img {
 .footer-links a,
 .footer-products a {
     font-size: 14px;
-    color: var(--text-muted);
+    color: rgba(248, 250, 252, 0.7);
     opacity: 1;
+    transition: var(--transition-fast);
 }
 
 .footer-links a:hover,
 .footer-products a:hover {
-    color: var(--accent);
+    color: #ffffff;
     opacity: 1;
     padding-left: 6px;
 }
@@ -2955,6 +2959,7 @@ img {
     margin-bottom: 16px;
     display: flex;
     gap: 12px;
+    color: rgba(248, 250, 252, 0.75);
 }
 
 .footer-contact p i {
@@ -2965,8 +2970,8 @@ img {
 .footer-bottom {
     padding: 30px 0;
     font-size: 13px;
-    background-color: var(--bg-light, #f1f5f9);
-    color: var(--text-muted);
+    background-color: var(--primary-dark);
+    color: rgba(248, 250, 252, 0.6);
 }
 
 .footer-bottom-container {
