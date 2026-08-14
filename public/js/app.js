@@ -332,7 +332,7 @@ const PRODUCT_DATA = [
     {
         id: "cycloidal-4",
         name: "Cycloidal Speed Reducer",
-        category: "cycloidal",
+        category: "bevel-gear",
         image: "/assets/images/catalog/cycloidal4.webp",
         specs: {
             "Daya": "0.37 KW – 45 KW",
@@ -386,9 +386,9 @@ const PRODUCT_DATA = [
             "Tipe": "Heavy Duty Helical-Bevel, Foot & Flange Mount"
         }
     }, {
-        id: "bevel-gear-5",
-        name: "Bevel Gear Motor",
-        category: "bevel-gear",
+        id: "gear-pump-2",
+        name: "Gear Pump",
+        category: "gear-pump",
         image: "/assets/images/catalog/gearpump2.webp",
         specs: {
             "Delivery Volume": "10 L/MIN (2 USG/MIN) hingga 56 L/MIN (14 USG/MIN)",
@@ -414,11 +414,10 @@ const PRODUCT_DATA = [
         id: "root-blower-1",
         name: "Root Blower",
         category: "root-blower",
-        image: "/assets/images/catalog/rootblower1.webp",
+        image: "/assets/images/catalog/rootblower.webp",
         specs: {
-            "Kapasitas": "2 - 150 m³/min",
-            "Tekanan": "hingga 1000 mbar",
-            "Aplikasi": "Pneumatic Conveying, WWTP"
+            "Pressure": "sampai 5000 mmAq",
+            "Kapasitas": "sampai 45M3/min"
         }
     },
 
