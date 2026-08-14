@@ -1256,13 +1256,14 @@ img {
 }
 
 .product-card::before {
+    display: none;
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--secondary);
+    background: none;
     opacity: 0;
     transition: opacity 0.4s ease;
     z-index: 2;
