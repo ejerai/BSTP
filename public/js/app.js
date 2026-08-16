@@ -506,6 +506,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (navMenu) navMenu.setAttribute("data-scroll-lock-allow", "");
 
+    // ── Magnetic underline for desktop nav links ──────────────────────
+    // Only runs on devices with a real mouse (hover: hover, pointer: fine).
+    // On mobile the underline markup/CSS is disabled entirely
+    // (.nav-link::after { display: none !important; } in the mobile media
+    // query), so this listener is harmless even if it were ever attached
+    // there — but we skip attaching it at all on touch devices anyway.
+    const supportsMagneticUnderline = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (supportsMagneticUnderline) {
+        navLinks.forEach(link => {
+            link.addEventListener("mousemove", (e) => {
+                const rect = link.getBoundingClientRect();
+                if (!rect.width) return;
+                const x = e.clientX - rect.left;
+                const clamped = Math.max(9, Math.min(x, rect.width - 9));
+                link.style.setProperty("--mag-x", `${clamped}px`);
+            });
+            link.addEventListener("mouseleave", () => {
+                link.style.setProperty("--mag-x", "50%");
+            });
+        });
+    }
+
     const searchInput = document.getElementById("searchInput");
     const clearSearch = document.getElementById("clearSearch");
     const filterTabs = document.getElementById("filterTabs");

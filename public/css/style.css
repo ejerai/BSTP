@@ -336,6 +336,7 @@ img {
     color: rgba(0, 0, 0, 0.7);
     position: relative;
     padding: 6px 0;
+    --mag-x: 50%;
 }
 
 .nav-link:hover,
@@ -343,20 +344,28 @@ img {
     color: #000000;
 }
 
+/* Magnetic underline: a short segment that tracks the cursor's x
+   position across the link (set via --mag-x in app.js on mousemove),
+   then eases back to center on mouseleave. Desktop only — the mobile
+   media query below forces this back to display:none so it never
+   shows up in the mobile menu. */
 .nav-link::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 0;
+    left: var(--mag-x);
+    width: 18px;
     height: 2px;
-    background-color: var(--accent);
-    transition: var(--transition-fast);
+    background-color: var(--secondary);
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity 0.2s ease, left 0.12s ease-out;
+    pointer-events: none;
 }
 
 .nav-link:hover::after,
 .nav-link.active::after {
-    width: 100%;
+    opacity: 1;
 }
 
 .nav-cta {
