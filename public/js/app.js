@@ -416,8 +416,8 @@ const PRODUCT_DATA = [
         category: "root-blower",
         image: "/assets/images/catalog/rootblower.webp",
         specs: {
-            "Pressure": "sampai 5000 mmAq",
-            "Kapasitas": "sampai 45M3/min"
+            "Pressure": "5000 mmAq",
+            "Kapasitas": "45M3/min"
         }
     },
 
@@ -476,6 +476,10 @@ document.addEventListener("DOMContentLoaded", () => {
             savedScrollY = window.scrollY;
             document.documentElement.classList.add("scroll-locked");
             document.body.classList.add("scroll-locked");
+            // Geser body via position:fixed dengan offset negatif sebesar posisi
+            // scroll saat ini, supaya tampilan halaman TETAP di posisi yang sama
+            // (tidak "lompat" ke atas) selagi scroll dikunci.
+            document.body.style.top = `-${savedScrollY}px`;
             document.addEventListener("touchmove", handleLockTouchMove, { passive: false });
         }
         scrollLockCount++;
@@ -487,9 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.removeEventListener("touchmove", handleLockTouchMove, { passive: false });
             document.documentElement.classList.remove("scroll-locked");
             document.body.classList.remove("scroll-locked");
-
-
-
+            document.body.style.top = "";
 
             window.scrollTo({ top: savedScrollY, left: 0, behavior: "instant" });
         }
@@ -757,6 +759,7 @@ document.addEventListener("DOMContentLoaded", () => {
             d.classList.remove("dropdown-open");
         });
         navToggle.classList.remove("nav-toggle-subpanel-open");
+        navMenu.classList.remove("menu-subpanel-open");
     }
 
     if (navToggle && navMenu) {
@@ -792,10 +795,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function openDropdownAccordion(dropdown) {
         dropdown.classList.add("dropdown-open");
+        if (navMenu) navMenu.classList.add("menu-subpanel-open");
     }
 
     function closeDropdownAccordion(dropdown) {
         dropdown.classList.remove("dropdown-open");
+        if (navMenu) navMenu.classList.remove("menu-subpanel-open");
     }
 
     navDropdowns.forEach(dropdown => {
@@ -839,6 +844,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!e.target.closest(".nav-dropdown")) {
             navDropdowns.forEach(d => closeDropdownAccordion(d));
             if (navToggle) navToggle.classList.remove("nav-toggle-subpanel-open");
+            if (navMenu) navMenu.classList.remove("menu-subpanel-open");
         }
     });
 

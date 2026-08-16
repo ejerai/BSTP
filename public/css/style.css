@@ -69,10 +69,19 @@ html {
     background-color: var(--primary-dark);
 }
 
-html.scroll-locked,
-body.scroll-locked {
+html.scroll-locked {
     overflow: hidden;
     height: 100%;
+    touch-action: none;
+    overscroll-behavior: none;
+}
+
+body.scroll-locked {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    overflow: hidden;
     touch-action: none;
     overscroll-behavior: none;
 }
@@ -3083,7 +3092,7 @@ img {
         background-color: #ffffff;
         box-shadow: 0 20px 40px -6px rgba(15, 23, 42, 0.18);
         border-top: 1px solid rgba(15, 23, 42, 0.06);
-        border-bottom: 3px solid var(--primary);
+        border-radius: 0 0 22px 22px;
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -3093,11 +3102,16 @@ img {
         overflow-y: auto;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-16px) scale(0.985);
-        transform-origin: top center;
+        /* Sengaja TIDAK pakai transform/will-change:transform di sini.
+           .nav-dropdown-menu (sub-panel kategori) di dalam elemen ini
+           position:fixed relatif ke viewport. Kalau .nav-menu punya
+           transform/will-change:transform (walau nilainya "netral" seperti
+           translateY(0) scale(1)), itu tetap membuat .nav-menu jadi
+           containing block baru untuk anak fixed-nya, sehingga posisi
+           .nav-dropdown-menu jadi salah/lag saat animasi. Makanya animasi
+           buka menu ini pakai opacity saja, bukan transform. */
         pointer-events: none;
-        transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        will-change: opacity, transform;
+        transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.35s var(--ease), border-radius 0.35s var(--ease);
         z-index: 1001;
         scrollbar-width: thin;
     }
@@ -3105,7 +3119,6 @@ img {
     .nav-menu.active {
         opacity: 1;
         visibility: visible;
-        transform: translateY(0) scale(1);
         pointer-events: auto;
     }
 
@@ -3328,25 +3341,27 @@ img {
     
     .nav-dropdown-menu {
         position: fixed;
-        inset: 0;
+        inset: auto 0 auto 0;
+        top: 75px;
         display: block;
         width: 100%;
         max-width: 100%;
         min-width: 0;
-        height: 100vh;
-        height: 100dvh;
-        max-height: none;
+        height: auto;
+        max-height: calc(100vh - 75px - 16px);
+        max-height: calc(100dvh - 75px - 16px);
         margin: 0;
         padding: 0;
-        border-radius: 0;
+        border-radius: 0 0 22px 22px;
         border: none;
+        border-top: 1px solid rgba(15, 23, 42, 0.06);
         background-color: #ffffff;
         background-image:
             radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.08), transparent 55%),
             radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.05), transparent 55%);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
-        box-shadow: none;
+        box-shadow: 0 20px 40px -6px rgba(15, 23, 42, 0.18);
         opacity: 1;
         visibility: visible;
         pointer-events: none;
@@ -3409,7 +3424,7 @@ img {
     }
 
     .nav-subpanel-body {
-        padding: 16px 12px calc(48px + env(safe-area-inset-bottom, 0px));
+        padding: 16px 12px calc(20px + env(safe-area-inset-bottom, 0px));
     }
 
     .nav-dropdown-menu,
@@ -3447,10 +3462,9 @@ img {
         border: 1px solid var(--border-color);
         border-radius: 14px;
         opacity: 0;
-        transform: translateY(8px);
         transition: background-color 0.2s ease, border-color 0.2s ease,
             color 0.2s ease, box-shadow 0.2s ease,
-            opacity 0.35s var(--ease), transform 0.35s var(--ease);
+            opacity 0.18s ease-out;
     }
 
     .dropdown-cat-item .dropdown-cat-icon {
@@ -3487,28 +3501,11 @@ img {
 
     .nav-dropdown.dropdown-open .dropdown-cat-item {
         opacity: 1;
-        transform: translateY(0);
     }
-
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(1) { transition-delay: 0.03s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(2) { transition-delay: 0.06s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(3) { transition-delay: 0.09s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(4) { transition-delay: 0.12s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(5) { transition-delay: 0.15s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(6) { transition-delay: 0.18s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(7) { transition-delay: 0.21s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(8) { transition-delay: 0.24s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(9) { transition-delay: 0.27s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(10) { transition-delay: 0.3s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(11) { transition-delay: 0.33s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(12) { transition-delay: 0.36s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(13) { transition-delay: 0.39s; }
-    .nav-dropdown.dropdown-open .dropdown-cat-item:nth-child(14) { transition-delay: 0.42s; }
 
     @media (prefers-reduced-motion: reduce) {
         .dropdown-cat-item {
             opacity: 1;
-            transform: none;
             transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
     }
