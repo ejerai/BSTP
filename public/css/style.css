@@ -3395,6 +3395,21 @@ img {
         transform: translateX(0);
     }
 
+    /* Fix: when a category submenu is open, the submenu itself is
+       position:fixed so it should cover the full viewport height.
+       But it's nested inside #navMenu, which is its own scrollable
+       box (overflow-y:auto + max-height). Some mobile browsers
+       (notably in-app WebViews like WhatsApp/Instagram) incorrectly
+       clip a fixed descendant to its scrollable ancestor's box instead
+       of the real viewport, cutting the category grid off early.
+       Turning off the parent's own scroll/height-cap while a subpanel
+       is open removes that clipping context so the fixed submenu can
+       render (and scroll) using the full viewport as intended. */
+    .nav-menu.menu-subpanel-open {
+        overflow: visible;
+        max-height: none;
+    }
+
     
     .nav-subpanel-back {
         display: flex;
