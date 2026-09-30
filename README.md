@@ -1,0 +1,1 @@
+© 2026 PT. Bintang Surya Teknik Persada. All rights reserved. Proprietary software, not open source.

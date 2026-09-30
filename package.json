@@ -1,7 +1,10 @@
 {
   "name": "bstp",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "Website PT. Bintang Surya Teknik Persada",
+  "license": "UNLICENSED",
+  "author": "R. Ezra Rahmaditya",
   "main": "index.js",
   "scripts": {
     "dev": "astro dev",
@@ -14,8 +17,6 @@
     "url": "git+https://github.com/ejerai/BSTP.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "module",
   "bugs": {
     "url": "https://github.com/ejerai/BSTP/issues"
