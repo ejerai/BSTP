@@ -2,12 +2,11 @@ The website for PT. Bintang Surya Teknik Persada, an industrial equipment distri
 
 [![Astro](https://img.shields.io/badge/Astro-4.x-BC52EE?logo=astro&logoColor=white)](https://astro.build)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?logo=vercel&logoColor=white)](https://vercel.com)
 [![License](https://img.shields.io/badge/License-Proprietary-red)](./LICENSE)
 
 ## Built with
 
-Astro, Tailwind CSS, and plain JavaScript. Hosted on Vercel.
+Astro, Tailwind CSS, and plain JavaScript.
 
 ## Updating content
 
@@ -19,5 +18,3 @@ Astro, Tailwind CSS, and plain JavaScript. Hosted on Vercel.
 © 2026 PT. Bintang Surya Teknik Persada. All rights reserved.
 
 This is proprietary software, not open source. Please don't copy, modify, or reuse any of it without written permission. Full terms are in [LICENSE](./LICENSE). Third-party logos, trademarks, and catalogs belong to their respective owners.
-
-For permission requests, email bintangteknikpersada@gmail.com.
