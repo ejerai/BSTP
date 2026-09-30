@@ -1,23 +1,67 @@
+PROPRIETARY SOFTWARE LICENSE
+
 Copyright (c) 2026 PT. Bintang Surya Teknik Persada. All rights reserved.
 
-This repository, including all source code, content, product data, images,
-logos, PDF catalogs, and other assets (the "Software"), is proprietary and
-confidential.
+1. DEFINITIONS
 
-No part of the Software may be copied, modified, merged, published,
-distributed, sublicensed, sold, or otherwise used, in whole or in part,
-without the prior written permission of the copyright holder.
+"Software" means all source code, scripts, configuration files, text content,
+product data, images, logos, PDF documents, and other materials contained in
+this repository, together with any modifications or derivative works of them.
 
-Third-party materials included in this repository (such as manufacturer
-catalogs and trademarks) remain the property of their respective owners and
-are not licensed under this notice.
+"Owner" means PT. Bintang Surya Teknik Persada.
 
-Viewing the source code does not grant any license or right to use it.
+2. OWNERSHIP
+
+The Software is the exclusive property of the Owner and is protected by
+copyright and other intellectual property laws. No title to or ownership of
+the Software is transferred by making it available in this repository.
+
+3. NO LICENSE GRANTED
+
+Except as expressly authorized in writing by the Owner, no license or right
+is granted to any person to use, copy, modify, merge, publish, distribute,
+sublicense, sell, or create derivative works of the Software, in whole or in
+part. Access to, or the ability to view, this repository does not constitute
+a grant of any such right.
+
+4. RESTRICTIONS
+
+Without the prior written permission of the Owner, you may not:
+
+  (a) reproduce or reuse the Software, or any part of it, in any other
+      project, website, or product;
+  (b) reproduce the Software's content, product data, or brand assets;
+  (c) remove or alter any copyright, trademark, or license notice;
+  (d) use the Owner's name, logos, or trademarks in any manner that suggests
+      endorsement or affiliation.
+
+5. THIRD-PARTY MATERIALS
+
+The Software includes materials owned by third parties, such as open source
+libraries, manufacturer trademarks, logos, and product catalogs. These
+materials remain the property of their respective owners and are governed by
+their own licenses or terms. This license does not grant any rights to them.
+
+6. PERMISSION REQUESTS
+
+Requests for permission to use the Software should be sent to the Owner at
+bintangteknikpersada@gmail.com.
+
+7. TERMINATION
+
+Any unauthorized use of the Software is a violation of this license and of
+applicable law. The Owner reserves all rights to seek remedies available
+under law.
+
+8. DISCLAIMER OF WARRANTY
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+9. LIMITATION OF LIABILITY
+
+IN NO EVENT SHALL THE OWNER OR ITS CONTRIBUTORS BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR
+OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
